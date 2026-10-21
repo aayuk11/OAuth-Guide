@@ -34,6 +34,10 @@ export const FREE_SEARCH_MODEL = "gemini-2.5-flash";
 /** A refusal that means "this key cannot do this", as opposed to a transient failure. */
 const isRefusal = (e: unknown) => [400, 403, 404, 429].includes(num(obj(e).status));
 
+/** thinking_level is a Gemini 3 setting; 2.5 models use a thinking budget and may reject it. */
+const generationConfig = (model: string, effort: string, maxTokens: number) =>
+  model.startsWith("gemini-2.") ? { max_output_tokens: maxTokens } : { thinking_level: effort as "low" | "medium" | "high", max_output_tokens: maxTokens };
+
 function readUsage(u: unknown, into: Usage) {
   const x = obj(u);
   into.input_tokens = Math.max(into.input_tokens, num(x.total_input_tokens));
@@ -45,8 +49,11 @@ function readUsage(u: unknown, into: Usage) {
 
 function streamError(ev: Loose): Error {
   const err = obj(ev.error);
-  return Object.assign(new Error(str(err.message) || "Gemini returned an error"), { status: num(err.code) });
+  return Object.assign(new Error(str(err.message) || "Gemini returned an error"), { status: num(err.code), provider: "google" });
 }
+
+/** Events that mean the model has started working (not just "interaction created"). */
+const isProgress = (kind: string) => kind.startsWith("step.") || kind === "interaction.completed";
 
 export function googleProvider(opts: { apiKey: string; model: string; client?: GoogleGenAI }): LlmProvider {
   const ai = opts.client ?? new GoogleGenAI({ apiKey: opts.apiKey });
@@ -113,16 +120,16 @@ export function googleProvider(opts: { apiKey: string; model: string; client?: G
           system_instruction: req.system,
           input: req.prompt,
           tools: [{ type: "google_search" }, { type: "url_context" }],
-          generation_config: { thinking_level: req.effort, max_output_tokens: 16000 },
+          generation_config: generationConfig(model, req.effort, 16000),
           stream: true,
           store: false,
         },
         { fetch_options: { signal: controller.signal }, ...RETRY },
       );
       for await (const raw of stream) {
-        received = true;
         const ev = obj(raw);
         const kind = str(ev.event_type);
+        if (isProgress(kind)) received = true;
         if (kind === "step.start") onStep(obj(ev.step));
         else if (kind === "step.delta") {
           const d = obj(ev.delta);
@@ -195,14 +202,15 @@ export function googleProvider(opts: { apiKey: string; model: string; client?: G
       const s = Math.round((Date.now() - started) / 1000);
       req.emit({ type: "progress", stage: "extract", detail: text ? `Writing guide (${Math.round(text.length / 1000)}k characters so far)` : `Waiting for Gemini to start writing (${s} s)` });
     }, 3000);
-    try {
+
+    const run = async (model: string) => {
       const stream = await ai.interactions.create(
         {
-          model: opts.model,
+          model,
           system_instruction: req.system,
           input: req.input,
           response_format: { type: "text", mime_type: "application/json", schema: req.schema },
-          generation_config: { thinking_level: req.effort, max_output_tokens: 24000 },
+          generation_config: generationConfig(model, req.effort, 24000),
           stream: true,
           store: false,
         },
@@ -225,6 +233,18 @@ export function googleProvider(opts: { apiKey: string; model: string; client?: G
           if (str(it.output_text)) finalText = str(it.output_text);
           readUsage(it.usage, usage);
         } else if (kind === "error") throw streamError(ev);
+      }
+    };
+
+    try {
+      try {
+        await run(opts.model);
+      } catch (e) {
+        // The chosen model has no quota on this key (common on the free tier): write with the
+        // model whose free tier research already fell back to.
+        if (timedOut || text || num(obj(e).status) !== 429 || opts.model === FREE_SEARCH_MODEL) throw e;
+        req.emit({ type: "progress", stage: "extract", detail: `${opts.model} has no quota on this key; writing with ${FREE_SEARCH_MODEL}` });
+        await run(FREE_SEARCH_MODEL);
       }
       const out = (finalText || text).trim();
       if (status && status !== "completed") return { text: out || null, usage, error: status === "incomplete" ? "The guide was too long to finish." : `Gemini finished with status "${status}".`, timedOut };

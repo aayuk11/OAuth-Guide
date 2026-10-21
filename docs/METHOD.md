@@ -25,7 +25,7 @@ To use a guide to ship an integration, read [GUIDE.md](GUIDE.md) instead.
 
 ## 1. The guide format
 
-One schema, [`src/lib/guide/schema.ts`](../src/lib/guide/schema.ts) (zod), is the contract between the researched guides, the live agent, the UI, the API and the Markdown export. `crossCheckGuide()` adds the checks zod cannot express: every evidence id exists, gate `after` links point to a gate on the same path, and every core question is answered once.
+One schema, [`src/lib/guide/schema.ts`](../src/lib/guide/schema.ts) (zod), is the contract between the researched guides, the live agent, the UI, the API and the Markdown export. `crossCheckGuide()` adds the checks zod cannot express: every evidence id exists, gate `after` links point to a gate on the same path, and (for researched guides) every core question is answered.
 
 | Field | What it holds |
 |---|---|
@@ -83,7 +83,7 @@ If a level-deciding question is unknown, or an open question is flagged level-de
 - A gate with no published timeline makes the total open-ended (`+`). A yearly gate adds "then yearly".
 - Waits come only from sources. The critic removes a wait whose only support is Unverified.
 
-**Hands-on effort** is our estimate, never a provider claim. Each step type has fixed minutes (`STEP_MINUTES` in the schema), summed for the path's steps, plus 15 minutes of Composio wiring. Examples: create an app 15 min, write a justification 60 min, record a demo video 90 min, prepare for a security assessment 8 h.
+**Hands-on effort** is our estimate, never a provider claim. Each step type has a set time (`STEP_MINUTES` in the schema) unless the guide gives that step its own `minutes`; the path's steps are summed, plus 15 minutes of Composio wiring. Examples: create an app 15 min, write a justification 60 min, record a demo video 90 min, prepare for a security assessment 8 h.
 
 **Confidence** starts high and drops:
 
@@ -100,8 +100,8 @@ If a level-deciding question is unknown, or an open question is flagged level-de
 
 | # | Rule | Verdict |
 |---|---|---|
-| 1 | The Composio toolkit uses an API key or other non-OAuth auth, or research found no OAuth | No OAuth app needed |
-| 2 | Dynamic client registration (Composio DCR toolkit, or a registration endpoint found) | No app registration needed |
+| 1 | The Composio toolkit uses an API key or other non-OAuth auth; or, for an app outside the catalogue, research found no OAuth | No OAuth app needed |
+| 2 | Composio's toolkit uses dynamic client registration; or, for an app outside the catalogue, a registration endpoint was found | No app registration needed |
 | 3 | Not in Composio's catalogue | Bring your own (if OAuth is confirmed), else Not yet known |
 | 4 | Composio has no managed app for the toolkit | Bring your own OAuth app |
 | 5 | Managed app exists and the reader wants their own brand | Managed now, your own app before launch |
@@ -114,7 +114,7 @@ If a level-deciding question is unknown, or an open question is flagged level-de
 Eight apps were researched by hand-guided research agents against a shared brief ([`research/BRIEF.md`](research/BRIEF.md)), then:
 
 1. **Validated:** `npm run validate` checks the schema and cross-references. Only valid guides are indexed.
-2. **Re-verified:** `npm run verify:sources` re-fetches every Official and Reported source and checks each excerpt is still on the page.
+2. **Re-verified:** `npm run verify:sources` re-fetches every Official and Reported source and checks each excerpt is still on the page (`-- --write` records the results in the guides).
    - On 2026-10-20: 572 of 607 excerpts were found verbatim, 1 was not found (explained on the source), and 34 pages could not be fetched by script.
    - The unfetchable ones are Salesforce returning 403 to scripts, Xero's browser-only docs, and Composio's dataset exceeding the size cap. They were confirmed another way.
 3. **Reviewed:** corrections, conflicts and open questions are logged on the site's Evidence page.
@@ -159,12 +159,17 @@ Only Claude returns the text of the pages it read, which is why stage 5 exists.
 
 **Streaming.** Progress goes to the browser as one JSON object per line, and every event is stored as the run log (`/api/runs/<id>`).
 
+**Time budget:** the API route may run for 300 s. Stage limits are cut to fit a 280 s budget for the whole run, so a slow research stage leaves less time for writing rather than letting the host stop the run unsaved. A run still marked running after 6 minutes is reported as stopped.
+
 **Limits:**
 
 - 20 runs per network per hour.
 - 150 runs a day on the site's own key; runs on a visitor's own key don't count toward this.
+- One run per app at a time: a second request attaches to the running one.
+- 20 key checks per network per hour; 60 "Agent can do" checks per network per hour.
+- If a run fails while re-checking an app that already has a complete guide, the complete guide is kept.
 
-**Storage:** Upstash Redis if configured, else local files in `.data/`, else memory.
+**Storage:** Upstash Redis if configured, else local files in `.data/` (read through on every request, so guides from `npm run generate` appear without a restart), else memory. Upstash also holds the rate-limit counters, so on serverless hosts without it, limits count per instance.
 
 ## 5. Keeping the agent accurate
 
@@ -188,10 +193,12 @@ The model is not trusted to follow the steps; code runs them and checks what com
   - redirects are re-checked
   - timeouts and size caps apply
 - **Visitor API keys** are tested with a read-only call, then stored only in a cookie:
-  - encrypted with AES-256-GCM under `APP_SECRET`
+  - encrypted with AES-256-GCM under `APP_SECRET` (on Vercel the site refuses to store keys until it is set)
   - HttpOnly, SameSite=Strict, Secure on HTTPS, and scoped to `/api`
   - never written to storage, logged, or sent back; the browser only sees the provider, model and last four characters
-  - key-setting and research endpoints reject cross-site requests
+  - kept until the browser closes, or 30 days if the visitor ticks Remember
+  - key-setting and research endpoints reject cross-site requests, and a research page opened from another site waits for a click
+- **Rate limits use the client IP** from `x-forwarded-for`. Vercel sets this header itself; behind your own proxy, make sure it overwrites the header, or limits can be bypassed.
 - **The agent never acts as you:** no logins, payments, accepted terms or submitted reviews.
 - **Headers:** a Content Security Policy in production; the page can only talk to its own origin.
 
@@ -201,7 +208,7 @@ The model is not trusted to follow the steps; code runs them and checks what com
 
 1. Write `src/data/guides/<slug>.json` against the schema. The brief in [`research/BRIEF.md`](research/BRIEF.md) is what the research agents followed.
 2. Run `npm run validate -- <slug>`, then `npm run verify:sources -- <slug>`.
-3. Commit. The guide index is rebuilt before `dev` and `build`.
+3. Run `npm run guides:index` (or restart `npm run dev`) to see it locally, then commit. The index, which skips guides that fail validation, is rebuilt before every `dev` and `build`.
 
 **Add an LLM provider**
 

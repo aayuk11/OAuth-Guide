@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { CORE_QUESTION_IDS, SCHEMA_VERSION, type Evidence, type Guide, type GuidePath, type Step } from "@/lib/guide/schema";
 import type { Toolkit } from "@/lib/catalog";
 import type { Draft } from "./draft-schema";
@@ -8,15 +9,15 @@ import type { Source } from "@/lib/llm/types";
 const today = () => new Date().toISOString().slice(0, 10);
 
 export function slugify(s: string): string {
-  return (
-    s
-      .toLowerCase()
-      .replace(/^https?:\/\//, "")
-      .replace(/^www\./, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-      .slice(0, 60) || "app"
-  );
+  const slug = s
+    .toLowerCase()
+    .replace(/^https?:\/\//, "")
+    .replace(/^www\./, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  // Names with no Latin letters or digits (e.g. 飞书) still need distinct keys.
+  return slug || `app-${createHash("sha256").update(s.trim().toLowerCase()).digest("hex").slice(0, 10)}`;
 }
 
 function url(u: string | null | undefined): string | null {

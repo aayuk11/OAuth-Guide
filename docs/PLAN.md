@@ -1,6 +1,6 @@
 # OAuth Readiness: build plan
 
-Date: 2026-10-20. Source plan: `../Composio APM Take-home OAuth App Readiness — Understanding & Plan.md` (the "source plan").
+Date: 2026-10-20. Source plan: the author's planning document for the take-home (kept outside this repository; the "source plan").
 
 This file records what was built, what changed from the source plan and why, and the spec the code follows. The use-case audit that tested this plan is in [AUDIT.md](AUDIT.md).
 
@@ -25,7 +25,7 @@ A developer types an app name or URL and gets a shareable guide that answers fou
 | 2 | Upstash Redis required | **Storage adapter**: Upstash REST if configured, else local files (`.data/`), else memory | The app must run with zero accounts (`npm run dev`) and deploy with one env var. Upstash is only needed for durable share links on serverless. |
 | 3 | Live generation needs a key; library implied | **Library, search, verdict cards, checks and Markdown export work with no API key.** Only live research needs an AI key, which a visitor can paste in the site (or the server can hold); without one, the research page shows the key form | A reviewer or teammate can open and use it without setup; failure is explicit, not a blank page. |
 | 4 | Probes before research on a domain | **Probes twice**: early when the input is a URL, and after extraction on the portal, docs and authorization server the agent found | For a bare app name we do not know the domain until research finds it. Post-research probes turn the agent's claims into Tested facts (DCR, PKCE, CIMD, URLs reachable). |
-| 5 | Critic: code check + optional AI critic | **Code critic only, stricter**: each excerpt must appear (normalised, fuzzy) in the text the agent actually fetched; failures become Unverified; **waits and costs backed only by Unverified evidence are removed**; community domains are forced to Reported; the model cannot emit "Tested" | Deterministic, explainable in one sentence, cheap, and it enforces "numbers only from sources". |
+| 5 | Critic: code check + optional AI critic | **Code critic only, stricter**: each excerpt must appear (normalised, fuzzy) in the text the agent actually fetched; failures become Unverified; **waits backed only by Unverified evidence are removed**; community domains are forced to Reported; the model cannot emit "Tested" | Deterministic, explainable in one sentence, cheap, and it enforces "numbers only from sources". |
 | 6 | Verdict decided by the guide | **Verdict computed in code** from Composio data + the three intake answers + DCR probe | Same inputs always give the same answer; the model never decides the headline. |
 | 7 | Intake chips change the path | Intake answers are **in the URL** (`?audience=external&access=read&brand=yes`) | A shared link opens with the sender's context intact. |
 | 8 | 6 curated guides | **8**: adds Microsoft Outlook (publisher verification + customer admin consent) and Xero (bring-your-own only, connection cap) | Covers every gate family and both "managed" and "bring-your-own only" toolkits. |
@@ -54,7 +54,7 @@ Server
    lib/llm           provider adapters (Anthropic, Google, OpenAI), prompts, key encryption
    lib/agent         resolve → probe → research (LLM + web search) → read sources → extract (JSON schema)
                      → late probes → critic + coverage → save
-   lib/net           SSRF-safe fetch (https only, public IPs only, timeouts, size caps)
+   lib/net           SSRF-safe fetch (http/https on standard ports, public IPs only, timeouts, size caps)
    lib/store         Upstash REST | file | memory; runs, guides, rate limits
 ```
 
@@ -71,7 +71,7 @@ Server
 | critic | Excerpt check; downgrade; strip unsupported numbers; coverage of the 11 questions | `step` with counts |
 | save | Guide saved at `/apps/gen/<key>` | `guide`, `done` |
 
-Failure at any stage after research produces a **partial guide** (confidence Low, banner, Retry). The run record stores events, timings, token usage and estimated cost.
+Failure at any stage after research produces a **partial guide** (confidence Low, banner, Re-check). The run record stores events, timings, token usage and estimated cost.
 
 ## 5. Guide schema (summary)
 
@@ -81,7 +81,7 @@ Full definition: `src/lib/guide/schema.ts`. Key decisions:
 - **Gates** have a type (maps to a level), trigger, how to avoid, wait `{min, max, unit}` or null (no published timeline), `after` (sequential dependency), `recurring`, and evidence ids.
 - **Badges** carry kind (cost, identity, after_launch, customer_admin) and evidence.
 - **Steps** carry owner, step type (maps to minutes), paths, paste values, links, an optional runnable check, and evidence.
-- **Checks** answer the 11 core gate questions (yes / no / unknown). Unknown on a level-deciding question shows "Level N+ (unconfirmed)".
+- **Checks** answer the 11 core gate questions (yes / no / partly / unknown). Unknown on a level-deciding question shows "Level N+ (unconfirmed)".
 - **Evidence** has label, URL, title, retrieved date, verbatim excerpt, note, conflicts, and a verification record.
 - Level, effort, wait, confidence and verdict are **computed at render**, never stored from the model.
 
@@ -89,8 +89,8 @@ Full definition: `src/lib/guide/schema.ts`. Key decisions:
 
 - Level = highest gate level on the selected path (no gates = 1). Gate levels: verification-type 2; review-type 3; security assessment or annual re-verification 4.
 - Wait = critical path over gates (`after` chains add; independent gates run in parallel, take the max). Calendar days convert to business days (x 5/7), weeks to business days (x 5). A gate with no published wait makes the total "at least".
-- Effort = sum of step minutes by step type for the path (our estimate, always labelled so).
-- Confidence: High if every gate claim is Official or Tested and at least one is Tested; Medium if every gate claim has a source but some are Reported or sources conflict; Low if any level-deciding question is unknown or any gate claim is Unverified.
+- Effort = sum of step minutes for the path (a set time per step type unless a step gives its own), plus 15 minutes of Composio wiring (our estimate, always labelled so).
+- Confidence: High if every gate claim and level-deciding answer is Official or Tested; Medium if every gate claim has a source but some are Reported or sources conflict; Low if any level-deciding question is unknown or any gate claim is Unverified.
 
 ## 7. Scope cut (what we do not build)
 
@@ -111,6 +111,6 @@ Full definition: `src/lib/guide/schema.ts`. Key decisions:
 
 ## 9. What needs the user's accounts (cannot be done by the builder)
 
-- An Anthropic API key to run live generation, `eval:agent` and `rehearse`.
+- An API key with web search (Anthropic, OpenAI, or Gemini with billing) to run live generation, `eval:agent` and `rehearse`.
 - Free provider accounts for hands-on checks (Google Cloud, Slack, GitHub, Salesforce Developer Edition, Shopify Partner). Until done, those claims stay labelled Official, not Tested.
 - A Vercel account (and optionally Upstash) to deploy.

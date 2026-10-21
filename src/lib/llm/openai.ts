@@ -96,7 +96,7 @@ export function openaiProvider(opts: { apiKey: string; model: string; client?: O
           if (text) notes = text;
         } else if (type === "response.failed" || type === "error") {
           const err = obj(obj(e.response).error ?? e);
-          throw Object.assign(new Error(str(err.message) || "OpenAI returned an error"), { status: 500 });
+          throw Object.assign(new Error(str(err.message) || "OpenAI returned an error"), { provider: "openai", code: str(err.code) });
         }
       }
     } catch (e) {
@@ -148,6 +148,12 @@ export function openaiProvider(opts: { apiKey: string; model: string; client?: O
 }
 
 export function describeOpenAIError(e: unknown): DescribedError | null {
+  // Errors reported inside the stream arrive as plain errors tagged by openaiProvider.
+  if (obj(e).provider === "openai") {
+    const code = str(obj(e).code);
+    if (/rate_limit|insufficient_quota/.test(code)) return { message: "OpenAI is rate-limiting requests or the key is out of credit. Try again later.", retryable: true };
+    return { message: `OpenAI stopped the response: ${str(obj(e).message).slice(0, 200) || "unknown error"}`, retryable: true };
+  }
   if (e instanceof OpenAI.AuthenticationError) return { message: "The OpenAI API key was rejected.", retryable: false };
   if (e instanceof OpenAI.PermissionDeniedError) return { message: "The OpenAI key cannot use this model or tool.", retryable: false };
   if (e instanceof OpenAI.NotFoundError) return { message: "OpenAI does not recognise that model name.", retryable: false };

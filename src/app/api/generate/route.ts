@@ -4,8 +4,9 @@ import { getToolkit, resolveToolkit, toolkitKind } from "@/lib/catalog";
 import { agentConfig } from "@/lib/agent/config";
 import type { RunEvent } from "@/lib/agent/events";
 import { guideKeyFor, runPipeline } from "@/lib/agent/pipeline";
-import { checkRateLimit, createRun, getGeneratedGuide, inflightRun, subscribe } from "@/lib/agent/runs";
+import { checkRateLimit, getGeneratedGuide, inflightRun, startRun, subscribe } from "@/lib/agent/runs";
 import { resolveCredentials, sameOrigin } from "@/lib/llm/credentials";
+import { errorText, redactKeys } from "@/lib/llm/types";
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
@@ -62,9 +63,11 @@ export async function POST(req: Request) {
   const limit = await checkRateLimit(clientIp(req), { ownKey: resolved?.source === "browser" });
   if (!limit.ok) return Response.json({ error: limit.reason }, { status: 429 });
 
-  const run = await createRun(q, key);
+  const started = await startRun(q, key);
+  if ("attach" in started) return ndjson([{ type: "attach", id: started.attach, key }]);
+  const { run } = started;
   const work = runPipeline(run, { query: q, toolkitSlug: toolkit?.slug ?? null, creds: resolved?.creds ?? null }).catch(async (e) => {
-    console.error("pipeline crashed", e);
+    console.error("pipeline crashed:", redactKeys(errorText(e)).slice(0, 600));
     run.emit({ type: "error", message: "The run stopped unexpectedly. Try again.", retryable: true });
     await run.finish("error");
   });

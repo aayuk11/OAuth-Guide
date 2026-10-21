@@ -31,6 +31,7 @@ export interface SafeResponse {
 }
 
 export interface SafeFetchOptions {
+  /** Idle timeout per request. The whole fetch, redirects included, is also capped at twice this. */
   timeoutMs?: number;
   maxBytes?: number;
   method?: "GET" | "HEAD";
@@ -98,8 +99,21 @@ const guardedLookup: LookupFunction = (hostname, options, callback) => {
   });
 };
 
-function requestOnce(u: URL, opts: Required<Pick<SafeFetchOptions, "timeoutMs" | "maxBytes" | "method" | "accept">>) {
-  return new Promise<{ status: number; headers: http.IncomingHttpHeaders; body: string }>((resolve, reject) => {
+function requestOnce(u: URL, opts: Required<Pick<SafeFetchOptions, "timeoutMs" | "maxBytes" | "method" | "accept">>, deadline: number) {
+  return new Promise<{ status: number; headers: http.IncomingHttpHeaders; body: string }>((resolveRaw, rejectRaw) => {
+    // The socket timeout resets on every byte, so a server that trickles data could hold the
+    // request open indefinitely. The deadline caps the whole request.
+    const deadlineTimer: { id?: ReturnType<typeof setTimeout> } = {};
+    const resolve = (v: { status: number; headers: http.IncomingHttpHeaders; body: string }) => {
+      clearTimeout(deadlineTimer.id);
+      resolveRaw(v);
+    };
+    const reject = (e: unknown) => {
+      clearTimeout(deadlineTimer.id);
+      rejectRaw(e);
+    };
+    const left = deadline - Date.now();
+    if (left <= 0) return reject(new SafeFetchError("Timed out", "timeout"));
     const mod = u.protocol === "https:" ? https : http;
     const req = mod.request(
       u,
@@ -128,6 +142,7 @@ function requestOnce(u: URL, opts: Required<Pick<SafeFetchOptions, "timeoutMs" |
         res.on("error", reject);
       },
     );
+    deadlineTimer.id = setTimeout(() => req.destroy(new SafeFetchError("Timed out", "timeout")), left);
     req.on("timeout", () => req.destroy(new SafeFetchError("Timed out", "timeout")));
     req.on("error", (e) => reject(e instanceof SafeFetchError ? e : new SafeFetchError(e.message, "network")));
     req.end();
@@ -143,9 +158,10 @@ export async function safeFetch(rawUrl: string, options: SafeFetchOptions = {}):
   };
   const maxRedirects = options.maxRedirects ?? 4;
   const started = Date.now();
+  const deadline = started + opts.timeoutMs * 2;
   let u = checkUrl(rawUrl);
   for (let hop = 0; hop <= maxRedirects; hop++) {
-    const res = await requestOnce(u, opts);
+    const res = await requestOnce(u, opts, deadline);
     if (res.status >= 300 && res.status < 400 && res.headers.location) {
       u = checkUrl(new URL(res.headers.location, u).toString());
       continue;

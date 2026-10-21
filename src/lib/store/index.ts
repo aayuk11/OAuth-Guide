@@ -15,6 +15,8 @@ export interface Store {
   del(key: string): Promise<void>;
   /** Increment a counter, setting the TTL when it is created. Returns the new value. */
   incr(key: string, ttlSeconds: number): Promise<number>;
+  /** Set only if the key does not exist (atomic on Upstash). Returns whether it was set. */
+  setIfAbsent(key: string, value: unknown, ttlSeconds: number): Promise<boolean>;
 }
 
 class UpstashStore implements Store {
@@ -49,6 +51,9 @@ class UpstashStore implements Store {
     const n = await this.cmd<number>(["INCR", key]);
     if (n === 1) await this.cmd(["EXPIRE", key, ttl]);
     return n;
+  }
+  async setIfAbsent(key: string, value: unknown, ttl: number) {
+    return (await this.cmd<string | null>(["SET", key, JSON.stringify(value), "NX", "EX", ttl])) === "OK";
   }
 }
 
@@ -88,6 +93,11 @@ class MemoryStore implements Store {
     this.persist(key);
     return n;
   }
+  async setIfAbsent(key: string, value: unknown, ttl: number) {
+    if (this.live(key)) return false;
+    await this.set(key, value, ttl);
+    return true;
+  }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected persist(_key: string) {}
 }
@@ -109,6 +119,16 @@ class FileStore extends MemoryStore {
   }
   private file(key: string) {
     return path.join(this.dir, `${Buffer.from(key).toString("base64url")}.json`);
+  }
+  /** Read through to disk, so a guide written by another process (npm run generate) shows up without a restart. */
+  protected override live(key: string) {
+    try {
+      const e = JSON.parse(fs.readFileSync(this.file(key), "utf8")) as Entry & { k: string };
+      this.map.set(key, { v: e.v, exp: e.exp });
+    } catch {
+      /* not on disk: memory only */
+    }
+    return super.live(key);
   }
   protected override persist(key: string) {
     const e = this.map.get(key);

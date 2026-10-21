@@ -37,7 +37,7 @@ Legend: ✅ passed in test · ⚠️ works, with the stated limit · ⏳ needs a
 |---|---|---|---|---|
 | C1 | Run locally with no keys | `npm install && npm run dev` works | No required env vars | ✅ |
 | C2 | Deploy from GitHub to Vercel | `APP_SECRET` for in-site keys; optional server key and Upstash | Storage adapter; `.env.example`; CI workflow | ⚠️ Production build passes; CI workflow added; not deployed from here (needs your GitHub and Vercel accounts) |
-| C3 | Add a curated guide | Drop JSON, validate, it appears | Generated index of valid guides | ✅ `validate` and the index run before `dev` and `build`; invalid guides are skipped with a warning |
+| C3 | Add a curated guide | Drop JSON, validate, it appears | Generated index of valid guides | ✅ The guide index is rebuilt before `dev` and `build` and skips guides that fail validation, with a warning; `npm run validate` gives the full report |
 | C4 | Refresh Composio data | One command | `data:sync` | ✅ 1,608 toolkits; counts match the data (221 / 122 / 99 / 99) |
 | C5 | Keep guides fresh | Drift report per excerpt | `verify:sources` | ✅ Ran on all 8 guides: 572 verified, 1 not found, 34 unfetchable (explained) |
 | C6 | Reuse guide data elsewhere | Stable JSON and Markdown endpoints | `/api/guides/[key]` with computed fields | ✅ |
@@ -66,7 +66,36 @@ Legend: ✅ passed in test · ⚠️ works, with the stated limit · ⏳ needs a
 | Google reports a bad key as HTTP 400 with raw JSON | Mapped to "The Gemini API key was rejected."; test uses the real response text |
 | A daily cap shared by everyone would block visitors bringing their own key | Daily cap counts only runs on the site's key |
 
-## 4. Not tested here, and how to test
+## 4. Pre-release audit (2026-10-22)
+
+Four independent checks before the first deploy:
+
+| Check | Result |
+|---|---|
+| Fresh clone from GitHub: `npm ci`, validate, lint, typecheck, tests, build | ✅ All passed on a clean folder |
+| Site crawl: 70 pages, every internal link and anchor, phone width, API endpoints in the docs | ✅ One broken anchor (Troubleshooting on paths with no blockers), fixed |
+| Docs checked line by line against the code | 13 definite errors fixed (Node version, UI labels, the legacy callback default, example numbers, script arguments, stale planning notes); missing settings added to `.env.example` |
+| Code review of keys, providers and the pipeline | Fixed, each with a test: |
+
+Fixed from the code review:
+
+- **Missing `APP_SECRET` on Vercel:** keys could silently fail between server instances. The site now refuses to store keys until the secret is set.
+- **Links from other sites:** a link could start a run billed to the visitor's key. Such links now wait for a click.
+- **Failed re-checks:** a re-check that failed replaced a complete guide. The complete guide is now kept.
+- **Stuck runs:** a slow page or a long run could exceed the host's 300 s limit and stay "running". There is now a 280 s run budget, a total time limit per fetch, and stale runs are reported as stopped.
+- **Wrongly downgraded quotes:** URLs with and without a trailing slash were treated as different pages. They are now matched.
+- **Gemini free tier:**
+  - Guide writing now also falls back to `gemini-2.5-flash` when the chosen model has no quota.
+  - Gemini 3 settings are no longer sent to 2.5 models.
+  - The fallback also runs when Google reports the refusal inside the stream.
+- **Smaller fixes:**
+  - Duplicate paid runs on double submit.
+  - OpenAI errors described as Gemini's.
+  - Non-Latin app names sharing one key.
+  - A key saved from the header not resuming the waiting run.
+  - Guides from `npm run generate` not showing in a running dev server.
+
+## 5. Not tested here, and how to test
 
 1. With a key (in the site under AI key, or `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` in `.env.local`): `npm run generate -- "Jobber"`, then `npm run rehearse` (10 unfamiliar apps; writes `docs/REHEARSAL.md` with time, cost and outcome) and `npm run eval:agent` (accuracy against the curated guides; shows on `/evidence`).
 2. Hands-on provider checks listed on `/evidence` (Google Cloud, Slack, GitHub, Salesforce, Shopify, LinkedIn accounts).

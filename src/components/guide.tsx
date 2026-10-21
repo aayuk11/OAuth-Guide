@@ -442,7 +442,14 @@ export function Approval({ view, index, base }: { view: GuideView; index: Eviden
 /* ---------- Troubleshooting ---------- */
 
 export function Troubleshooting({ view, index }: { view: GuideView; index: EvidenceIndex }) {
-  if (!view.blockers.length) return null;
+  // Always rendered: the "On this page" menu links here.
+  if (!view.blockers.length)
+    return (
+      <section>
+        <H2 id="troubleshooting">Troubleshooting</H2>
+        <p className="text-sm text-fg-muted">No known blockers on this path.</p>
+      </section>
+    );
   return (
     <section>
       <H2 id="troubleshooting">Troubleshooting</H2>

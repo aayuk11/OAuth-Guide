@@ -54,7 +54,7 @@ export const PROVIDERS: Record<ProviderId, ProviderInfo> = {
 export const PROVIDER_IDS = Object.keys(PROVIDERS) as ProviderId[];
 
 export function isProviderId(v: unknown): v is ProviderId {
-  return typeof v === "string" && v in PROVIDERS;
+  return typeof v === "string" && Object.hasOwn(PROVIDERS, v);
 }
 
 /** What the browser is told about the active key. Never contains the key itself. */

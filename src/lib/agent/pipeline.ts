@@ -7,11 +7,11 @@ import { fetchPageText } from "@/lib/net/page-text";
 import { agentConfig } from "./config";
 import { assembleGuide, partialGuide, slugify } from "./assemble";
 import { runCritic } from "./critic";
-import { DraftSchema } from "./draft-schema";
+import { DraftSchema, type Draft } from "./draft-schema";
 import { toStructuredOutputSchema } from "./json-schema";
 import { mockDraft, mockResearch } from "./mock";
 import { probeDiscovery, probeEvidence, probeUrlLive, type DiscoveryResult } from "./probes";
-import { saveGeneratedGuide, type RunHandle } from "./runs";
+import { getGeneratedGuide, saveGeneratedGuide, type RunHandle } from "./runs";
 
 /**
  * Live generation, in a fixed order enforced by code:
@@ -59,6 +59,12 @@ const withTimeout = <T,>(p: Promise<T>, ms: number, fallback: T) => Promise.race
 const REDIRECTORS = /(^|\.)vertexaisearch\.cloud\.google\.com$/i;
 
 /**
+ * The whole run must finish inside the API route's 300 s limit, or the host stops it mid-way and
+ * nothing is saved. Stage time limits are cut to fit what is left of this budget.
+ */
+const RUN_BUDGET_MS = 280_000;
+
+/**
  * Read the pages the research relied on, with our own fetcher, so the guide is written from
  * and checked against real page text whichever provider ran the research. Pages the provider
  * already returned in full are skipped. URLs written in the notes come first.
@@ -73,11 +79,14 @@ async function readSources(sources: Source[], notes: string, cap: number, emit: 
   const wanted = new Set(mentioned);
   const queue = all.filter((s) => !s.text).sort((a, b) => Number(wanted.has(b.url)) - Number(wanted.has(a.url))).slice(0, cap);
   let i = 0;
+  let stopped = false;
   const worker = async () => {
-    while (i < queue.length) {
+    while (!stopped && i < queue.length) {
       const s = queue[i++];
       try {
         const page = await fetchPageText(s.url, 9000);
+        // Past the time box the guide is already being written from these sources: leave them alone.
+        if (stopped) return;
         if (page.status < 400 && page.text.length > 200) {
           s.text = page.text.slice(0, 400_000);
           s.fetched = true;
@@ -90,11 +99,12 @@ async function readSources(sources: Source[], notes: string, cap: number, emit: 
           emit({ type: "read", url: s.url, title: s.title, ok: true });
         } else emit({ type: "read", url: s.url, ok: false, error: page.status >= 400 ? `HTTP ${page.status}` : "no readable text" });
       } catch (e) {
-        emit({ type: "read", url: s.url, ok: false, error: (e as Error).message.slice(0, 80) });
+        if (!stopped) emit({ type: "read", url: s.url, ok: false, error: (e as Error).message.slice(0, 80) });
       }
     }
   };
   await withTimeout(Promise.all([worker(), worker(), worker(), worker()]), 30_000, [] as void[]);
+  stopped = true;
   return all;
 }
 
@@ -145,6 +155,7 @@ export async function runPipeline(
   const cfg = agentConfig();
   const { emit } = run;
   const started = Date.now();
+  const left = () => started + RUN_BUDGET_MS - Date.now();
   const query = input.query.trim();
   const usage: Usage = emptyUsage();
   const add = (u: Usage) => {
@@ -208,7 +219,7 @@ export async function runPipeline(
   };
   if (host) {
     emit({ type: "step", stage: "probe", status: "running", detail: `Checking ${host} for discovery documents` });
-    recordDiscovery(await probeDiscovery(host));
+    recordDiscovery(await withTimeout(probeDiscovery(host), 12_000, [] as DiscoveryResult[]));
     emit({ type: "step", stage: "probe", status: "done", detail: probeEv.length ? `${plural(probeEv.length, "discovery document")} found` : "No discovery documents found" });
   } else emit({ type: "step", stage: "probe", status: "skipped", detail: "Domain unknown until research finds it; probing later" });
 
@@ -226,7 +237,7 @@ export async function runPipeline(
   const urls = [...(host ? [`https://${host}`] : []), ...(toolkit ? [`https://docs.composio.dev/toolkits/${toolkit.slug}`] : [])];
   const fail = async (e: unknown) => {
     console.error("live research failed:", redactKeys(errorText(e)).slice(0, 600));
-    const err = e instanceof StageError ? { message: e.message, retryable: true } : describeProviderError(e);
+    const err = e instanceof StageError ? { message: e.message, retryable: true } : describeProviderError(e, providerId);
     emit({ type: "step", stage: "research", status: "failed", detail: err.message });
     emit({ type: "error", ...err });
     await run.finish("error", { ...runMeta, usage: usageOut() });
@@ -240,7 +251,8 @@ export async function runPipeline(
           prompt: researchPrompt({ query, context: composioContext(toolkit, query), urls, maxSearches: cfg.maxSearches, maxFetches: cfg.maxFetches }),
           maxSearches: cfg.maxSearches,
           maxFetches: cfg.maxFetches,
-          timeoutMs: cfg.researchTimeoutMs,
+          // Leave time for reading pages (30 s), writing the guide and the checks after it.
+          timeoutMs: Math.max(30_000, Math.min(cfg.researchTimeoutMs, left() - 120_000)),
           effort: cfg.researchEffort,
           emit,
         });
@@ -275,6 +287,14 @@ export async function runPipeline(
   const key = run.record.key;
   const ctxBase = { key, query, toolkit, sources: research.sources, probeEvidence: probeEv, dcrFound, runId: run.record.id, model };
   const savePartial = async (reason: string) => {
+    const existing = await getGeneratedGuide(key).catch(() => null);
+    if (existing && !existing.meta?.partial) {
+      // A failed re-check must not replace a complete guide that other people may be using.
+      emit({ type: "step", stage: "save", status: "skipped", detail: "Kept the existing complete guide" });
+      emit({ type: "error", message: `This re-check did not finish: ${reason} The guide from ${existing.last_verified} was kept.`, retryable: true });
+      await run.finish("error", { ...runMeta, guideKey: key, usage: usageOut() });
+      return null;
+    }
     const guide = partialGuide({ ...ctxBase, dcrFound, probeEvidence: probeEv, reason, notes: research.notes, oauthSupported: toolkit && hasOAuth(toolkit) ? "yes" : "unknown" });
     guide.meta = { ...guide.meta, provider: runMeta.provider, research: researchMeta(research, usageOut(), started) };
     await saveGeneratedGuide(guide);
@@ -291,38 +311,42 @@ export async function runPipeline(
   // 5. Extract (LLM, structured output, no tools)
   emit({ type: "step", stage: "extract", status: "running", detail: "Turning research into the guide format" });
   const today = new Date().toISOString().slice(0, 10);
-  let draft;
+  let draft: Draft | undefined;
+  let failure: string | null = null;
   try {
     if (cfg.mock) draft = await mockDraft(query);
     else {
       const input2 = extractionInput({ query, notes: research.notes, sources: research.sources, context: composioContext(toolkit, query), probes: probeLines, today });
-      const ex = await provider!.extract({ system: EXTRACT_SYSTEM, input: input2, schema: DRAFT_JSON_SCHEMA, timeoutMs: cfg.extractTimeoutMs, effort: cfg.extractEffort, emit });
+      // Leave time for the checks and saving after this call.
+      const timeoutMs = Math.max(20_000, Math.min(cfg.extractTimeoutMs, left() - 25_000));
+      const ex = await provider!.extract({ system: EXTRACT_SYSTEM, input: input2, schema: DRAFT_JSON_SCHEMA, timeoutMs, effort: cfg.extractEffort, emit });
       add(ex.usage);
-      if (!ex.text) {
-        emit({ type: "step", stage: "extract", status: "failed", detail: ex.error });
-        return savePartial(ex.error ?? "Writing the guide failed.");
+      if (!ex.text) failure = ex.error ?? "Writing the guide failed.";
+      else {
+        let json: unknown;
+        try {
+          json = JSON.parse(ex.text);
+        } catch {
+          failure = "The model returned text that is not valid JSON.";
+        }
+        if (!failure) {
+          const parsed = DraftSchema.safeParse(json);
+          if (parsed.success) draft = parsed.data;
+          else {
+            const first = parsed.error.issues[0];
+            failure = `The guide did not match the schema (${first?.path.join(".")}: ${first?.message}).`;
+          }
+        }
       }
-      let json: unknown;
-      try {
-        json = JSON.parse(ex.text);
-      } catch {
-        emit({ type: "step", stage: "extract", status: "failed", detail: "The model returned text that is not valid JSON." });
-        return savePartial("The model returned text that is not valid JSON.");
-      }
-      const parsed = DraftSchema.safeParse(json);
-      if (!parsed.success) {
-        const first = parsed.error.issues[0];
-        const msg = `The guide did not match the schema (${first?.path.join(".")}: ${first?.message}).`;
-        emit({ type: "step", stage: "extract", status: "failed", detail: msg });
-        return savePartial(msg);
-      }
-      draft = parsed.data;
     }
   } catch (e) {
     console.error("writing the guide failed:", redactKeys(errorText(e)).slice(0, 600));
-    const err = describeProviderError(e);
-    emit({ type: "step", stage: "extract", status: "failed", detail: err.message });
-    return savePartial(err.message);
+    failure = describeProviderError(e, providerId).message;
+  }
+  // Saved outside the try, so a storage error is not reported as a model error.
+  if (failure || !draft) {
+    emit({ type: "step", stage: "extract", status: "failed", detail: failure ?? "Writing the guide failed." });
+    return savePartial(failure ?? "Writing the guide failed.");
   }
   emit({ type: "step", stage: "extract", status: "done", detail: `${plural(draft.paths.length, "path")}, ${plural(draft.steps.length, "step")}, ${plural(draft.evidence.length, "cited source")}` });
 

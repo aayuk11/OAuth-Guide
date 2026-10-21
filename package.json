@@ -48,6 +48,6 @@
   },
   "description": "OAuth Readiness: for any app, whether you need your own OAuth app, which approval gates apply, how long they take, and what an agent can do. Built on Composio toolkit data.",
   "engines": {
-    "node": ">=20.9"
+    "node": ">=22.12"
   }
 }

@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
-import { PROVIDERS, validateKey } from "@/lib/llm";
-import { checkKeyShape, KEY_COOKIE, keyHint, publicStatus, sameOrigin, seal } from "@/lib/llm/credentials";
+import { isProviderId, PROVIDERS, validateKey } from "@/lib/llm";
+import { checkKeyShape, KEY_COOKIE, keyHint, publicStatus, sameOrigin, seal, secretConfigured } from "@/lib/llm/credentials";
 import { store } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
@@ -34,7 +34,11 @@ export async function POST(req: Request) {
   }
   const provider = String(body.provider ?? "");
   const apiKey = String(body.apiKey ?? "").trim();
-  const model = String(body.model ?? "").trim() || (provider in PROVIDERS ? PROVIDERS[provider as keyof typeof PROVIDERS].defaultModel : "");
+  const model = String(body.model ?? "").trim() || (isProviderId(provider) ? PROVIDERS[provider].defaultModel : "");
+  // On serverless hosts each instance would otherwise invent its own secret, so a saved key would
+  // work on one request and silently vanish on the next.
+  if (process.env.VERCEL && !secretConfigured())
+    return Response.json({ error: "This site cannot store keys yet: its owner must set APP_SECRET (32+ random characters) in the hosting settings and redeploy." }, { status: 503 });
   const shape = checkKeyShape(provider, apiKey, model);
   if (shape) return Response.json({ error: shape }, { status: 400 });
 

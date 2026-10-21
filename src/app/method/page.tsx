@@ -90,7 +90,7 @@ export default function Method() {
         </table>
       </div>
       <p className="mt-3 text-sm text-fg-muted">
-        Any of {providers}, with the key a visitor adds under <b className="text-fg">AI key</b> or one set on the server. If the key&apos;s plan has no web search (free-tier Gemini keys), the model names the provider&apos;s official pages instead, the server reads them, and the guide says it was researched without search. Progress streams to the page as it happens. If anything fails after research, a partial guide is still saved with every source the agent read. Duplicate requests attach to the running job. Every guide answers the same {CORE_QUESTIONS.length} questions, so guides can be compared.
+        Any of {providers}, with the key a visitor adds under <b className="text-fg">AI key</b> or one set on the server. If the key&apos;s plan has no web search (free-tier Gemini keys), research moves to gemini-2.5-flash, whose free tier includes search; failing that, the model names the provider&apos;s official pages, the server reads them, and the guide says it was researched without search. Progress streams to the page as it happens. If anything fails after research, a partial guide is still saved with every source the agent read. Duplicate requests attach to the running job. Every guide answers the same {CORE_QUESTIONS.length} questions, so guides can be compared.
       </p>
       <details className="mt-3 text-sm">
         <summary className="cursor-pointer text-accent">The {CORE_QUESTIONS.length} questions</summary>
@@ -167,7 +167,7 @@ export default function Method() {
       />
       <h3 className="mb-1 mt-6 text-sm font-semibold text-fg">Hands-on effort</h3>
       <p className="text-sm text-fg-muted">
-        Our estimate: fixed minutes per step type, summed for the path, plus Composio wiring. Examples: create an app {STEP_MINUTES.create_app} min, write a justification {STEP_MINUTES.write_justification} min, record a demo video {STEP_MINUTES.record_video} min, prepare for a security assessment {STEP_MINUTES.security_assessment / 60} h.
+        Our estimate: a set time per step type (unless the guide gives a step its own estimate), summed for the path, plus Composio wiring. Examples: create an app {STEP_MINUTES.create_app} min, write a justification {STEP_MINUTES.write_justification} min, record a demo video {STEP_MINUTES.record_video} min, prepare for a security assessment {STEP_MINUTES.security_assessment / 60} h.
       </p>
       <h3 className="mb-1 mt-6 text-sm font-semibold text-fg">Confidence</h3>
       <div className="overflow-x-auto rounded-lg border border-border">

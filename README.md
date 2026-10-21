@@ -19,7 +19,7 @@ Every claim is labelled Tested, Official, Reported or Unverified, and dated.
 
 ## Quick start
 
-You need [Node.js](https://nodejs.org) 20.12 or newer (22 LTS recommended) and npm.
+You need [Node.js](https://nodejs.org) 22.12 or newer (CI uses 22) and npm. The build downloads fonts from Google Fonts, so it needs internet access.
 
 ```bash
 git clone https://github.com/aayuk11/OAuth-Guide.git
@@ -34,7 +34,7 @@ Open http://localhost:3000. The library, verdicts, scope advice, Markdown export
 
 Live research needs an API key from one AI provider. There are two ways to add it.
 
-**In the browser (easiest).** Click **AI key** in the header, pick Claude, Gemini or GPT, paste the key and click **Save and test**. The key is checked with a read-only call. It is then stored encrypted in an HttpOnly cookie that only this site's API can read, and never on the server.
+**In the browser (easiest).** Click **AI key** in the header, pick Claude, Gemini or GPT, paste the key and click **Save and test**. The key is checked with a read-only call. It is then stored encrypted in an HttpOnly cookie that only this site's API can read, and never on the server. It lasts until the browser closes, or 30 days if you tick **Remember on this browser for 30 days**.
 
 **On the server.** Copy `.env.example` to `.env.local` and set one key:
 
@@ -42,7 +42,7 @@ Live research needs an API key from one AI provider. There are two ways to add i
 GEMINI_API_KEY=...        # or ANTHROPIC_API_KEY=... or OPENAI_API_KEY=...
 ```
 
-Restart `npm run dev`. If a visitor adds their own key in the browser, theirs is used instead.
+Restart `npm run dev`. If a visitor adds their own key in the browser, theirs is used instead. With several keys set, `LLM_PROVIDER` picks one; otherwise the order is Anthropic, Google, OpenAI.
 
 **Check what a key can do** before a demo:
 
@@ -50,15 +50,15 @@ Restart `npm run dev`. If a visitor adds their own key in the browser, theirs is
 npm run check:key
 ```
 
-It makes one tiny call per capability (key accepted, model answers, JSON output, web search). It prints the provider's own error text and a verdict, and never prints the key.
+It makes one tiny call per capability: key accepted, model answers and web search (plus JSON output and the free-tier fallback on Gemini). It prints the provider's own error text and a verdict, and shows only the key's last four characters.
 
 | Key | Live research |
 |---|---|
-| Claude (Anthropic) or GPT (OpenAI), pay as you go | Full: web search plus page reading. A run costs cents. |
+| Claude (Anthropic) or GPT (OpenAI), pay as you go | Full: web search plus page reading |
 | Gemini with billing enabled | Full |
 | Gemini free tier | Limited. No Google Search on Gemini 3 models, so research falls back to `gemini-2.5-flash`, or to reading official pages by URL. Free models are sometimes overloaded. |
 
-Then search for an app that has no guide (try "Jobber" or "Pipedrive") and click **Research the full guide**. A run takes 1–3 minutes. From the terminal: `npm run generate -- "Jobber"`.
+Then search for an app that has no guide (try "Jobber" or "Pipedrive") and click **Research the full guide**. A run is time-boxed to finish within 5 minutes; real time and cost per run are measured by `npm run rehearse`. From the terminal: `npm run generate -- "Jobber"`.
 
 ## Using a guide
 
@@ -87,27 +87,27 @@ The site needs a server: API routes, streaming, and runs of up to 300 s. GitHub 
 
    | Variable | Needed? | Value |
    |---|---|---|
-   | `APP_SECRET` | **Required** for the in-browser AI key | Any random string of 32+ characters: `openssl rand -hex 32` |
+   | `APP_SECRET` | **Required** for the in-browser AI key | Any random string of 32+ characters: `openssl rand -hex 32`. Without it, the site refuses to store keys rather than lose them between server instances. |
    | `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` | Recommended | The site's own key, so visitors without one can run research. Bounded by the rate limits below. |
    | `DAILY_RUN_CAP` | Optional | Runs per day on the site's key (default 150) |
-   | Upstash Redis (Vercel → Storage → Upstash) | Recommended | Keeps generated guides and run logs across server instances. Without it, share links to generated guides can expire. |
+   | Upstash Redis (Vercel → Storage → Upstash) | Recommended | Keeps generated guides, run logs and rate-limit counters across server instances. Without it, share links to generated guides can expire, and rate limits and the daily cap count per instance. |
 
 4. Deploy. Every push to the main branch redeploys, and pull requests get preview URLs.
 
 ## Configuration
 
-Every setting is an environment variable; [`.env.example`](.env.example) lists them all with defaults.
+Every setting is an environment variable; [`.env.example`](.env.example) lists them all with defaults and allowed ranges.
 
 | Variable | Default | What it does |
 |---|---|---|
-| `LLM_PROVIDER` | first key set | `anthropic`, `google` or `openai`, when several keys are set |
-| `LLM_MODEL` | provider default | `claude-sonnet-5-5`, `gemini-3.8-flash` or `gpt-6.1-sol` |
+| `LLM_PROVIDER` | first key set | `anthropic`, `google` or `openai`, when several keys are set (otherwise Anthropic, then Google, then OpenAI). If it names a provider with no key, no server key is used. |
+| `LLM_MODEL` | provider default | Model for the server's key: defaults `claude-sonnet-5-5`, `gemini-3.8-flash`, `gpt-6.1-sol` |
 | `LLM_RESEARCH_EFFORT` / `LLM_EXTRACT_EFFORT` | `medium` / `low` | Reasoning effort for the two model calls |
 | `MAX_SEARCHES` / `VERIFY_FETCHES` | 6 / 8 | Search budget; cited pages the server reads itself |
 | `RESEARCH_TIMEOUT_MS` / `EXTRACT_TIMEOUT_MS` | 150000 / 110000 | Time boxes |
 | `RUNS_PER_IP_PER_HOUR` / `DAILY_RUN_CAP` | 20 / 150 | Rate limits (the daily cap applies to the site's own key only) |
 | `GUIDE_CACHE_DAYS` | 7 | How long generated guides are kept and reused |
-| `APP_SECRET` | auto locally | Encrypts visitors' key cookies. Required in production. |
+| `APP_SECRET` | auto locally | Encrypts visitors' key cookies. Required in production; at least 16 characters (32+ recommended). |
 | `UPSTASH_REDIS_REST_URL` / `_TOKEN` (or `KV_REST_API_*`) | none | Durable storage. Locally, `.data/` is used. |
 
 ## Commands
@@ -121,21 +121,28 @@ Every setting is an environment variable; [`.env.example`](.env.example) lists t
 | `npm run rehearse` | 10 unfamiliar apps: time, cost, coverage and outcome → `docs/REHEARSAL.md` |
 | `npm run eval:agent` | Run the agent cold on the 8 library apps and score it against the researched guides |
 | `npm run validate` | Schema and cross-reference check of every researched guide |
-| `npm run verify:sources` | Re-fetch every cited page and check each quote is still there (run it on a schedule) |
+| `npm run verify:sources [-- <slug>] [-- --write]` | Re-fetch every cited page and check each quote is still there (run it on a schedule). `--write` records the results in the guides. |
 | `npm run data:sync` | Refresh the Composio catalogue |
 | `npm test` / `npm run lint` / `npm run typecheck` | Tests (no key needed), lint, types |
-| `npm run qa:keys` / `qa:overflow` / `qa:screens` | Browser checks: the key flow, phone-width overflow, screenshots |
+| `npm run qa:keys -- http://localhost:3000 test-results` | Browser check of the AI key dialog and the no-key research page |
+| `npm run qa:overflow -- http://localhost:3000 / /apps/gmail` | Finds anything wider than a phone screen on the pages given |
+| `npm run qa:screens -- http://localhost:3000 test-results` | Screenshots of the main pages, desktop and phone |
+
+The `qa:` checks need the site running (`npm run dev` or `npm start`) and a browser for Playwright: `npx playwright install chromium`.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 |---|---|
 | "Add an AI key to research…" | No key in the browser or on the server. Add one under **AI key**, or set one in `.env.local` / Vercel. |
+| "This site cannot store keys yet" | The deployment has no `APP_SECRET`. Set it in Vercel and redeploy. |
+| "Research …?" with a **Start research** button | You followed a link from another site. Runs spend your key, so they only start on a click. |
 | "Web search is not available on this key's plan" / "Gemini is rate-limiting…" | Usually a free-tier Gemini key. Run `npm run check:key`; enable billing in Google AI Studio, or use a Claude or GPT key. |
 | "This Gemini key's plan has no quota for …" | That model is not on the key's plan. Pick another model under **AI key**, or enable billing. |
 | "Gemini is overloaded right now" | Google-side. Try again in a few minutes. |
 | A generated guide's link shows "No saved guide" on Vercel | Add Upstash Redis so guides persist across server instances. |
-| The AI key saves but stops working after a redeploy | `APP_SECRET` changed or is not set; set it once in Vercel and re-add the key. |
+| The AI key stops working after a redeploy | `APP_SECRET` changed. Keep it fixed in Vercel; re-add the key once. |
+| `npm run build` fails fetching fonts | The build downloads IBM Plex from Google Fonts; it needs internet access. |
 | `npm run generate` says no key | Scripts read `.env.local`; check the variable name (`GEMINI_API_KEY`, `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`). |
 | Port 3000 in use | `npm run dev -- -p 3001` |
 
@@ -167,7 +174,7 @@ Failures after research save a partial guide, never a finished one. Details, rul
 | **Any LLM, two calls, code in charge.** | Research with the provider's web search; write the guide with no tools against a schema, so page text can never trigger an action. |
 | **Bring your own key, in the browser.** | Nobody has to redeploy or hard-code a key to try live research. |
 | **The agent never acts as you.** | Logging in, paying, accepting terms, recording a video and pressing Submit stay with you, and each step says so. |
-| **Composio's own data drives the library.** | 1,608 toolkits (221 OAuth2: 122 managed, 99 bring-your-own; 99 MCP servers with dynamic registration) each get an instant verdict. The 99 bring-your-own toolkits are the queue for the next guides. |
+| **Composio's own data drives the library.** | 1,608 toolkits (221 OAuth2: 122 managed, 99 bring-your-own; 99 MCP servers with dynamic registration) each get an instant verdict. The 97 bring-your-own toolkits without a guide yet are the queue for the next ones. |
 
 ## Verification
 
@@ -204,14 +211,15 @@ Full log in the app at `/evidence`; use-case audit in [docs/AUDIT.md](docs/AUDIT
 
 - No secrets in the repository; `.env*` is ignored except `.env.example`.
 - Visitors' keys are encrypted (AES-256-GCM) in an HttpOnly, SameSite=Strict cookie scoped to `/api`. They are never stored, logged or returned.
-- Every server-side fetch goes through an SSRF guard: public IPs only, checked at connect time, with redirects re-checked and timeouts and size caps.
+- Every server-side fetch of a user- or model-supplied URL goes through an SSRF guard: public IPs only, checked at connect time, with redirects re-checked, a total time limit and size caps.
+- A research run spends the visitor's key, so a link from another site waits for a click before starting.
 - Page content is treated as data. Inputs are length-limited, runs are rate-limited, and production sends a Content Security Policy.
 
 ## What I would do next
 
 1. Run `eval:agent` and `rehearse` on each provider, publish the accuracy score, and tune the research prompt on the misses.
 2. Do the hands-on checks with real accounts and promote those claims to Tested.
-3. Generate and review guides for the 99 bring-your-own toolkits, ranked by tool count times difficulty.
+3. Generate and review guides for the 97 remaining bring-your-own toolkits, ranked by tool count times difficulty.
 4. Schedule `verify:sources` weekly and flag drift; re-check Level 3–4 guides monthly.
 5. Show the level and wait badges in Composio's dashboard at "use your own credentials", with a warning when default scopes trigger a slower review.
 6. Expose guides as an MCP tool, so a coding agent can ask "what will Gmail approval take?"

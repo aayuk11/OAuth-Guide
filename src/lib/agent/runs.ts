@@ -24,9 +24,26 @@ export interface RunHandle {
   flush: () => Promise<void>;
 }
 
-export async function createRun(query: string, key: string): Promise<RunHandle> {
+/** A run still "running" after this long was cut off by the host's time limit (the API route allows 300 s). */
+const STALE_MS = 6 * 60 * 1000;
+
+/**
+ * For the API: start a run only if none is running for this key. The claim is atomic, so a double
+ * click or two people at once cannot start two paid runs; the second one attaches to the first.
+ */
+export async function startRun(query: string, key: string): Promise<{ run: RunHandle } | { attach: string }> {
+  const id = newRunId();
+  const claimed = await store().setIfAbsent(`inflight:${key}`, id, INFLIGHT_TTL).catch(() => true);
+  if (!claimed) {
+    const other = await inflightRun(key);
+    if (other) return { attach: other };
+  }
+  return { run: await createRun(query, key, id) };
+}
+
+export async function createRun(query: string, key: string, id: string = newRunId()): Promise<RunHandle> {
   const started = Date.now();
-  const record: RunRecord = { id: newRunId(), key, query, status: "running", events: [], startedAt: new Date(started).toISOString() };
+  const record: RunRecord = { id, key, query, status: "running", events: [], startedAt: new Date(started).toISOString() };
   let chain: Promise<void> = Promise.resolve();
   const persist = () => {
     const snapshot = structuredClone(record);
@@ -61,7 +78,15 @@ export function subscribe(id: string, fn: Listener): () => void {
 
 export async function getRun(id: string): Promise<RunRecord | null> {
   if (!/^[A-Za-z0-9_-]{6,40}$/.test(id)) return null;
-  return store().get<RunRecord>(`run:${id}`);
+  const rec = await store().get<RunRecord>(`run:${id}`);
+  if (rec?.status === "running" && Date.now() - Date.parse(rec.startedAt) > STALE_MS) {
+    // The process was stopped mid-run (host time limit or restart): say so instead of "running" forever.
+    const t = Date.now() - Date.parse(rec.startedAt);
+    rec.events.push({ type: "error", message: "The run stopped before finishing, probably at the host's time limit. Try again; a saved partial guide is kept if there is one.", retryable: true, t });
+    rec.status = "error";
+    rec.finishedAt = new Date().toISOString();
+  }
+  return rec;
 }
 
 export async function inflightRun(key: string): Promise<string | null> {
@@ -92,7 +117,6 @@ export async function recentGuides(): Promise<RecentItem[]> {
   return (await store().get<RecentItem[]>("recent").catch(() => null)) ?? [];
 }
 
-/** Per-IP hourly limit plus a global daily cap. */
 /**
  * Per-network hourly limit for every run. The daily cap protects the deployment's own key,
  * so runs paid for with a visitor's key do not count against it.

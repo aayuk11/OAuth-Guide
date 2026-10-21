@@ -20,6 +20,16 @@ export function isCommunityUrl(url: string): boolean {
   }
 }
 
+/** Same form the assembler gives evidence URLs (new URL().toString()), so lookups match: "https://x.com" and "https://x.com/" are one page. */
+function pageKey(u: string): string {
+  const bare = u.split("#")[0];
+  try {
+    return new URL(bare).toString();
+  } catch {
+    return bare;
+  }
+}
+
 export interface CriticStats {
   checked: number;
   downgraded: number;
@@ -32,8 +42,8 @@ export function runCritic(guide: Guide, sources: Source[]): { guide: Guide; stat
   const raw = new Map<string, Source>();
   for (const s of sources) {
     const body = [s.text, ...s.cited].filter(Boolean).join("\n");
-    raw.set(s.url, s);
-    if (body) texts.set(s.url, prepare(body));
+    raw.set(pageKey(s.url), s);
+    if (body) texts.set(pageKey(s.url), prepare(body));
   }
   const stats: CriticStats = { checked: 0, downgraded: 0, numbers_removed: 0, notes: [] };
 
@@ -43,7 +53,7 @@ export function runCritic(guide: Guide, sources: Source[]): { guide: Guide; stat
       return e.label === "unverified" ? e : { ...e, label: "unverified", corrected: { from: e.label, reason: "no source given" } };
     }
     stats.checked++;
-    const key = e.url.split("#")[0];
+    const key = pageKey(e.url);
     const page = texts.get(key);
     const src = raw.get(key);
     if (!page || !e.excerpt) {

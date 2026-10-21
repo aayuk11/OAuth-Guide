@@ -37,7 +37,7 @@ Four answers at the top of every guide change the verdict, the path, the level a
 | Question | Options | Why it matters |
 |---|---|---|
 | Who connects | Only my organisation · External customers | Most reviews apply only when users outside your organisation authorize the app. |
-| Access needed | Read · Write or send · Admin / full access | Scope tiers drive review: reading Gmail needs a security assessment, sending does not. |
+| Access needed | Read · Write or send · Admin or full | Scope tiers drive review: reading Gmail needs a security assessment, sending does not. |
 | Consent screen shows | Your brand · Composio is fine | Composio's managed app shows "Composio". Your brand means your own OAuth app. |
 | Path | The routes to production for this app | Picked for you from the answers above; change it to compare. |
 
@@ -93,8 +93,8 @@ Every step says who does it:
 |---|---|
 | You | Needs your login, payment, legal identity, a video, or pressing Submit. |
 | Agent can do | A check a tool can run for you: a URL is live, a redirect URI is well formed, a discovery document exists. Some run right on the page. |
-| Agent drafts | Text or values you paste and submit: justifications, privacy-policy wording, session code. |
-| Agent done | Already established by our own tests. |
+| Agent drafts, you submit | Text or values you paste and submit: justifications, privacy-policy wording, session code. |
+| Done by agent | Already checked by our own tests during research; the result and date are shown. |
 
 **Scopes are the biggest lever.** Ask only for what your agent needs. Composio's default Gmail scopes include `https://mail.google.com/`, which is restricted: a yearly paid security assessment. `gmail.send` alone is a sensitive scope with a review of days, not weeks. The guide warns when Composio's defaults put you on a slower path.
 
@@ -108,7 +108,7 @@ Once you have a client ID and secret:
    https://backend.composio.dev/api/v3/toolkits/auth/callback
    ```
 
-   It must match your Composio auth config character for character; a mismatch is the most common setup error. Some toolkits still default to Composio's legacy `v1` callback; the guide shows it when that applies.
+   It must match your Composio auth config character for character; a mismatch is the most common setup error. Every OAuth toolkit in the Composio snapshot still defaults to the legacy `v1` callback (`https://backend.composio.dev/api/v1/auth-apps/add`). If you leave the auth config's redirect field at its default, register that value instead; the guide shows both.
 
 2. **Create a custom auth config:** Composio dashboard → Create Auth Config → the toolkit → OAuth2 → paste the client ID and secret, plus any extra fields the guide lists. Set the scopes your path needs, not the defaults. Copy the auth config ID (`ac_…`).
 
@@ -198,9 +198,9 @@ curl -X POST "https://<host>/api/checks" -H "content-type: application/json" \
   -d '{"kind":"oauth_discovery","value":"mcp.notion.com"}'
 ```
 
-Setup parameters: `audience=own_org|external`, `access=read|write|admin`, `brand=yes|no`, and optionally `path=<path id>`.
+Setup parameters: `audience=own_org|external`, `access=read|write|admin`, `brand=yes|no`, and optionally `path=<path id>`. Unset parameters take the guide's defaults (usually external, read, your brand). `/api/guides/<key>` covers researched and generated guides; for a toolkit with no guide it returns 404, and the toolkit page on the site has the verdict.
 
-`POST /api/generate` starts live research and streams progress as one JSON object per line. Called from a server, it uses the deployment's own API key.
+`POST /api/generate` with `{"q": "Jobber"}` starts live research and streams progress as one JSON object per line. Called from a server, it uses the deployment's own API key and counts toward its daily cap.
 
 ## 10. Worked example: Gmail
 
@@ -221,7 +221,7 @@ Why the read path is Level 4:
 
 The send-only path is Medium confidence because two Google pages disagree: 3–5 versus 10 business days. The guide shows the full range rather than picking one.
 
-**What this means:** if your agent only needs to send email, ask for `gmail.send` and ship in about two weeks. If it must read mail, start brand verification on day one and build on Composio's managed app meanwhile; don't use Composio's default scopes for your own app.
+**What this means:** if your agent only needs to send email, ask for `gmail.send` and plan for approval within about three weeks. If it must read mail, start brand verification on day one and build on Composio's managed app meanwhile; don't use Composio's default scopes for your own app.
 
 ## 11. Launch checklist
 

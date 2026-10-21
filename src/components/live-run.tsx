@@ -22,18 +22,22 @@ export function LiveRun({
   toolkit,
   fresh,
   runId,
+  autoStart = true,
   stages,
 }: {
   query: string;
   toolkit: string | null;
   fresh: boolean;
   runId: string | null;
+  /** False when the page was opened from another site: a run spends the visitor's key, so it waits for a click. */
+  autoStart?: boolean;
   stages: { id: string; label: string }[];
 }) {
   const router = useRouter();
   const [events, setEvents] = useState<RunEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [needsKey, setNeedsKey] = useState(false);
+  const [waiting, setWaiting] = useState(!autoStart && !runId && !!query);
   const [candidates, setCandidates] = useState<{ reason: string; options: { slug: string; name: string; kind: string }[] } | null>(null);
   const [startedAt] = useState(() => Date.now());
   const [now, setNow] = useState(() => Date.now());
@@ -62,6 +66,7 @@ export function LiveRun({
       }
       await new Promise((r) => setTimeout(r, 1500));
     }
+    setError("This run is taking far longer than expected and may have stopped. Try again.");
   }, []);
 
   const go = useCallback(
@@ -136,8 +141,8 @@ export function LiveRun({
     started.current = true;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- start the run once on mount
     if (runId) void poll(runId);
-    else if (query) void go({ q: query, toolkit, fresh });
-  }, [fresh, go, poll, query, runId, toolkit]);
+    else if (query && autoStart) void go({ q: query, toolkit, fresh });
+  }, [autoStart, fresh, go, poll, query, runId, toolkit]);
 
   const guideEvent = events.find((e): e is Extract<RunEvent, { type: "guide" }> => e.type === "guide");
   useEffect(() => {
@@ -165,6 +170,23 @@ export function LiveRun({
   const title = runEvent?.query ?? query;
 
   if (needsKey) return <KeyRequired query={query} onReady={() => void go({ q: query, toolkit, fresh })} />;
+  if (waiting)
+    return (
+      <div className="max-w-md">
+        <h1 className="text-[1.9rem] font-semibold tracking-[-0.015em] text-fg">Research {query}?</h1>
+        <p className="mt-3 text-fg-muted">The agent searches the provider&apos;s docs and writes a guide in a few minutes. It uses your AI key if you have added one.</p>
+        <button
+          type="button"
+          onClick={() => {
+            setWaiting(false);
+            void go({ q: query, toolkit, fresh });
+          }}
+          className="mt-6 rounded-md bg-fg px-3 py-2 text-sm font-medium text-bg hover:opacity-90"
+        >
+          Start research
+        </button>
+      </div>
+    );
   if (!query && !runId) {
     return (
       <div>

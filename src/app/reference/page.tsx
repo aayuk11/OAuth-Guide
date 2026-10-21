@@ -91,10 +91,10 @@ export default function Reference() {
     "path": "send-only",
     "verdict": { "type": "managed_now_byo_later", "title": "Start on Composio's app now; your own app before launch" },
     "level": { "value": 3, "name": "Reviewed", "unconfirmed": false },
-    "hands_on": { "minutes": 545, "label": "about 1 working day", "basis": "estimate" },
+    "hands_on": { "minutes": 395, "label": "about 6½ h", "basis": "estimate" },
     "calendar_wait": { "min_business_days": 3, "max_business_days": 13, "label": "3–13 business days", "basis": "official", "open_ended": false },
     "confidence": { "value": "medium", "reasons": ["Official sources disagree on at least one number; the guide shows both."] },
-    "paths": [{ "id": "internal", "label": "…", "level": 1, "wait": "Same day", "effort": "about 2 h" }, …]
+    "paths": [{ "id": "internal", "label": "…", "level": 1, "wait": "Same day", "effort": "about 1½ h" }, …]
   },
   "guide": { "schema_version": 1, "slug": "gmail", "paths": […], "steps": […], "evidence": […] }
 }`}

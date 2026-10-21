@@ -13,8 +13,13 @@ export function createProvider(c: Credentials): LlmProvider {
   return anthropicProvider({ apiKey: c.apiKey, model: c.model, fallbacks: process.env.CLAUDE_FALLBACKS !== "off", dynamicWebTools: process.env.WEB_TOOLS === "dynamic" });
 }
 
-export function describeProviderError(e: unknown): DescribedError {
-  return describeAnthropicError(e) ?? describeOpenAIError(e) ?? describeGoogleError(e) ?? { message: "Something went wrong while calling the model.", retryable: true };
+/** Plain words for a provider error. Pass the provider that made the call, so errors are not misattributed. */
+export function describeProviderError(e: unknown, provider?: ProviderId | null): DescribedError {
+  const generic = { message: "Something went wrong while calling the model.", retryable: true };
+  if (provider === "anthropic") return describeAnthropicError(e) ?? generic;
+  if (provider === "openai") return describeOpenAIError(e) ?? generic;
+  if (provider === "google") return describeGoogleError(e) ?? generic;
+  return describeAnthropicError(e) ?? describeOpenAIError(e) ?? describeGoogleError(e) ?? generic;
 }
 
 /** Checks a key with a cheap read-only call (list models). Never logs the key. */
@@ -25,7 +30,7 @@ export async function validateKey(provider: ProviderId, apiKey: string): Promise
     else await validateOpenAIKey(apiKey);
     return { ok: true };
   } catch (e) {
-    const d = describeProviderError(e);
+    const d = describeProviderError(e, provider);
     return { ok: false, error: d.message === "Something went wrong while calling the model." ? `${PROVIDERS[provider].vendor} did not accept this key.` : d.message };
   }
 }

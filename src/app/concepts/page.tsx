@@ -94,6 +94,7 @@ export default function Concepts() {
         rows={[
           { q: "Does the toolkit use OAuth?", exitOn: "No", exit: "No OAuth app needed (API key or similar)", tone: "ok" },
           { q: "Does it register clients itself (DCR, MCP servers)?", exitOn: "Yes", exit: "No app registration needed", tone: "ok" },
+          { q: "Is the app in Composio's catalogue?", exitOn: "No", exit: "Bring your own OAuth app (no managed app exists)", tone: "bad" },
           { q: "Does Composio have a managed app for it?", exitOn: "No", exit: "Bring your own OAuth app now", tone: "bad" },
           { q: "Must users see your brand on the consent screen?", exitOn: "Yes", exit: "Start on the managed app; your own app before launch", tone: "warn" },
         ]}
@@ -175,7 +176,7 @@ export default function Concepts() {
 
       <H2 id="effort">Effort versus waiting</H2>
       <p className="text-sm text-fg-muted">
-        <b className="text-fg">Hands-on effort</b> is the time you spend: our estimate, from fixed times per step type (create an app 15 min, write a justification 60 min, record a demo video 90 min). <b className="text-fg">Calendar wait</b> is the time the provider takes, taken only from sources. Gates that wait on each other add up; independent gates overlap. If no source states a timeline, the guide says so instead of guessing.
+        <b className="text-fg">Hands-on effort</b> is the time you spend: our estimate, from a set time per step type (create an app 15 min, write a justification 60 min, record a demo video 90 min) unless a guide gives a step its own estimate. <b className="text-fg">Calendar wait</b> is the time the provider takes, taken only from sources. Gates that wait on each other add up; independent gates overlap. If no source states a timeline, the guide says so instead of guessing.
       </p>
 
       <H2 id="evidence">How sure we are</H2>

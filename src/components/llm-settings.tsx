@@ -234,6 +234,18 @@ export function KeyButton() {
 /** Shown in place of a run when no key is available; retries once a key is saved. */
 export function KeyRequired({ query, onReady }: { query: string; onReady: () => void }) {
   const status = useKeyStatus();
+  // Retry once a key is saved, from the form below or from the header's AI key dialog.
+  const ready = useRef(onReady);
+  useEffect(() => {
+    ready.current = onReady;
+  });
+  useEffect(() => {
+    const on = (e: Event) => {
+      if ((e as CustomEvent<KeyStatus>).detail.active) ready.current();
+    };
+    window.addEventListener(KEY_EVENT, on);
+    return () => window.removeEventListener(KEY_EVENT, on);
+  }, []);
   return (
     <div className="max-w-md">
       <h1 className="text-[1.9rem] font-semibold tracking-[-0.015em] text-fg">Add an AI key to research {query}</h1>
@@ -242,7 +254,7 @@ export function KeyRequired({ query, onReady }: { query: string; onReady: () => 
         key.
       </p>
       <div className="mt-6 rounded-lg border border-border p-5">
-        <KeyForm status={status} onSaved={onReady} />
+        <KeyForm status={status} />
       </div>
     </div>
   );
