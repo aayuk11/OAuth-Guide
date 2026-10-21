@@ -30,7 +30,7 @@ for (const [name, vp, scheme] of [
   const alert = dialog.getByRole("alert");
   await alert.waitFor({ timeout: 20000 });
   const msg = (await alert.textContent())?.trim();
-  if (msg !== "The Gemini API key was rejected.") problems.push(`${name} unexpected error text: ${msg}`);
+  if (!/not a Google API key|Gemini API key was rejected/.test(msg ?? "")) problems.push(`${name} unexpected error text: ${msg}`);
   const cookies = await ctx.cookies();
   if (cookies.some((c) => c.name === "or_llm")) problems.push(`${name} cookie set for a rejected key`);
   await page.screenshot({ path: `${out}/key-dialog-error-${name}.png` });

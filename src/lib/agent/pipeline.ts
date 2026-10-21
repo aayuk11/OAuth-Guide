@@ -1,6 +1,6 @@
 import { COMPOSIO_REDIRECT_URI, getToolkit, hasOAuth, isManagedOAuth, resolveToolkit, toolkitKind, type Toolkit } from "@/lib/catalog";
 import { CORE_QUESTION_IDS, GuideSchema, crossCheckGuide, type Evidence, type Guide } from "@/lib/guide/schema";
-import { createProvider, describeProviderError, estimateCost, PROVIDERS } from "@/lib/llm";
+import { createProvider, describeProviderError, estimateCost, keyFormatHint, PROVIDERS } from "@/lib/llm";
 import { EXTRACT_SYSTEM, RESEARCH_SYSTEM, URLS_SCHEMA, URLS_SYSTEM, extractionInput, researchPrompt, urlsInText, urlsPrompt } from "@/lib/llm/prompts";
 import { emptyUsage, errorText, redactKeys, SearchUnavailableError, type Credentials, type LlmProvider, type ResearchResult, type Source, type Usage } from "@/lib/llm/types";
 import { fetchPageText } from "@/lib/net/page-text";
@@ -238,6 +238,9 @@ export async function runPipeline(
   const fail = async (e: unknown) => {
     console.error("live research failed:", redactKeys(errorText(e)).slice(0, 600));
     const err = e instanceof StageError ? { message: e.message, retryable: true } : describeProviderError(e, providerId);
+    // A rejected key that is not even shaped like an API key: say what to use instead.
+    const hint = providerId && creds?.apiKey && /key was rejected/.test(err.message) ? keyFormatHint(providerId, creds.apiKey) : null;
+    if (hint) err.message = hint;
     emit({ type: "step", stage: "research", status: "failed", detail: err.message });
     emit({ type: "error", ...err });
     await run.finish("error", { ...runMeta, usage: usageOut() });

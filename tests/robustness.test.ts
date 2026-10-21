@@ -3,7 +3,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { slugify } from "@/lib/agent/assemble";
 import { runCritic } from "@/lib/agent/critic";
 import { mockDraft } from "@/lib/agent/mock";
-import { describeProviderError } from "@/lib/llm";
+import { describeProviderError, keyFormatHint } from "@/lib/llm";
 import { googleProvider } from "@/lib/llm/google";
 import { emptyUsage, type ExtractRequest, type LlmProvider } from "@/lib/llm/types";
 import { store } from "@/lib/store";
@@ -142,5 +142,14 @@ describe("provider errors", () => {
     const e = Object.assign(new Error("The server had an error"), { provider: "openai", code: "server_error" });
     expect(describeProviderError(e, "openai").message).toMatch(/^OpenAI stopped the response/);
     expect(describeProviderError(Object.assign(new Error("x"), { provider: "openai", code: "rate_limit_exceeded" }), "openai").message).toMatch(/OpenAI is rate-limiting/);
+  });
+});
+
+describe("rejected keys", () => {
+  it("says what a real API key looks like when the pasted credential is something else", () => {
+    expect(keyFormatHint("anthropic", "sk-ant-usr-0000")).toMatch(/^This is not an Anthropic API key\. Anthropic API keys start with sk-ant-api/);
+    expect(keyFormatHint("anthropic", "sk-ant-api03-0000")).toBeNull();
+    expect(keyFormatHint("google", "fake")).toMatch(/^This is not a Google API key/);
+    expect(keyFormatHint("openai", "sk-proj-0000")).toBeNull();
   });
 });

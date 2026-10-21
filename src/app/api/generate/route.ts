@@ -49,7 +49,8 @@ export async function POST(req: Request) {
 
   if (body.fresh !== true) {
     const cached = await getGeneratedGuide(key).catch(() => null);
-    if (cached) return ndjson([{ t: 0, type: "redirect", url: `/apps/gen/${key}`, reason: `A guide for ${cached.app.name} was generated on ${cached.last_verified}.` }]);
+    // A partial guide is a run that failed, not an answer: research again instead of reusing it.
+    if (cached && !cached.meta?.partial) return ndjson([{ t: 0, type: "redirect", url: `/apps/gen/${key}`, reason: `A guide for ${cached.app.name} was generated on ${cached.last_verified}.` }]);
   }
   const running = await inflightRun(key).catch(() => null);
   if (running) return ndjson([{ type: "attach", id: running, key }]);

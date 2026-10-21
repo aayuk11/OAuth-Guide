@@ -1,10 +1,10 @@
 import { anthropicProvider, describeAnthropicError, validateAnthropicKey } from "./anthropic";
 import { describeGoogleError, googleProvider, validateGoogleKey } from "./google";
 import { describeOpenAIError, openaiProvider, validateOpenAIKey } from "./openai";
-import { isProviderId, PROVIDER_IDS, PROVIDERS, type ProviderId } from "./catalog";
+import { isProviderId, keyFormatHint, PROVIDER_IDS, PROVIDERS, type ProviderId } from "./catalog";
 import type { Credentials, DescribedError, LlmProvider, Usage } from "./types";
 
-export { isProviderId, PROVIDER_IDS, PROVIDERS, type KeyStatus, type ProviderId } from "./catalog";
+export { isProviderId, keyFormatHint, PROVIDER_IDS, PROVIDERS, type KeyStatus, type ProviderId } from "./catalog";
 export type { Credentials } from "./types";
 
 export function createProvider(c: Credentials): LlmProvider {
@@ -30,6 +30,8 @@ export async function validateKey(provider: ProviderId, apiKey: string): Promise
     else await validateOpenAIKey(apiKey);
     return { ok: true };
   } catch (e) {
+    const hint = keyFormatHint(provider, apiKey);
+    if (hint) return { ok: false, error: hint };
     const d = describeProviderError(e, provider);
     return { ok: false, error: d.message === "Something went wrong while calling the model." ? `${PROVIDERS[provider].vendor} did not accept this key.` : d.message };
   }

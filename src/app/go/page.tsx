@@ -36,7 +36,7 @@ export default async function Go({ searchParams }: PageProps<"/go">) {
 
   if (r.kind === "none") {
     const cached = await getGeneratedGuide(guideKeyFor(q, null)).catch(() => null);
-    redirect(cached ? `/apps/gen/${cached.slug}` : `/generate?q=${encodeURIComponent(q)}`);
+    redirect(cached && !cached.meta?.partial ? `/apps/gen/${cached.slug}` : `/generate?q=${encodeURIComponent(q)}`);
   }
 
   const options = r.candidates;

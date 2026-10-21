@@ -135,6 +135,8 @@ The `qa:` checks need the site running (`npm run dev` or `npm start`) and a brow
 | Symptom | Fix |
 |---|---|
 | "Add an AI key to research…" | No key in the browser or on the server. Add one under **AI key**, or set one in `.env.local` / Vercel. |
+| "This is not an Anthropic API key" (or Google / OpenAI) | The pasted value is another kind of credential. Anthropic API keys start with `sk-ant-api` (console.anthropic.com → API keys), Gemini keys with `AIza`, OpenAI keys with `sk-`. API use is billed separately from Claude.ai or ChatGPT subscriptions. |
+| A search goes straight to an old guide | A complete guide for that app was researched in the last 7 days. Use **Re-check** to research it again. (Partial guides are never reused.) |
 | "This site cannot store keys yet" | The deployment has no `APP_SECRET`. Set it in Vercel and redeploy. |
 | "Research …?" with a **Start research** button | You followed a link from another site. Runs spend your key, so they only start on a click. |
 | "Web search is not available on this key's plan" / "Gemini is rate-limiting…" | Usually a free-tier Gemini key. Run `npm run check:key`; enable billing in Google AI Studio, or use a Claude or GPT key. |

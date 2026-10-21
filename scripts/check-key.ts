@@ -9,7 +9,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenAI } from "@google/genai";
 import OpenAI from "openai";
-import { envCredentials, isProviderId, PROVIDERS } from "../src/lib/llm";
+import { envCredentials, isProviderId, keyFormatHint, PROVIDERS } from "../src/lib/llm";
 import { FREE_SEARCH_MODEL } from "../src/lib/llm/google";
 import { errorText, redactKeys } from "../src/lib/llm/types";
 
@@ -112,12 +112,16 @@ async function main() {
   }
   const model = m || (env?.provider === provider ? env.model : PROVIDERS[provider].defaultModel);
   console.log(`${PROVIDERS[provider].vendor} key …${apiKey.slice(-4)}, model ${model}\n`);
+  const hint = keyFormatHint(provider, apiKey);
+  if (hint) console.log(`  ! ${hint}\n`);
   if (provider === "google") await google(apiKey, model);
   else if (provider === "anthropic") await anthropic(apiKey, model);
   else await openai(apiKey, model);
 }
 
+// Set the exit code rather than calling process.exit(), which can trip a libuv assertion on Windows
+// while the SDKs' sockets are closing.
 main().catch((e) => {
   console.error(redactKeys(errorText(e)));
-  process.exit(1);
+  process.exitCode = 1;
 });

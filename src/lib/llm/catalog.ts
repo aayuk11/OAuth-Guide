@@ -57,6 +57,23 @@ export function isProviderId(v: unknown): v is ProviderId {
   return typeof v === "string" && Object.hasOwn(PROVIDERS, v);
 }
 
+/**
+ * When a provider rejects a key, say what a real API key looks like. Used only after a rejection,
+ * so a new key format is never blocked up front. Other credentials (a Claude.ai subscription,
+ * a CLI login token) look similar but are not API keys.
+ */
+const KEY_SHAPES: Record<ProviderId, { re: RegExp; hint: string }> = {
+  anthropic: { re: /^sk-ant-api/, hint: "Anthropic API keys start with sk-ant-api. Create one at console.anthropic.com → Settings → API keys; API use is billed separately from a Claude.ai subscription." },
+  google: { re: /^AIza/, hint: "Gemini API keys start with AIza. Create one at aistudio.google.com/apikey." },
+  openai: { re: /^sk-/, hint: "OpenAI API keys start with sk-. Create one at platform.openai.com/api-keys; API use is billed separately from ChatGPT." },
+};
+
+export function keyFormatHint(provider: ProviderId, key: string): string | null {
+  const shape = KEY_SHAPES[provider];
+  const vendor = PROVIDERS[provider].vendor;
+  return shape.re.test(key.trim()) ? null : `This is not ${/^[aeiou]/i.test(vendor) ? "an" : "a"} ${vendor} API key. ${shape.hint}`;
+}
+
 /** What the browser is told about the active key. Never contains the key itself. */
 export interface KeyStatus {
   active: "browser" | "server" | null;

@@ -179,9 +179,9 @@ async function main() {
   throw new Error(`unknown mode "${mode}" (use one, rehearse or eval)`);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+// Set the exit code rather than calling process.exit(), which can trip a libuv assertion on Windows
+// while the SDKs' sockets are closing.
+main().catch((e) => {
+  console.error(e);
+  process.exitCode = 1;
+});
