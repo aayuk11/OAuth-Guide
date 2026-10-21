@@ -9,7 +9,7 @@ Before your users can connect an app to your AI agent through Composio, you may 
 
 Every claim is labelled Tested, Official, Reported or Unverified, and dated.
 
-- **Live site:** _add the deployment URL here_
+- **Live site:** https://oauth-guide-phi.vercel.app
 - **Library:** 8 researched guides (GitHub, Gmail, Slack, Shopify, LinkedIn, Salesforce, Microsoft Outlook, Xero), plus a verdict for all 1,608 Composio toolkits
 - **Live research:** type any other app or website. An agent researches it while you watch and writes a guide in the same format, using Claude, Gemini or GPT.
 
