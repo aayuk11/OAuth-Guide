@@ -1,0 +1,5468 @@
+{
+  "checked": "2026-10-20",
+  "results": [
+    {
+      "guide": "github",
+      "id": "e-gh-create-oauth",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-create-oauth-callbacks",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-create-oauth-expiry",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-create-oauth-limit",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-changelog",
+      "label": "official",
+      "url": "https://github.blog/changelog/2026-08-14-multiple-redirect-uris-and-token-refresh-for-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-authorize-oauth",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-authorize-refresh",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-authorize-wildcard",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-authorize-pkce",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-authorize-tokens",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-scopes",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-scopes-repo",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-user-authz-readonly",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-user-authz-org",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-user-authz-saml",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-org-restrict",
+      "label": "official",
+      "url": "https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-org-restrict-owned",
+      "label": "official",
+      "url": "https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-approve",
+      "label": "official",
+      "url": "https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/approving-oauth-apps-for-your-organization",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-request-approval",
+      "label": "official",
+      "url": "https://docs.github.com/en/account-and-profile/how-tos/organization-membership/requesting-organization-approval-for-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-oauth-bp",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/best-practices-for-creating-an-oauth-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-register",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-callback",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/about-the-user-authorization-callback-url",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-user-token-scopes",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-user-token-access",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-user-token-expiry",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-user-token-clientid",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-refresh",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/refreshing-user-access-tokens",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-urlparams",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-using-url-parameters",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-manifest",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-from-a-manifest",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-visibility",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/making-a-github-app-public-or-private",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-app-share",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/sharing-github-apps/sharing-your-github-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-diff-install",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-diff-tokens",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-diff-rate-increase",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-notifications",
+      "label": "official",
+      "url": "https://docs.github.com/en/rest/activity/notifications",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-oauth-rate",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/rate-limits-for-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-oauth-signin",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/rate-limits-for-oauth-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-rest-rate",
+      "label": "official",
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-rest-rate-ghapp",
+      "label": "official",
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-rest-troubleshoot-blocked",
+      "label": "official",
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-rest-troubleshoot-integration",
+      "label": "official",
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-rest-troubleshoot-ratelimit",
+      "label": "official",
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-auth-errors",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/maintaining-oauth-apps/troubleshooting-authorization-request-errors",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-auth-errors-suspended",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/oauth-apps/maintaining-oauth-apps/troubleshooting-authorization-request-errors",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-token-revoke",
+      "label": "official",
+      "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-discovery",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-authentication-discovery-endpoints",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/github-marketplace-overview/about-github-marketplace-for-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt-support",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/github-marketplace-overview/about-github-marketplace-for-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt-req",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/creating-apps-for-github-marketplace/requirements-for-listing-an-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt-req-paid",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/creating-apps-for-github-marketplace/requirements-for-listing-an-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt-req-security",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/creating-apps-for-github-marketplace/requirements-for-listing-an-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt-req-agreement",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/creating-apps-for-github-marketplace/requirements-for-listing-an-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt-submit",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/listing-an-app-on-github-marketplace/submitting-your-listing-for-publication",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-mkt-draft",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/listing-an-app-on-github-marketplace/drafting-a-listing-for-your-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-pubver",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/github-marketplace-overview/applying-for-publisher-verification-for-your-organization",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-gh-payment",
+      "label": "official",
+      "url": "https://docs.github.com/en/apps/github-marketplace/selling-your-app-on-github-marketplace/receiving-payment-for-app-purchases",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-gh-faq",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/github.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-gh-faq-install",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/github.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-gh-faq-perms",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/github.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-custom-auth",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/auth-configuration/custom-auth-configs",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-custom-auth-match",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/auth-configuration/custom-auth-configs",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-managed",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/custom-app-vs-managed-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-managed-consent",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/custom-app-vs-managed-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-kb",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/platform-connected-accounts",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-gh-guide",
+      "label": "reported",
+      "url": "https://composio.dev/auth/github",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-gh-guide-secret",
+      "label": "reported",
+      "url": "https://composio.dev/auth/github",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-composio-gh-guide-scopes",
+      "label": "reported",
+      "url": "https://composio.dev/auth/github",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "github",
+      "id": "e-screenful-org",
+      "label": "reported",
+      "url": "https://screenful.com/guide/org-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-brand",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-brand-first",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-brand-publish",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-brand-domains",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-brand-tns",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-sensitive",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-separate-projects",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-sensitive-justification",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-sensitive-video",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-sensitive-time",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-restricted-time",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-usercap",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-unapproved",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-reply",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-imap",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-smtp",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-limited-use",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-ai",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-fees",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-free-tier2",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-reassess",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-remediate",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-faq-scout",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463817",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-restricted",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-restricted-server",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-restricted-annual",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-restricted-apptype",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-security-assessment",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13465431",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-casa-levels",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13465431",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-recert",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13463816",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-casa-levels",
+      "label": "official",
+      "url": "https://appdefensealliance.dev/casa/casa-tiering",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-audience-testing",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/15549945",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-audience-expiry",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/15549945",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-audience-basic",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/15549945",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-audience-internal",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/15549945",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-audience-advprot",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/15549945",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-app-states-unverified",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-app-states-trusted",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-app-states-block",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-token-expiry",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-token-limit",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-unverified",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/7454865",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-when-not-needed",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464323",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-when-not-needed-trusted",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464323",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-submit-internal",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13461325",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-submit-steps",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13461325",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-submit-casa",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13461325",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-req-homepage",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464321",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-req-privacy",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464321",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-req-domain",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464321",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-req-video",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464321",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-req-justification",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464321",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-domain-help",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13804266",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-domain-finding",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13804266",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-gmail-scopes-restricted",
+      "label": "official",
+      "url": "https://developers.google.com/workspace/gmail/api/auth/scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-restricted-list",
+      "label": "official",
+      "url": "https://support.google.com/cloud/answer/13464325",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-scope-list-people",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-people-get",
+      "label": "official",
+      "url": "https://developers.google.com/people/api/rest/v1/people/get",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-ws-consent-steps",
+      "label": "official",
+      "url": "https://developers.google.com/workspace/guides/configure-oauth-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-ws-consent-scopes",
+      "label": "official",
+      "url": "https://developers.google.com/workspace/guides/configure-oauth-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-create-client",
+      "label": "official",
+      "url": "https://developers.google.com/workspace/guides/create-credentials",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-ai-client",
+      "label": "official",
+      "url": "https://developers.google.com/workspace/guides/create-credentials",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-enable-apis",
+      "label": "official",
+      "url": "https://developers.google.com/workspace/guides/enable-apis",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-google-gws",
+      "label": "official",
+      "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/google-workspace",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-workspace-admin-trust-internal",
+      "label": "official",
+      "url": "https://knowledge.workspace.google.com/admin/apps/control-which-apps-access-google-workspace-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-workspace-admin-trusted",
+      "label": "official",
+      "url": "https://knowledge.workspace.google.com/admin/apps/control-which-apps-access-google-workspace-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-workspace-high-risk",
+      "label": "official",
+      "url": "https://knowledge.workspace.google.com/admin/apps/control-which-apps-access-google-workspace-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-nylas-contacts",
+      "label": "reported",
+      "url": "https://developer.nylas.com/docs/cookbook/contacts/list-contacts-google/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-switchlabs",
+      "label": "reported",
+      "url": "https://www.switchlabs.dev/post/casa-tier-2-tier-3-security-review-providers-pricing-and-the-cheapest-option",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-mailmate-price",
+      "label": "reported",
+      "url": "https://lists.freron.com/mailmate/2025-April/018278.html",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-forum-casa-stall",
+      "label": "reported",
+      "url": "https://discuss.google.dev/t/oauth-verification-stuck-no-response-from-trust-safety-team-for-10-days/334355",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-forum-no-email",
+      "label": "reported",
+      "url": "https://discuss.google.dev/t/oauth-consent-screen-pending-developer-action-blocked/295774",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-forum-verification-paused",
+      "label": "reported",
+      "url": "https://discuss.google.dev/t/oauth-verification-stuck-verification-center-asks-me-to-reply-to-trust-safety-email-but-i-never-received-one/379144",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-forum-access-blocked",
+      "label": "reported",
+      "url": "https://discuss.google.dev/t/website-has-not-completed-the-verification-process/145992",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-n8n-access-blocked",
+      "label": "reported",
+      "url": "https://community.n8n.io/t/n8n-cloud-has-not-completed-the-google-verification-process/214076",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-forum-app-blocked",
+      "label": "reported",
+      "url": "https://discuss.google.dev/t/only-one-gmail-account-is-authorizing-my-google-app-using-oauth-2-0-an-error-occurs/294343",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-zappy-app-blocked",
+      "label": "reported",
+      "url": "https://community.zappysys.com/t/how-to-fix-the-this-app-is-blocked-error-in-google-oauth/509",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-supabase-domains",
+      "label": "reported",
+      "url": "https://github.com/orgs/supabase/discussions/2925",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-default-scopes",
+      "label": "official",
+      "url": "https://raw.githubusercontent.com/ComposioHQ/composio/next/docs/public/data/toolkits.json",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "Response too large"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-googleapps",
+      "label": "official",
+      "url": "https://composio.dev/auth/googleapps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-gmail-faq",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/gmail.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-gmail-api-enable",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/gmail.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-consent",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/gmail.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-quota",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/gmail.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-token-limit",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/gmail.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-token",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/authentication/white-labeling-authentication",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "gmail",
+      "id": "e-composio-proxy",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/authentication/white-labeling-authentication",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-getting-access",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/getting-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-getting-access-products",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/getting-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-getting-access-marketing",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/getting-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-getting-access-sales",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/getting-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-getting-access-talent",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/getting-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-getting-access-compliance",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/getting-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-siwl",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin-v2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-siwl-scopes",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin-v2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-share",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/share-on-linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-share-limits",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/share-on-linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-refresh",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-reauth",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-scopes",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-consent",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-rescope",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-redirect",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-redirect-https",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-secret",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-errors",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-acf-errors-redirect",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-prt",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/programmatic-refresh-tokens",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-dpt",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/authentication/developer-portal-tools",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-ratelimits",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/rate-limits",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmo",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/community-management-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmo-tiers",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/community-management-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmo-scope",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/community-management-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmo-member-social",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/community-management-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-prep",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-email",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-page",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-name",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-checks",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-reject",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-standard",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-standard-prep",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-standard-checks",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-cmar-screencast",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-incr",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/increasing-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-incr-limits",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/increasing-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-incr-tip",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/increasing-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-incr-restricted",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/increasing-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-incr-ads-dev",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/increasing-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-incr-perms",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/increasing-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-incr-roles",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/increasing-access",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-mqs-adaccounts",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/quick-start",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-psg",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/linkedin-api-partner-support-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-psg-login",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/linkedin-api-partner-support-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-psg-survey",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/linkedin-api-partner-support-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-psg-appeal",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/linkedin-api-partner-support-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-psg-ticket",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/linkedin-api-partner-support-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-psg-ads-tier",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/linkedin-api-partner-support-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-psg-ads-timeline",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/shared/linkedin-api-partner-support-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-statusdefs",
+      "label": "official",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a1449586/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-verifyreq",
+      "label": "official",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a1665329",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-verifyreq-steps",
+      "label": "official",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a1665329",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-createapp",
+      "label": "official",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a1667239",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-assoc",
+      "label": "official",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a548360",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-assoc-permanent",
+      "label": "official",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a548360",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-restricted",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/restricted-use-cases",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-restricted-storage",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/restricted-use-cases",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-restricted-headless",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/restricted-use-cases",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-talent",
+      "label": "official",
+      "url": "https://business.linkedin.com/hire/ats-partners/partner-application",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-toolkit",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-tools-org",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-tools-ads",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-faq-scopes",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-faq-429",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-kb-redirect",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-kb-scope",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-kb-org",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-kb-reconnect",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-auth-guide",
+      "label": "official",
+      "url": "https://composio.dev/auth/linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-composio-auth-guide-redirect",
+      "label": "official",
+      "url": "https://composio.dev/auth/linkedin",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-make",
+      "label": "reported",
+      "url": "https://community.make.com/t/linkedin-oauth-errors-and-making-comments-how-have-you-overcome-them/85484",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-bundle",
+      "label": "reported",
+      "url": "https://bundle.social/blog/linkedin-api-permissions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-agoras",
+      "label": "reported",
+      "url": "https://agoras.luisalejandro.org/en/latest/credentials/linkedin.html",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-agoras-separate",
+      "label": "reported",
+      "url": "https://agoras.luisalejandro.org/en/latest/credentials/linkedin.html",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "linkedin",
+      "id": "e-frontegg",
+      "label": "reported",
+      "url": "https://developers.frontegg.com/agen-for-work/connectors/marketplace/linkedin-ads",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-register-app",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-register-types",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-redirect",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-redirect-uri",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-credentials",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-authcode",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-refresh",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/refresh-tokens",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-mail-read",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-mail-readwrite",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-mail-send",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-calendars-read",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-calendars-readwrite",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-calendars-shared",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-contacts",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-chat",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-mailboxsettings-read",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-mailboxsettings-readwrite",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-offline",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-userread",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/permissions-reference",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-managed-default",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-app-consent-policies",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-managed-list-1",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-app-consent-policies",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-managed-list-2",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-app-consent-policies",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-managed-list-3",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-app-consent-policies",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-managed-auto",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-app-consent-policies",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-config-default",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-user-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-low",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-user-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-stepup",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-risk-based-step-up-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-mc1097272",
+      "label": "reported",
+      "url": "https://mc.merill.net/message/MC1097272",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-mc1163922",
+      "label": "reported",
+      "url": "https://mc.merill.net/message/MC1163922",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-mc1163922-existing",
+      "label": "reported",
+      "url": "https://mc.merill.net/message/MC1163922",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-stepup",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-requirements",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-domain",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-msa",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-minutes",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-cost",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-national",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-howto",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/mark-app-as-publisher-verified",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-roles",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/mark-app-as-publisher-verified",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-troubleshoot-domain",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/troubleshoot-publisher-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-troubleshoot-vetting",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/troubleshoot-publisher-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-pv-troubleshoot-risky",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/troubleshoot-publisher-verification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-partner-timeline",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/partner-center/enroll/understand-the-verification-process",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-partner-legal",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/partner-center/enroll/understand-the-verification-process",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-partner-email",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/partner-center/enroll/understand-the-verification-process",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-partner-support",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/partner-center/support/report-problems-with-partner-center",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-custom-domain",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/fundamentals/add-custom-domain",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-experience-unverified",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/application-consent-experience",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-consent-experience-admin",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/application-consent-experience",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-grant-admin-url",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/grant-admin-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-grant-admin-org",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/grant-admin-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-grant-admin-roles",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/grant-admin-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-grant-admin-appreg",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/grant-admin-consent",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-admin-workflow",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-admin-consent-workflow",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-troubleshoot-consent-90094",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/troubleshoot/entra/entra-id/app-integration/troubleshoot-consent-issues",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-troubleshoot-consent-risky",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/troubleshoot/entra/entra-id/app-integration/troubleshoot-consent-issues",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-errors-50194",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-errors-65001",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-aadsts50011",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/troubleshoot/entra/entra-id/app-integration/error-code-aadsts50011-redirect-uri-mismatch",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-aadsts50020",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/troubleshoot/entra/entra-id/app-integration/error-code-aadsts50020-user-account-identity-provider-does-not-exist",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-aadsts50020-msa",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/troubleshoot/entra/entra-id/app-integration/error-code-aadsts50020-user-account-identity-provider-does-not-exist",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-throttle",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/throttling-limits",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-graph-national",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/graph/deployments",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-entra-support",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/entra/identity-platform/developer-support-help-options",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-audit",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-required",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-claranet",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-attestation",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-prereq",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-cost",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-pentest",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-stages",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-start",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-attest-age",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-annual",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-m365-cert-contact",
+      "label": "official",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-toolkit",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-kb-consent",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-kb-adminflow",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-kb-clientid",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-kb-verified",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-kb-scopes",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-kb-expiry",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "outlook",
+      "id": "e-composio-auth-guide-msa",
+      "label": "reported",
+      "url": "https://composio.dev/auth/outlook",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-s26-architect",
+      "label": "official",
+      "url": "https://www.salesforce.com/blog/spring-26-release-architect-highlights/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-s26-eca-local",
+      "label": "official",
+      "url": "https://www.salesforce.com/blog/spring-26-release-architect-highlights/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-ca-restricted",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/pkg1-dev/guide/connected-apps.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-eca-local",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/use-external-client-apps-when-connected-apps-wont-do",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-ca-global",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/use-external-client-apps-when-connected-apps-wont-do",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-eca-policy",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/use-external-client-apps-when-connected-apps-wont-do",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-eca-admin",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/separate-developers-from-admins",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-eca-2gp",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/package-and-distribute-external-client-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-eca-2gp-tools",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/package-and-distribute-external-client-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-admins-blog",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260314000022/https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-admins-blog-perm",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260314000022/https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-api-basics",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/api_basics/api_basics_overview",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-pe-api",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/isvforce/guide/dev-packages-api-access.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-scope-full",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-scope-parameter-values.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-scope-api",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-scope-parameter-values.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-scope-refresh",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-scope-parameter-values.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-sr-fee",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-sr-time",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-sr-annual",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-sr-parallel",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-sr-retest",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_fix",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-sr-launch",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_prepare",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-th-sr-scans",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_prepare",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-sr-stages",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/isvforce/guide/security-review-how-it-works.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-sr-free",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/isvforce/guide/security-review-how-it-works.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-blog-2023-queue",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260909174927/https://developer.salesforce.com/blogs/2023/04/prepare-your-app-to-pass-the-appexchange-security-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-isv-models",
+      "label": "official",
+      "url": "https://www.salesforce.com/partners/isv-onboarding-guide/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-isv-pada",
+      "label": "official",
+      "url": "https://www.salesforce.com/partners/isv-onboarding-guide/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-isv-approval",
+      "label": "official",
+      "url": "https://www.salesforce.com/partners/isv-onboarding-guide/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-api-terms-enrol",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-api-terms-single",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-api-terms-privacy",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-api-terms-ai",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-agent-protocols",
+      "label": "official",
+      "url": "https://developer.salesforce.com/salesforce-agent-integration-protocols",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-legal-blog",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260214014009/https://developer.salesforce.com/blogs/2025/02/important-updates-to-legal-terms-for-salesforce-developers",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-unauth-pkg",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/appexchange-install-guide/guide/appexchange-install-notification.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-2gp-promote",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/pkg2-dev/guide/sfdx-dev-dev2gp-get-ready-promote.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-devhub",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/pkg2-dev/guide/sfdx-pkg-enable-devhub.html",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-limits",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_api.htm",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-sf-limits-org",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_api.htm",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "HTTP 403"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-nango-perm",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-nango-flow",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-nango-refresh",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-nango-namespace",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-nango-instance",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-unified-crossorg",
+      "label": "reported",
+      "url": "https://docs.unified.to/guides/salesforce_external_client_apps_on_multiple_organizations.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-unified-crossorg-error",
+      "label": "reported",
+      "url": "https://docs.unified.to/guides/salesforce_external_client_apps_on_multiple_organizations.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-xappex",
+      "label": "reported",
+      "url": "https://www.xappex.com/blog/oauth-approval-error-generic-salesforce/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-easysoft",
+      "label": "reported",
+      "url": "https://easysoft.com/support/kb/kb01044.html",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-cio-connector",
+      "label": "reported",
+      "url": "https://www.cio.com/article/4108001/salesforce-is-tightening-control-of-its-data-ecosystem-and-cios-may-have-to-pay-the-price.html",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-cio-fees",
+      "label": "reported",
+      "url": "https://www.cio.com/article/4108001/salesforce-is-tightening-control-of-its-data-ecosystem-and-cios-may-have-to-pay-the-price.html",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-composio-kb-fields",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-salesforce",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-composio-kb-install",
+      "label": "reported",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-salesforce",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-composio-kb-tokens",
+      "label": "reported",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-salesforce",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-composio-blog-creds",
+      "label": "reported",
+      "url": "https://composio.dev/auth/salesforce",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-composio-blog-pkce",
+      "label": "reported",
+      "url": "https://composio.dev/auth/salesforce",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "salesforce",
+      "id": "e-composio-blog-ca",
+      "label": "reported",
+      "url": "https://composio.dev/auth/salesforce",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-distribution",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-distribution-custom",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-distribution-public",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-select-dist",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/distribution/select-distribution-method",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-select-dist-steps",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/distribution/select-distribution-method",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-select-dist-link",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/distribution/select-distribution-method",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-dd-create",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-dd-cli",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-dd-req",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-dd-version",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-dd-install",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-dd-creds",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-legacy-admin",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/legacy/admin-custom-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-legacy",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/starting-january-1-2026-you-will-not-be-able-to-create-new-legacy-custom-apps-this-will-not-impact-any-existing-apps/26798",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-standalone-auth",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/authenticate-standalone-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-config-redirect",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/cli-for-apps/app-configuration",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-access-tokens",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-token-custom",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-token-life",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-cc-grant",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/client-credentials-grant",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-levels",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-types",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-dev",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-resources",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-orders",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-fulfil",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-shipping",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-gift",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-request",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-pcd-review",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/protected-customer-data",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-pcd-own",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/enable-protected-customer-data-access-for-a-custom-app-created-in-the-dev-dashboard-no-ui-option-available/35445",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-403",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/enable-protected-customer-data-access-for-a-custom-app-created-in-the-dev-dashboard-no-ui-option-available/35445",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-manage-scopes-pcd",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/manage-access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-manage-scopes-dd",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/manage-access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-manage-scopes-declared",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/manage-access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-manage-scopes-redact",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/manage-access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-manage-scopes-approval",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/build/authentication-authorization/manage-access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-scopes-ref",
+      "label": "official",
+      "url": "https://shopify.dev/docs/api/usage/access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-scopes-approval",
+      "label": "official",
+      "url": "https://shopify.dev/docs/api/usage/access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-scopes-orders",
+      "label": "official",
+      "url": "https://shopify.dev/docs/api/usage/access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-scopes-fulfill",
+      "label": "official",
+      "url": "https://shopify.dev/docs/api/usage/access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-rest-scopes",
+      "label": "official",
+      "url": "https://shopify.dev/docs/api/admin-rest/usage/access-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-themefiles",
+      "label": "official",
+      "url": "https://shopify.dev/docs/api/admin-graphql/latest/mutations/themeFilesUpsert",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-theme",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/unable-to-edit-theme-files-in-shopify-embedded-app-write-themes-scope-added/25391",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-asreq-install",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/shopify-app-store/app-store-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-asreq-embedded",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/shopify-app-store/app-store-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-asreq-graphql",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/shopify-app-store/app-store-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-asreq-scopes",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/shopify-app-store/app-store-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-asreq-screencast",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/shopify-app-store/app-store-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-asreq-creds",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/shopify-app-store/app-store-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-submit-webhooks",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/app-store-review/submit-app-for-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-submit-config",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/app-store-review/submit-app-for-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-submit-pcd",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/app-store-review/submit-app-for-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-submit-checks",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/app-store-review/submit-app-for-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-submit-contact",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/app-store-review/submit-app-for-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-review-process",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/app-store-review/review-process",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-best-practices-listing",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/shopify-app-store/best-practices",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-revshare-fee",
+      "label": "official",
+      "url": "https://shopify.dev/docs/apps/launch/distribution/revenue-share",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-ppa-fee",
+      "label": "official",
+      "url": "https://www.shopify.com/partners/terms",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-api-terms-custom",
+      "label": "official",
+      "url": "https://www.shopify.com/legal/api-terms",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-api-terms-privacy",
+      "label": "official",
+      "url": "https://www.shopify.com/legal/api-terms",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-api-terms-ai",
+      "label": "official",
+      "url": "https://www.shopify.com/legal/api-terms",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-unlisted-dup",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/unlisted-shopify-app-review-required-before-installation/33101",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-unlisted-time",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/unlisted-shopify-app-review-required-before-installation/33101",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-draft-install",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/testing-app-without-being-approved/32009",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-collab",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/collaborator-develop-apps-permission-is-useless-with-new-dev-dashboard-jan-2026-cant-install-custom-app-on-clients-store/29171",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-backlog",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/longer-app-store-review-times-what-you-need-to-know/31728",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-review-tools",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/app-store-review-updates-new-tools-to-speed-up-submissions/33472",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-review-oct",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/over-two-weeks-in-review/38563",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-forum-review-2mo",
+      "label": "reported",
+      "url": "https://community.shopify.dev/t/over-two-weeks-in-review/38563",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-toolkit",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-graphql",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-kb-subdomain",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-kb-redirect",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-kb-s2s",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-kb-refresh",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-kb-400",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-kb-orders",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "shopify",
+      "id": "e-composio-guide-dd",
+      "label": "reported",
+      "url": "https://composio.dev/auth/shopify",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-oauth-userscope",
+      "label": "official",
+      "url": "https://docs.slack.dev/authentication/installing-with-oauth",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-oauth-https",
+      "label": "official",
+      "url": "https://docs.slack.dev/authentication/installing-with-oauth",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-oauth-match",
+      "label": "official",
+      "url": "https://docs.slack.dev/authentication/installing-with-oauth",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-oauth-team",
+      "label": "official",
+      "url": "https://docs.slack.dev/authentication/installing-with-oauth",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-oauth-own",
+      "label": "official",
+      "url": "https://docs.slack.dev/authentication/installing-with-oauth",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-pkce",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2026/03/30/pkce",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-optional-scopes",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2026/03/16/optional-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-dist-single",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-management/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-dist-unlisted",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-management/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-dist-reviewed",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-management/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-dist-activate",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-management/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-dist-admin",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-management/distribution",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rl-limit",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/05/29/rate-limit-changes-for-non-marketplace-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rl-scope",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/05/29/rate-limit-changes-for-non-marketplace-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rl-internal",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/05/29/rate-limit-changes-for-non-marketplace-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rl-existing",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/05/29/rate-limit-changes-for-non-marketplace-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rl-free",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/05/29/rate-limit-changes-for-non-marketplace-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rl-devtest",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/05/29/rate-limit-changes-for-non-marketplace-apps",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rl-clarify",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/06/03/rate-limits-clarity",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-convhistory",
+      "label": "official",
+      "url": "https://docs.slack.dev/reference/methods/conversations.history",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-ratelimits",
+      "label": "official",
+      "url": "https://docs.slack.dev/apis/web-api/rate-limits",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-rts",
+      "label": "official",
+      "url": "https://docs.slack.dev/apis/web-api/real-time-search-api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-mcp",
+      "label": "official",
+      "url": "https://docs.slack.dev/ai/slack-mcp-server",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-timeline",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-noskip",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-installs",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-scopes",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-queue",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-locked",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-video",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-testacct",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-review-submit",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-review-guide",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-install-2026",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2026/09/01/slack-marketplace-install-requirement",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-install-2025",
+      "label": "official",
+      "url": "https://docs.slack.dev/changelog/2025/07/08/slack-marketplace",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-security-review",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/marketplace-terms-conditions/slack-security-review",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-scopes",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-inslack",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-mcponly",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-active",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-enhanced",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-history",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-justify",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-usertoken",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-privacy",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-landing",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-support",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-ai",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-nostore",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-guide-automation",
+      "label": "official",
+      "url": "https://docs.slack.dev/slack-marketplace/slack-marketplace-app-guidelines-and-requirements",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-tos-commercial",
+      "label": "official",
+      "url": "https://slack.com/terms-of-service/api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-tos-definition",
+      "label": "official",
+      "url": "https://slack.com/terms-of-service/api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-tos-marketplace",
+      "label": "official",
+      "url": "https://slack.com/terms-of-service/api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-tos-template",
+      "label": "official",
+      "url": "https://slack.com/terms-of-service/api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-tos-privacy",
+      "label": "official",
+      "url": "https://slack.com/terms-of-service/api",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-devpolicy-scale",
+      "label": "official",
+      "url": "https://docs.slack.dev/developer-policy",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-devpolicy-llm",
+      "label": "official",
+      "url": "https://docs.slack.dev/developer-policy",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-devpolicy-feedback",
+      "label": "official",
+      "url": "https://docs.slack.dev/developer-policy",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-manifest-create",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-manifests/configuring-apps-with-app-manifests",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-manifest-link",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-manifests/configuring-apps-with-app-manifests",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-manifest-token",
+      "label": "official",
+      "url": "https://docs.slack.dev/app-manifests/configuring-apps-with-app-manifests",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-verify-tokens",
+      "label": "official",
+      "url": "https://docs.slack.dev/authentication/verifying-requests-from-slack",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-scope-searchread",
+      "label": "official",
+      "url": "https://docs.slack.dev/reference/scopes/search.read",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-scope-dndwrite",
+      "label": "official",
+      "url": "https://docs.slack.dev/reference/scopes/dnd.write",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-scope-channelswrite",
+      "label": "official",
+      "url": "https://docs.slack.dev/reference/scopes/channels.write",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-scope-profilewrite",
+      "label": "official",
+      "url": "https://docs.slack.dev/reference/scopes/users.profile.write",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-sandbox",
+      "label": "official",
+      "url": "https://docs.slack.dev/tools/developer-sandboxes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-help-approval",
+      "label": "official",
+      "url": "https://slack.com/help/articles/222386767-Manage-app-approval-for-your-workspace",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-slack-devsupport",
+      "label": "official",
+      "url": "https://docs.slack.dev/developer-support",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-faq-managed",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-faq-warning",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-faq-approval",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-faq-owner",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-faq-redirect",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-faq-scopes",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-faq-toolkit",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-hook-secret",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/setting-up-triggers/custom-oauth-webhooks",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-hook-project",
+      "label": "official",
+      "url": "https://docs.composio.dev/docs/setting-up-triggers/custom-oauth-webhooks",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-kb-scopes",
+      "label": "official",
+      "url": "https://raw.githubusercontent.com/ComposioHQ/composio/next/docs/kb/articles/toolkits-slack.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-kb-verification",
+      "label": "official",
+      "url": "https://raw.githubusercontent.com/ComposioHQ/composio/next/docs/kb/articles/toolkits-slackbot.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "slack",
+      "id": "e-composio-authconfig",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/slack",
+      "status": "not_found",
+      "score": 0,
+      "detail": "none"
+    },
+    {
+      "guide": "xero",
+      "id": "e-pricing-plans",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-pricing-date",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-pricing-fees",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-pricing-egress",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-pricing-prereqs",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-pricing-billing",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-pricing-glossary",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-tier-move",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-tier-cap",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-cert-core",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-appstore",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-premium",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-manualjournals",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-ratelimits",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-limits-daily",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/limits",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-manage-connections",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-signup",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-getting-started",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/getting-started",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-demo",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/getting-started",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-pkce",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-access",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-refresh",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-redirects",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-granular-new",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/granular-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-granular-401",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/granular-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-granular-reauth",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/granular-scopes",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-permissions",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/permissions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-org-dropdown",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/permissions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-faq-uncert-2apps",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/custom-integration",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-security-faq",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/xero-ecosystem-security-requirements-update",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-security-annual",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/xero-ecosystem-security-requirements-update",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-security-remediation",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/xero-ecosystem-security-requirements-update",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-terms-privacy",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-terms-conditions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-terms-ai",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-terms-conditions",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-commercial-cert",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-commercial-terms",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-commercial-recert",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-commercial-terms",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-changelog-granular-new",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-changelog-journals",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-changelog-deprecation",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-changelog-unchanged",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-support-form",
+      "label": "official",
+      "url": "https://developer.xero.com/contact-xero-developer-platform-support/",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-github-newapp",
+      "label": "official",
+      "url": "https://github.com/XeroAPI/xero-python-oauth2-starter",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-github-secret",
+      "label": "official",
+      "url": "https://github.com/XeroAPI/xero-python-oauth2-starter",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-limits-uncert",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/limits/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-limits-5apps",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/limits/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-overview",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/overview/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-scopes-granular",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-scopes-cert",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-scopes-table",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-scopes-assets",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-authflow-create",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/auth-flow/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-authflow-redirect",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/auth-flow/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-authflow-tenants",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/auth-flow/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-devaccounts",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/development-accounts/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-building-cert",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/building-and-growing-your-app/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-building-prereq",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/building-and-growing-your-app/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-building-security",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/building-and-growing-your-app/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-checkpoints-plus",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-checkpoints-offline",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-checkpoints-name",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-checkpoints-signup",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-troubleshooting",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/troubleshooting/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-doc-troubleshooting-tenant",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/troubleshooting/",
+      "status": "unfetchable",
+      "score": 0,
+      "detail": "page has almost no text (likely rendered by JavaScript)"
+    },
+    {
+      "guide": "xero",
+      "id": "e-cx-managed",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-cx-tenant",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-cx-journals",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-cx-balancesheet",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-cx-assets",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-cx-auth-guide-redirect",
+      "label": "official",
+      "url": "https://composio.dev/auth/xero",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-cx-auth-guide-scopes",
+      "label": "official",
+      "url": "https://composio.dev/auth/xero",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-workos-form",
+      "label": "reported",
+      "url": "https://workos.com/docs/integrations/xero-oauth",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-activepieces",
+      "label": "reported",
+      "url": "https://community.activepieces.com/t/xero-integration-issues-following-xero-change-to-granular-scope/12135",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    },
+    {
+      "guide": "xero",
+      "id": "e-codat-months",
+      "label": "reported",
+      "url": "https://docs.codat.io/integrations/accounting/xero/xero-app-partner-program",
+      "status": "verified",
+      "score": 1,
+      "detail": "exact"
+    }
+  ]
+}

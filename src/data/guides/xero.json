@@ -1,0 +1,2590 @@
+{
+  "schema_version": 1,
+  "slug": "xero",
+  "kind": "curated",
+  "composio_slug": "xero",
+  "app": {
+    "name": "Xero",
+    "provider": "Xero Limited",
+    "website": "https://www.xero.com",
+    "developer_portal": "https://developer.xero.com/app/manage",
+    "docs_url": "https://developer.xero.com/documentation/guides/oauth2/overview/",
+    "logo": "https://logos.composio.dev/api/xero"
+  },
+  "headline": "Composio has no managed Xero app, but you can create your own Web app in minutes and connect up to 5 organisations free (50 on the AUD 35/month Core plan) with Composio's default scopes; going past 50 needs Xero certification, a bigger monthly fee and a yearly recertification.",
+  "oauth": {
+    "supported": "yes",
+    "registration": "manual",
+    "notes": [
+      "Standard authorization code flow for a 'Web app' that keeps a client secret. PKCE (S256 only) is for desktop and mobile apps; single-page apps are not supported.",
+      "No self-registration: Xero's OpenID discovery document has no registration_endpoint (tested 2026-10-20), so the app must be created by hand in My Apps.",
+      "Access tokens last 30 minutes. Refresh tokens expire if unused for 60 days and are replaced on every refresh. You only get one if you request offline_access.",
+      "Every organisation (tenant) a user ticks on the consent screen is a separate connection, and connections are what Xero's plans cap and charge for.",
+      "Redirect URIs must match exactly, use https (http://localhost is allowed for testing, 127.0.0.1 is not), cannot use wildcards, and you can save up to 50.",
+      "Since 2 March 2026, new apps can only request the new granular Accounting scopes. The old broad scopes (accounting.transactions, accounting.reports.read) are deprecated."
+    ],
+    "evidence": [
+      "e-oidc-probe",
+      "e-faq-getting-started",
+      "e-faq-pkce",
+      "e-faq-access",
+      "e-faq-refresh",
+      "e-pricing-glossary",
+      "e-faq-redirects",
+      "e-granular-new"
+    ]
+  },
+  "default_intake": {
+    "audience": "external",
+    "access": "write",
+    "brand": true
+  },
+  "paths": [
+    {
+      "id": "uncertified",
+      "label": "Uncertified app, up to 50 connections (Starter, then Core)",
+      "summary": "Create a Web app yourself and go live with no review. The free Starter plan allows 5 connected organisations. Adding a credit card moves you to Core (AUD 35/month) for up to 50. Fits your own organisation, pilots and early customers.",
+      "applies": {
+        "audience": [
+          "own_org",
+          "external"
+        ],
+        "access": [
+          "read",
+          "write",
+          "admin"
+        ]
+      },
+      "recommended": true,
+      "composio_default": true,
+      "scopes": [
+        "offline_access",
+        "email",
+        "profile",
+        "openid",
+        "files",
+        "files.read",
+        "projects",
+        "projects.read",
+        "accounting.manualjournals.read",
+        "accounting.manualjournals",
+        "accounting.banktransactions.read",
+        "accounting.banktransactions",
+        "accounting.payments.read",
+        "accounting.payments",
+        "accounting.invoices.read",
+        "accounting.invoices",
+        "accounting.reports.tenninetynine.read",
+        "accounting.budgets.read",
+        "accounting.attachments.read",
+        "accounting.attachments",
+        "accounting.contacts.read",
+        "accounting.contacts",
+        "accounting.settings.read",
+        "accounting.settings",
+        "accounting.reports.taxreports.read",
+        "accounting.reports.trialbalance.read",
+        "accounting.reports.profitandloss.read",
+        "accounting.reports.executivesummary.read",
+        "accounting.reports.budgetsummary.read",
+        "accounting.reports.banksummary.read",
+        "accounting.reports.aged.read"
+      ],
+      "gates": [],
+      "badges": [
+        {
+          "kind": "after_launch",
+          "type": "install_cap",
+          "text": "5 connected organisations on the free Starter plan; up to 50 on Core. You are held at the cap until you meet the next plan's requirements.",
+          "evidence": [
+            "e-faq-tier-move",
+            "e-faq-tier-cap",
+            "e-pricing-fees",
+            "e-doc-limits-uncert"
+          ]
+        },
+        {
+          "kind": "cost",
+          "type": "paid_tier",
+          "text": "Free for up to 5 connections. Connections 6 to 50 need the Core plan: AUD 35 a month plus tax, paid by credit card only.",
+          "evidence": [
+            "e-pricing-fees",
+            "e-pricing-billing"
+          ]
+        },
+        {
+          "kind": "cost",
+          "type": "usage_pricing",
+          "text": "Core includes 10 GB a month of data downloaded from Xero's APIs; more costs AUD 2.40 per GB. Starter has no egress charge.",
+          "evidence": [
+            "e-pricing-egress"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "privacy_policy",
+          "text": "Xero's developer terms require your app to have its own terms of use and privacy policy that users agree to.",
+          "evidence": [
+            "e-terms-privacy"
+          ]
+        }
+      ],
+      "start_here": [
+        {
+          "when": "Day 1",
+          "action": "Create a free Xero login, turn on the demo company, and create a Web app in My Apps with Composio's callback as the redirect URI.",
+          "owner": "you"
+        },
+        {
+          "when": "Day 1",
+          "action": "Use Composio's default scope list as is. It is all granular scopes; do not add accounting.transactions or accounting.reports.read.",
+          "owner": "agent_drafts"
+        },
+        {
+          "when": "Before your 6th connection",
+          "action": "Add payment details in the developer portal to move from Starter to Core (up to 50 connections).",
+          "owner": "you"
+        }
+      ]
+    },
+    {
+      "id": "certified-plus",
+      "label": "Certified App Partner, up to 1,000 connections (Plus)",
+      "summary": "To pass 50 connections or list on the Xero App Store, apply for the Plus plan from Core. Xero reviews your integration against its certification checkpoints, then you pay AUD 245/month and recertify every year.",
+      "applies": {
+        "audience": [
+          "external"
+        ],
+        "access": [
+          "read",
+          "write",
+          "admin"
+        ]
+      },
+      "scopes": [
+        "offline_access",
+        "email",
+        "profile",
+        "openid",
+        "files",
+        "files.read",
+        "projects",
+        "projects.read",
+        "accounting.manualjournals.read",
+        "accounting.manualjournals",
+        "accounting.banktransactions.read",
+        "accounting.banktransactions",
+        "accounting.payments.read",
+        "accounting.payments",
+        "accounting.invoices.read",
+        "accounting.invoices",
+        "accounting.reports.tenninetynine.read",
+        "accounting.budgets.read",
+        "accounting.attachments.read",
+        "accounting.attachments",
+        "accounting.contacts.read",
+        "accounting.contacts",
+        "accounting.settings.read",
+        "accounting.settings",
+        "accounting.reports.taxreports.read",
+        "accounting.reports.trialbalance.read",
+        "accounting.reports.profitandloss.read",
+        "accounting.reports.executivesummary.read",
+        "accounting.reports.budgetsummary.read",
+        "accounting.reports.banksummary.read",
+        "accounting.reports.aged.read"
+      ],
+      "gates": [
+        {
+          "id": "g-cert",
+          "type": "app_review",
+          "title": "Xero app certification (upgrade to Plus)",
+          "trigger": "You need more than 50 connected organisations, or a Xero App Store listing.",
+          "avoid": "Stay at or under 50 connections on Core (5 on the free Starter plan).",
+          "wait": {
+            "min": null,
+            "max": null,
+            "unit": "weeks",
+            "note": "Xero publishes no certification timeline. Codat, an integration vendor, reports that becoming a Xero App Partner can take several months."
+          },
+          "after": null,
+          "evidence": [
+            "e-pricing-prereqs",
+            "e-doc-checkpoints-plus",
+            "e-doc-building-cert",
+            "e-doc-building-prereq",
+            "e-codat-months"
+          ]
+        },
+        {
+          "id": "g-recert",
+          "type": "annual_reverification",
+          "title": "Annual recertification",
+          "trigger": "Every year after you are certified, to keep certification (and any App Store listing).",
+          "avoid": null,
+          "wait": null,
+          "after": "g-cert",
+          "recurring": "yearly",
+          "evidence": [
+            "e-commercial-recert"
+          ]
+        }
+      ],
+      "badges": [
+        {
+          "kind": "cost",
+          "type": "paid_tier",
+          "text": "Plus costs AUD 245 a month plus tax for up to 1,000 connections, with 50 GB of API egress included.",
+          "evidence": [
+            "e-pricing-fees",
+            "e-pricing-egress"
+          ]
+        },
+        {
+          "kind": "cost",
+          "type": "usage_pricing",
+          "text": "Egress above the monthly allowance costs AUD 2.40 per GB.",
+          "evidence": [
+            "e-pricing-egress"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "partner_program",
+          "text": "Certification makes you a Xero App Partner under the Developer Platform Commercial Terms. An App Store listing is optional at Plus.",
+          "evidence": [
+            "e-commercial-cert",
+            "e-faq-appstore"
+          ]
+        },
+        {
+          "kind": "after_launch",
+          "type": "install_cap",
+          "text": "Up to 1,000 connections, but held at 999 until you pass Xero's security self-assessment.",
+          "evidence": [
+            "e-pricing-fees",
+            "e-doc-building-security"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "privacy_policy",
+          "text": "Your app needs its own terms of use and privacy policy.",
+          "evidence": [
+            "e-terms-privacy"
+          ]
+        }
+      ],
+      "start_here": [
+        {
+          "when": "Now",
+          "action": "Launch on Starter/Core and grow to ten active customer connections (real organisations, not the demo company).",
+          "owner": "you"
+        },
+        {
+          "when": "Meanwhile",
+          "action": "Build the certification checkpoints: connect/disconnect settings page, error messages, launcher URL, offline_access.",
+          "owner": "you"
+        },
+        {
+          "when": "When ready",
+          "action": "In My Apps, open your app and click 'Manage Plan' to apply for Plus and certification.",
+          "owner": "you"
+        }
+      ]
+    },
+    {
+      "id": "advanced-scale",
+      "label": "Over 1,000 connections or premium APIs (Advanced or Enterprise)",
+      "summary": "Above 1,000 connections, or to use the Journals endpoint, Practice Manager API or bulk connections, you need certification plus a security assessment that Xero repeats every year. Advanced is AUD 1,445/month; Enterprise is priced on application and needs an App Store listing.",
+      "applies": {
+        "audience": [
+          "external"
+        ],
+        "access": [
+          "read",
+          "write",
+          "admin"
+        ]
+      },
+      "scopes": [
+        "offline_access",
+        "email",
+        "profile",
+        "openid",
+        "files",
+        "files.read",
+        "projects",
+        "projects.read",
+        "accounting.manualjournals.read",
+        "accounting.manualjournals",
+        "accounting.banktransactions.read",
+        "accounting.banktransactions",
+        "accounting.payments.read",
+        "accounting.payments",
+        "accounting.invoices.read",
+        "accounting.invoices",
+        "accounting.reports.tenninetynine.read",
+        "accounting.budgets.read",
+        "accounting.attachments.read",
+        "accounting.attachments",
+        "accounting.contacts.read",
+        "accounting.contacts",
+        "accounting.settings.read",
+        "accounting.settings",
+        "accounting.reports.taxreports.read",
+        "accounting.reports.trialbalance.read",
+        "accounting.reports.profitandloss.read",
+        "accounting.reports.executivesummary.read",
+        "accounting.reports.budgetsummary.read",
+        "accounting.reports.banksummary.read",
+        "accounting.reports.aged.read",
+        "accounting.journals.read"
+      ],
+      "gates": [
+        {
+          "id": "g-cert",
+          "type": "app_review",
+          "title": "Xero app certification",
+          "trigger": "Required for every plan above Core.",
+          "avoid": "Stay at or under 50 connections on Core.",
+          "wait": {
+            "min": null,
+            "max": null,
+            "unit": "weeks",
+            "note": "Xero publishes no certification timeline. Codat, an integration vendor, reports that becoming a Xero App Partner can take several months."
+          },
+          "after": null,
+          "evidence": [
+            "e-pricing-prereqs",
+            "e-doc-checkpoints-plus",
+            "e-doc-building-cert",
+            "e-codat-months"
+          ]
+        },
+        {
+          "id": "g-security",
+          "type": "security_assessment",
+          "title": "Security self-assessment reviewed by Xero",
+          "trigger": "Reaching 1,000 connections (Advanced plan), or using premium APIs such as Journals or Practice Manager.",
+          "avoid": "Stay under 1,000 connections on Plus and do not use the premium APIs.",
+          "wait": {
+            "min": 5,
+            "max": 10,
+            "unit": "business_days",
+            "note": "Xero's review time. Xero says filling in the assessment typically takes about 5 working days first. If items fail, you get 30 days to send a remediation plan and 60 days to make the changes."
+          },
+          "after": "g-cert",
+          "evidence": [
+            "e-pricing-prereqs",
+            "e-doc-building-security",
+            "e-security-faq",
+            "e-security-remediation"
+          ]
+        },
+        {
+          "id": "g-usecase",
+          "type": "product_access",
+          "title": "Use-case approval for premium APIs",
+          "trigger": "Only if you need the Journals endpoint (accounting.journals.read), the Practice Manager API or bulk connections.",
+          "avoid": "Use manual journals and reports instead of the Journals endpoint.",
+          "wait": null,
+          "after": null,
+          "evidence": [
+            "e-faq-premium",
+            "e-changelog-journals"
+          ]
+        },
+        {
+          "id": "g-annual",
+          "type": "annual_reverification",
+          "title": "Annual security assessment and recertification",
+          "trigger": "Every year after the first security assessment.",
+          "avoid": null,
+          "wait": null,
+          "after": "g-security",
+          "recurring": "yearly",
+          "evidence": [
+            "e-security-annual",
+            "e-pricing-prereqs",
+            "e-commercial-recert"
+          ]
+        }
+      ],
+      "badges": [
+        {
+          "kind": "cost",
+          "type": "paid_tier",
+          "text": "Advanced costs AUD 1,445 a month plus tax for up to 10,000 connections; Enterprise (no limit) is priced on application.",
+          "evidence": [
+            "e-pricing-fees"
+          ]
+        },
+        {
+          "kind": "cost",
+          "type": "usage_pricing",
+          "text": "Advanced includes 250 GB a month of API egress; more costs AUD 2.40 per GB.",
+          "evidence": [
+            "e-pricing-egress"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "partner_program",
+          "text": "Certified App Partner. Enterprise also requires a Xero App Store listing.",
+          "evidence": [
+            "e-faq-appstore",
+            "e-commercial-cert"
+          ]
+        },
+        {
+          "kind": "after_launch",
+          "type": "install_cap",
+          "text": "Up to 10,000 connections on Advanced; no limit on Enterprise.",
+          "evidence": [
+            "e-pricing-fees"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "privacy_policy",
+          "text": "Your app needs its own terms of use and privacy policy.",
+          "evidence": [
+            "e-terms-privacy"
+          ]
+        }
+      ],
+      "start_here": [
+        {
+          "when": "Before about 800 connections",
+          "action": "Expect Xero to send the security self-assessment at 800 connections; ask for it earlier if you need premium APIs.",
+          "owner": "you"
+        },
+        {
+          "when": "When it arrives",
+          "action": "Budget about 5 working days to complete it, then 5 to 10 working days for Xero's review.",
+          "owner": "you"
+        },
+        {
+          "when": "If you need Journals",
+          "action": "Contact Xero developer support about use-case approval before you build on accounting.journals.read.",
+          "owner": "you"
+        }
+      ]
+    }
+  ],
+  "scopes": [
+    {
+      "scope": "offline_access",
+      "tier": "no_review",
+      "what": "Get a refresh token so the connection keeps working (Xero requires it for certification).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-doc-checkpoints-offline"
+      ]
+    },
+    {
+      "scope": "openid",
+      "tier": "no_review",
+      "what": "Use the signed-in user's identity (OpenID Connect).",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "profile",
+      "tier": "no_review",
+      "what": "User's first name, last name, full name and Xero user ID.",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "email",
+      "tier": "no_review",
+      "what": "User's email address.",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "files",
+      "tier": "no_review",
+      "what": "View and manage the Xero file library.",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "files.read",
+      "tier": "no_review",
+      "what": "View the Xero file library.",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "projects",
+      "tier": "no_review",
+      "what": "View and manage projects, tasks and time.",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "projects.read",
+      "tier": "no_review",
+      "what": "View projects.",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "accounting.manualjournals.read",
+      "tier": "no_review",
+      "what": "View manual journals (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.manualjournals",
+      "tier": "no_review",
+      "what": "View and manage manual journals (new granular scope; available on all plans, unlike the Journals endpoint).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new",
+        "e-faq-manualjournals"
+      ]
+    },
+    {
+      "scope": "accounting.banktransactions.read",
+      "tier": "no_review",
+      "what": "View bank transactions and transfers (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.banktransactions",
+      "tier": "no_review",
+      "what": "View and manage bank transactions and transfers (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.payments.read",
+      "tier": "no_review",
+      "what": "View payments, batch payments, overpayments and prepayments (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.payments",
+      "tier": "no_review",
+      "what": "View and manage payments (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.invoices.read",
+      "tier": "no_review",
+      "what": "View invoices, credit notes, quotes, purchase orders, repeating invoices and items (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.invoices",
+      "tier": "no_review",
+      "what": "View and manage invoices and related documents (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.tenninetynine.read",
+      "tier": "no_review",
+      "what": "View US 1099 reports.",
+      "evidence": [
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "accounting.budgets.read",
+      "tier": "no_review",
+      "what": "View budgets (unchanged by the granular-scope switch).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-unchanged"
+      ]
+    },
+    {
+      "scope": "accounting.attachments.read",
+      "tier": "no_review",
+      "what": "View attachments (unchanged).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-unchanged"
+      ]
+    },
+    {
+      "scope": "accounting.attachments",
+      "tier": "no_review",
+      "what": "View and manage attachments (unchanged).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-unchanged"
+      ]
+    },
+    {
+      "scope": "accounting.contacts.read",
+      "tier": "no_review",
+      "what": "View contacts and contact groups (unchanged).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-unchanged"
+      ]
+    },
+    {
+      "scope": "accounting.contacts",
+      "tier": "no_review",
+      "what": "View and manage contacts (unchanged).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-unchanged"
+      ]
+    },
+    {
+      "scope": "accounting.settings.read",
+      "tier": "no_review",
+      "what": "View organisation settings: accounts, tax rates, tracking categories, currencies, users (unchanged).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-unchanged"
+      ]
+    },
+    {
+      "scope": "accounting.settings",
+      "tier": "no_review",
+      "what": "View and manage organisation settings (unchanged).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-unchanged"
+      ]
+    },
+    {
+      "scope": "accounting.reports.taxreports.read",
+      "tier": "no_review",
+      "what": "View GST or BAS reports (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.trialbalance.read",
+      "tier": "no_review",
+      "what": "View the trial balance (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.profitandloss.read",
+      "tier": "no_review",
+      "what": "View profit and loss (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.executivesummary.read",
+      "tier": "no_review",
+      "what": "View the executive summary (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.budgetsummary.read",
+      "tier": "no_review",
+      "what": "View the budget summary (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.banksummary.read",
+      "tier": "no_review",
+      "what": "View the bank summary (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.aged.read",
+      "tier": "no_review",
+      "what": "View aged payables and receivables by contact (new granular scope).",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-changelog-granular-new"
+      ]
+    },
+    {
+      "scope": "accounting.reports.balancesheet.read",
+      "tier": "no_review",
+      "what": "View the balance sheet. Not in Composio's defaults, but Composio's balance sheet tool needs it.",
+      "evidence": [
+        "e-doc-scopes-table",
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "assets.read",
+      "tier": "no_review",
+      "what": "View fixed assets. Not in Composio's defaults, but Composio's asset tools need it.",
+      "evidence": [
+        "e-doc-scopes-assets",
+        "e-doc-scopes-cert"
+      ]
+    },
+    {
+      "scope": "accounting.journals.read",
+      "tier": "product_access",
+      "what": "Read the full general ledger (Journals endpoint). No longer granted by default: Advanced plan, certification, security assessment and use-case approval.",
+      "evidence": [
+        "e-changelog-journals",
+        "e-faq-premium"
+      ]
+    }
+  ],
+  "prerequisites": [
+    {
+      "id": "p-login",
+      "item": "A free Xero user login",
+      "why": "You sign in to the developer portal with it, and it gives you the free demo company for testing.",
+      "owner": "you",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-faq-demo"
+      ]
+    },
+    {
+      "id": "p-url",
+      "item": "Your company or application URL (homepage)",
+      "why": "The New app form asks for it.",
+      "owner": "you",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-workos-form",
+        "e-github-newapp"
+      ]
+    },
+    {
+      "id": "p-policy",
+      "item": "Public terms of use and privacy policy for your app",
+      "why": "Xero's Developer Platform Terms require your own terms and privacy policy that users agree to.",
+      "owner": "you",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-terms-privacy"
+      ]
+    },
+    {
+      "id": "p-card",
+      "item": "A credit card on the developer account",
+      "why": "Needed to move from Starter (5 connections) to Core and every higher plan. Credit card is the only payment method.",
+      "owner": "you",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-pricing-billing",
+        "e-faq-tier-move"
+      ]
+    },
+    {
+      "id": "p-beta",
+      "item": "Ten active customer connections",
+      "why": "Xero checks this before reviewing your integration for certification.",
+      "owner": "you",
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ],
+      "evidence": [
+        "e-doc-building-prereq"
+      ]
+    },
+    {
+      "id": "p-security",
+      "item": "A passed security self-assessment",
+      "why": "Required before 1,000 connections or premium APIs; connections are held at 999 until then.",
+      "owner": "you",
+      "paths": [
+        "advanced-scale"
+      ],
+      "evidence": [
+        "e-doc-building-security",
+        "e-security-faq"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "s-account",
+      "title": "Create a free Xero login",
+      "detail": "Sign up for a free Xero account. You use it to sign in to the Xero developer portal.",
+      "owner": "you",
+      "type": "create_account",
+      "paths": [
+        "*"
+      ],
+      "link": {
+        "label": "Xero developer sign-up",
+        "url": "https://www.xero.com/signup/developers/"
+      },
+      "evidence": [
+        "e-faq-demo"
+      ]
+    },
+    {
+      "id": "s-demo",
+      "title": "Turn on the demo company for testing",
+      "detail": "In My Xero, enter the demo company. It is free and full of sample data. It resets 28 days after creation, and you must reconnect your app after each reset.",
+      "owner": "you",
+      "type": "prepare_test_account",
+      "paths": [
+        "*"
+      ],
+      "link": {
+        "label": "My Xero",
+        "url": "https://my.xero.com/"
+      },
+      "evidence": [
+        "e-doc-devaccounts",
+        "e-faq-demo"
+      ]
+    },
+    {
+      "id": "s-create-app",
+      "title": "Create a Web app in My Apps",
+      "detail": "Go to My Apps and click 'New app' (top right). Enter the App name (your product's name; it cannot contain the word Xero). Set Integration type to 'Web app' (the auth code flow). Enter your Company or application URL and the redirect URI below. Agree to the terms and click 'Create app'.",
+      "owner": "you",
+      "type": "create_app",
+      "paths": [
+        "*"
+      ],
+      "link": {
+        "label": "Xero My Apps",
+        "url": "https://developer.xero.com/app/manage"
+      },
+      "paste": [
+        {
+          "label": "Integration type",
+          "value": "Web app"
+        },
+        {
+          "label": "Redirect URI (Composio callback)",
+          "value": "https://backend.composio.dev/api/v3/toolkits/auth/callback"
+        }
+      ],
+      "evidence": [
+        "e-workos-form",
+        "e-github-newapp",
+        "e-doc-authflow-create",
+        "e-doc-checkpoints-name"
+      ]
+    },
+    {
+      "id": "s-redirect",
+      "title": "Check the Composio redirect URI on the Configuration page",
+      "detail": "Open your app's Configuration page and make sure the URI below is saved exactly (https, no trailing slash). It must exactly match the redirect URI set in your Composio auth config. If you leave the auth config's redirect field at the Xero toolkit default, register the legacy https://backend.composio.dev/api/v1/auth-apps/add instead (or as well: Xero accepts up to 50 redirect URIs but no wildcards).",
+      "owner": "agent_can_do",
+      "type": "set_redirect",
+      "paths": [
+        "*"
+      ],
+      "check": "redirect_uri",
+      "paste": [
+        {
+          "label": "Redirect URI (Composio callback)",
+          "value": "https://backend.composio.dev/api/v3/toolkits/auth/callback"
+        }
+      ],
+      "evidence": [
+        "e-faq-redirects",
+        "e-doc-authflow-redirect",
+        "e-cx-auth-guide-redirect"
+      ]
+    },
+    {
+      "id": "s-secret",
+      "title": "Generate the client secret and copy both credentials",
+      "detail": "On the app page, click 'Generate a secret'. Copy the client ID and client secret and store them safely; after you save, the secret is hidden.",
+      "owner": "you",
+      "type": "configure_app",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-github-secret",
+        "e-doc-authflow-create"
+      ]
+    },
+    {
+      "id": "s-scopes",
+      "title": "Pick the scope list",
+      "detail": "Xero has no scope settings in the portal for Web apps; scopes are requested at connect time. Composio's defaults are all granular or unchanged scopes, so a new app can request them. Never add accounting.transactions, accounting.reports.read or accounting.journals.read to a new app. Add the optional extras only if you enable Composio's balance sheet or asset tools.",
+      "owner": "agent_drafts",
+      "type": "add_scopes",
+      "paths": [
+        "*"
+      ],
+      "paste": [
+        {
+          "label": "Scopes (Composio default, comma separated)",
+          "value": "offline_access,email,profile,openid,files,files.read,projects,projects.read,accounting.manualjournals.read,accounting.manualjournals,accounting.banktransactions.read,accounting.banktransactions,accounting.payments.read,accounting.payments,accounting.invoices.read,accounting.invoices,accounting.reports.tenninetynine.read,accounting.budgets.read,accounting.attachments.read,accounting.attachments,accounting.contacts.read,accounting.contacts,accounting.settings.read,accounting.settings,accounting.reports.taxreports.read,accounting.reports.trialbalance.read,accounting.reports.profitandloss.read,accounting.reports.executivesummary.read,accounting.reports.budgetsummary.read,accounting.reports.banksummary.read,accounting.reports.aged.read"
+        },
+        {
+          "label": "Optional extras",
+          "value": "accounting.reports.balancesheet.read,assets.read"
+        }
+      ],
+      "evidence": [
+        "e-doc-scopes-granular",
+        "e-granular-new",
+        "e-changelog-journals",
+        "e-activepieces"
+      ]
+    },
+    {
+      "id": "s-policy",
+      "title": "Publish your terms of use and privacy policy",
+      "detail": "Xero's Developer Platform Terms require your app to have its own legally binding terms and privacy policy, and users must agree to them before using your app. Also note the terms ban using Xero API data to train or fine-tune AI models.",
+      "owner": "you",
+      "type": "write_policy",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-terms-privacy",
+        "e-terms-ai"
+      ]
+    },
+    {
+      "id": "s-discovery",
+      "title": "Confirmed: no self-registration, PKCE S256",
+      "detail": "We fetched Xero's OpenID discovery document: there is no registration_endpoint (so no dynamic client registration), PKCE supports S256 only, and the grant types are authorization_code, client_credentials and refresh_token.",
+      "owner": "agent_done",
+      "type": "other",
+      "minutes": 1,
+      "paths": [
+        "*"
+      ],
+      "check": "oauth_discovery",
+      "evidence": [
+        "e-oidc-probe"
+      ]
+    },
+    {
+      "id": "s-test",
+      "title": "Connect the demo company and run a read and a write",
+      "detail": "Connect through Composio and pick the demo company on Xero's consent screen. Every organisation a user ticks counts as one connection, so keep test connections few. Check the count in My Apps. If a user connects several organisations, pass tenant_id on every Composio tool call.",
+      "owner": "you",
+      "type": "test",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-doc-authflow-tenants",
+        "e-pricing-glossary",
+        "e-cx-tenant"
+      ]
+    },
+    {
+      "id": "s-core",
+      "title": "Move to Core before your 6th connection",
+      "detail": "Starter stops at 5 connections. Add payment details (credit card) in the developer portal to move to Core: up to 50 connections, AUD 35 a month plus tax, 10 GB egress included. Billing is on the 1st of the following month.",
+      "owner": "you",
+      "type": "pay",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-faq-tier-move",
+        "e-pricing-billing",
+        "e-pricing-fees"
+      ]
+    },
+    {
+      "id": "s-beta",
+      "title": "Reach ten active customer connections",
+      "detail": "Certification starts with a prerequisite check, including ten active customer connections. Use Core (up to 50) to onboard beta customers on real organisations.",
+      "owner": "you",
+      "type": "recruit_installs",
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ],
+      "evidence": [
+        "e-doc-building-prereq"
+      ]
+    },
+    {
+      "id": "s-checkpoints",
+      "title": "Build to Xero's certification checkpoints",
+      "detail": "Xero reviews: a settings page that shows the connected organisation and status, with connect and disconnect buttons (disconnect with DELETE on the Connections endpoint); handling disconnects made from Xero; a 'Login URL for launcher' in your app's Configuration; minimal scopes with offline_access; clear error messages; correct data, account mapping and tax. Our estimate of build time.",
+      "owner": "you",
+      "type": "other",
+      "minutes": 480,
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ],
+      "link": {
+        "label": "Certification checkpoints",
+        "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/"
+      },
+      "evidence": [
+        "e-doc-checkpoints-plus",
+        "e-doc-checkpoints-offline",
+        "e-doc-checkpoints-name"
+      ]
+    },
+    {
+      "id": "s-apply",
+      "title": "Apply for Plus and certification from 'Manage Plan'",
+      "detail": "Log in to the developer portal, select your app and click 'Manage Plan' to upgrade from Core to Plus; certification is part of the upgrade. Xero checks prerequisites and reviews your integration, and may ask you to provision a test account for them. Answer reviewer questions promptly.",
+      "owner": "you",
+      "type": "submit_review",
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ],
+      "link": {
+        "label": "Xero My Apps",
+        "url": "https://developer.xero.com/app/manage"
+      },
+      "evidence": [
+        "e-doc-building-cert",
+        "e-doc-building-prereq"
+      ]
+    },
+    {
+      "id": "s-security",
+      "title": "Complete the security self-assessment",
+      "detail": "Xero sends the assessment at 800 connections or when you ask for premium API access. Allow about 5 working days to fill it in; Xero then takes 5 to 10 working days to assess it. Failed items need a remediation plan within 30 days and fixes within 60 days. It repeats every year.",
+      "owner": "you",
+      "type": "security_assessment",
+      "paths": [
+        "advanced-scale"
+      ],
+      "evidence": [
+        "e-doc-building-security",
+        "e-security-faq",
+        "e-security-remediation",
+        "e-security-annual"
+      ]
+    }
+  ],
+  "while_you_wait": [
+    {
+      "text": "Build and test against the free demo company. It resets 28 days after creation, so reconnect after each reset.",
+      "paths": [
+        "*"
+      ]
+    },
+    {
+      "text": "Starter allows 5 connected organisations and 1,000 API calls per organisation per day (5,000 on Core and above). Use them for your own organisation, the demo company and first pilots.",
+      "paths": [
+        "*"
+      ]
+    },
+    {
+      "text": "Stay on Core (up to 50 connections) while certification is in progress; your beta customers there count toward the ten active connections Xero checks.",
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ]
+    },
+    {
+      "text": "Watch your connection count in My Apps and disconnect inactive organisations: they still count toward your plan and your bill.",
+      "paths": [
+        "*"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "id": "b-invalid-scope",
+      "symptom": "Xero shows 'Sorry, something went wrong' or an 'Invalid scope' error before the consent screen.",
+      "cause": "A new app (created on or after 2 March 2026) asked for a retired broad scope (accounting.transactions, accounting.reports.read) or accounting.journals.read. The same screen appears when the redirect URI or client ID does not match.",
+      "fix_now": "Use Composio's default scope list unchanged, remove any broad or journals scope, and check the redirect URI matches one saved in My Apps exactly.",
+      "fix_properly": "Request only the granular scopes your enabled tools need. If you truly need the Journals endpoint, plan for the Advanced plan.",
+      "escalate": {
+        "channel": "form",
+        "url": "https://developer.xero.com/contact-xero-developer-platform-support/",
+        "how": "Xero Developer support form. Give the app name exactly as in My Apps.",
+        "draft": "Our Web app \"<app name>\" (client ID <id>, created <date>) gets an 'Invalid scope' error at login.xero.com/identity/connect/authorize. Scopes requested: <list>. Which of these is not available to our app, and what should we request instead?"
+      },
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-doc-troubleshooting",
+        "e-activepieces",
+        "e-granular-new",
+        "e-changelog-journals"
+      ]
+    },
+    {
+      "id": "b-connection-cap",
+      "symptom": "New customers cannot connect once you have 5 connected organisations (or 50 on Core).",
+      "cause": "Each plan caps connections, and every organisation a user ticks counts, including the demo company and test organisations. You stay capped until you meet the next plan's requirements.",
+      "fix_now": "Disconnect test and inactive organisations with 'manage your connections' in the developer portal (needs the Owner role), or add a credit card to move to Core.",
+      "fix_properly": "Start certification well before you reach 50 connections; Xero publishes no timeline for it.",
+      "escalate": {
+        "channel": "form",
+        "url": "https://developer.xero.com/contact-xero-developer-platform-support/",
+        "how": "Xero Developer support form, to ask about moving plans.",
+        "draft": "Our app \"<app name>\" is at <n> connections on the <Starter/Core> plan. We want to move to <Core/Plus>. What do we still need to complete, and how long does certification usually take?"
+      },
+      "paths": [
+        "uncertified",
+        "certified-plus"
+      ],
+      "evidence": [
+        "e-faq-tier-move",
+        "e-faq-tier-cap",
+        "e-pricing-glossary",
+        "e-faq-manage-connections"
+      ]
+    },
+    {
+      "id": "b-insufficient-scope",
+      "symptom": "A Composio Xero tool fails with HTTP 401 and a WWW-Authenticate insufficient_scope header (for example the balance sheet, fixed assets or journals tools).",
+      "cause": "The connection's token lacks the scope that endpoint needs. Composio's default list leaves out accounting.reports.balancesheet.read and assets.read, and accounting.journals.read is only for the Advanced plan.",
+      "fix_now": "Add the missing scope to your auth config and send the user through Connect again; Xero needs fresh consent for new scopes.",
+      "fix_properly": "Before launch, map each Composio tool you enable to its Xero scope and request them all up front.",
+      "escalate": {
+        "channel": "form",
+        "url": "https://developer.xero.com/contact-xero-developer-platform-support/",
+        "how": "Xero Developer support form; include the X-Correlation-Id header from the failed response.",
+        "draft": "Calls to <endpoint> return 401 insufficient_scope for tenant <tenant id>. Correlation ID: <id>. The token has scopes <list>. Which scope does this endpoint need?"
+      },
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-granular-401",
+        "e-granular-reauth",
+        "e-cx-balancesheet",
+        "e-doc-scopes-table",
+        "e-changelog-journals"
+      ]
+    },
+    {
+      "id": "b-org-missing",
+      "symptom": "The customer's organisation is missing from the drop-down on Xero's consent screen, or they cannot add your app.",
+      "cause": "The user needs a Standard, Adviser or Administrator role with the Connected Apps permission, or the app is already connected to that organisation. Each organisation can also connect only a limited number of uncertified apps (Xero's docs say five; an older FAQ says two).",
+      "fix_now": "Ask a user with the right role to connect. If the organisation is at its uncertified-app limit, the customer can disconnect an unused uncertified app.",
+      "fix_properly": "Get certified: Xero sets no per-organisation limit on certified apps.",
+      "escalate": {
+        "channel": "form",
+        "url": "https://developer.xero.com/contact-xero-developer-platform-support/",
+        "how": "Xero Developer support form, with the organisation name as it appears in Xero.",
+        "draft": "A customer (organisation \"<org name>\") cannot connect our app \"<app name>\". Their user has the <role> role. Is the organisation at its uncertified-app limit, or is something else blocking it?"
+      },
+      "paths": [
+        "uncertified"
+      ],
+      "evidence": [
+        "e-faq-org-dropdown",
+        "e-faq-permissions",
+        "e-doc-limits-5apps",
+        "e-faq-uncert-2apps"
+      ]
+    },
+    {
+      "id": "b-dead-connection",
+      "symptom": "A connection that worked stops: API calls return 403 AuthenticationUnsuccessful, or token refresh returns invalid_grant.",
+      "cause": "The demo company reset (every 28 days), the user's role changed or access was revoked, or the refresh token went unused for 60 days.",
+      "fix_now": "Send the user through Connect again to create a fresh connection.",
+      "fix_properly": "Keep offline_access in your scopes, make at least one call per connection well within 60 days, and show a 'Reconnect to Xero' prompt when calls fail.",
+      "escalate": {
+        "channel": "form",
+        "url": "https://developer.xero.com/contact-xero-developer-platform-support/",
+        "how": "Xero Developer support form; include the X-Correlation-Id of a failed call.",
+        "draft": "Tenant <tenant id> on our app \"<app name>\" returns 403 AuthenticationUnsuccessful since <date>. Correlation ID: <id>. The user has not disconnected the app. Can you see why the connection is no longer authorised?"
+      },
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-doc-devaccounts",
+        "e-doc-troubleshooting-tenant",
+        "e-faq-refresh"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "q": "self_serve_registration",
+      "answer": "yes",
+      "detail": "Create a Web app yourself in My Apps with a free Xero login. There is no dynamic client registration.",
+      "evidence": [
+        "e-faq-getting-started",
+        "e-github-newapp",
+        "e-oidc-probe"
+      ]
+    },
+    {
+      "q": "external_without_review",
+      "answer": "partly",
+      "detail": "Yes for up to 50 connected organisations (5 free, then Core with a credit card); beyond that Xero requires certification. Xero's commercial terms also say certification is needed to offer an integration 'unless we advise you otherwise', which conflicts with the plan table.",
+      "evidence": [
+        "e-doc-limits-uncert",
+        "e-pricing-prereqs",
+        "e-faq-tier-move",
+        "e-commercial-cert",
+        "e-faq-cert-core"
+      ]
+    },
+    {
+      "q": "scope_tiers",
+      "answer": "partly",
+      "detail": "All 31 Composio default scopes are standard. Journals, Practice Manager, payment services, bank feeds, Finance and Account Data scopes need extra certification or approval.",
+      "evidence": [
+        "e-doc-scopes-cert",
+        "e-faq-premium",
+        "e-changelog-journals"
+      ]
+    },
+    {
+      "q": "app_review",
+      "answer": "partly",
+      "detail": "No review up to 50 connections. Plus and above need certification against Xero's checkpoints; App Store listing is only for Plus and above.",
+      "evidence": [
+        "e-pricing-prereqs",
+        "e-doc-checkpoints-plus",
+        "e-faq-appstore"
+      ]
+    },
+    {
+      "q": "security_assessment",
+      "answer": "partly",
+      "detail": "Above 1,000 connections or for premium APIs: a security self-assessment, initial and annual. Certified apps also go through an annual recertification.",
+      "evidence": [
+        "e-pricing-prereqs",
+        "e-security-annual",
+        "e-doc-building-security",
+        "e-commercial-recert"
+      ]
+    },
+    {
+      "q": "user_caps",
+      "answer": "yes",
+      "detail": "Connection caps by plan: 5 Starter, 50 Core, 1,000 Plus, 10,000 Advanced. Each organisation can also connect only a limited number of uncertified apps.",
+      "evidence": [
+        "e-pricing-fees",
+        "e-faq-tier-cap",
+        "e-doc-limits-5apps"
+      ]
+    },
+    {
+      "q": "identity_requirements",
+      "answer": "partly",
+      "detail": "Your app needs its own terms of use and privacy policy, and paid plans need a credit card. No domain or business verification step was found.",
+      "evidence": [
+        "e-terms-privacy",
+        "e-pricing-billing"
+      ]
+    },
+    {
+      "q": "partner_or_paid",
+      "answer": "yes",
+      "detail": "Free only up to 5 connections. Core AUD 35, Plus AUD 245 (certified), Advanced AUD 1,445 a month plus tax, plus AUD 2.40 per GB of egress over the allowance.",
+      "evidence": [
+        "e-pricing-fees",
+        "e-pricing-egress",
+        "e-pricing-plans"
+      ]
+    },
+    {
+      "q": "test_mode_limits",
+      "answer": "yes",
+      "detail": "Starter: 1,000 calls per organisation per day, 60 per minute, 5 at once. Demo company resets after 28 days. Access tokens last 30 minutes; refresh tokens expire after 60 days unused.",
+      "evidence": [
+        "e-faq-ratelimits",
+        "e-doc-devaccounts",
+        "e-faq-access",
+        "e-faq-refresh"
+      ]
+    },
+    {
+      "q": "published_timelines",
+      "answer": "partly",
+      "detail": "Security assessment: about 5 working days to complete plus 5 to 10 working days of Xero review. No published timeline for certification; one vendor reports several months.",
+      "evidence": [
+        "e-security-faq",
+        "e-codat-months"
+      ]
+    },
+    {
+      "q": "escalation",
+      "answer": "yes",
+      "detail": "Xero Developer support form, which asks for your app name as registered in My Apps.",
+      "evidence": [
+        "e-support-form"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "question": "Does Xero expect certification before you offer an app to customers on Core (connections 6 to 50)?",
+      "why": "Xero's commercial terms and one FAQ answer say certification applies from Core, while the plan table, the limits page and the tier FAQ show Core needs only a payment method. If certification were enforced at Core, external use beyond 5 connections would need a review.",
+      "how_to_find_out": "Ask Xero Developer support before onboarding your 6th customer, and check the requirements shown in 'Manage Plan'.",
+      "level_deciding": true,
+      "paths": [
+        "uncertified"
+      ]
+    },
+    {
+      "question": "How long does certification take?",
+      "why": "It decides when you can pass 50 connections. Xero publishes no timeline; Codat reports several months.",
+      "how_to_find_out": "Ask your Xero developer contact when you apply via 'Manage Plan', or ask in Xero's developer office hours.",
+      "level_deciding": false,
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ]
+    },
+    {
+      "question": "What the annual recertification involves for a Plus app that is not listed on the App Store",
+      "why": "The commercial terms mention an annual recertification process but do not describe it; it adds recurring work.",
+      "how_to_find_out": "Xero says it explains the requirements when you apply for certification; ask then.",
+      "level_deciding": false,
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ]
+    },
+    {
+      "question": "Is 'Sign Up with Xero' required for certification?",
+      "why": "The certification checkpoints say it is not required, but the partner guide lists it as a prerequisite and the pricing FAQ says App Store apps need it. It could add build work.",
+      "how_to_find_out": "Confirm with Xero when you apply; plan to build it if you want an App Store listing.",
+      "level_deciding": false,
+      "paths": [
+        "certified-plus",
+        "advanced-scale"
+      ]
+    },
+    {
+      "question": "How many uncertified apps can one customer organisation connect: five or two?",
+      "why": "Customers who already use several uncertified apps may be unable to connect yours.",
+      "how_to_find_out": "Ask Xero Developer support; the limits page (five) is the more recent of the two sources.",
+      "level_deciding": false,
+      "paths": [
+        "uncertified"
+      ]
+    }
+  ],
+  "composio_notes": [
+    {
+      "text": "Composio has no managed OAuth app for Xero, so you must bring your own Xero app before any user can connect.",
+      "evidence": [
+        "e-cx-managed"
+      ]
+    },
+    {
+      "text": "Redirect URI: register Composio's current callback, https://backend.composio.dev/api/v3/toolkits/auth/callback, and make it match the redirect URI in your Composio auth config exactly. The Xero toolkit default still points at the legacy https://backend.composio.dev/api/v1/auth-apps/add; if you keep that default, register the legacy URI. Xero allows up to 50 redirect URIs, so registering both is harmless.",
+      "evidence": [
+        "e-cx-auth-guide-redirect",
+        "e-faq-redirects"
+      ]
+    },
+    {
+      "text": "Composio's Xero setup guide still lists the broad scopes accounting.transactions and accounting.reports.read. Do not copy them: apps created on or after 2 March 2026 cannot request them. Composio's toolkit default scopes are already the granular ones.",
+      "evidence": [
+        "e-cx-auth-guide-scopes",
+        "e-granular-new",
+        "e-changelog-deprecation"
+      ]
+    },
+    {
+      "text": "Some Composio Xero tools need scopes outside the default list: the balance sheet tool needs accounting.reports.balancesheet.read, the asset tools need assets.read, and the List Journals tool needs accounting.journals.read, which only Advanced-plan apps get.",
+      "evidence": [
+        "e-cx-balancesheet",
+        "e-cx-assets",
+        "e-cx-journals",
+        "e-doc-scopes-table",
+        "e-doc-scopes-assets",
+        "e-changelog-journals"
+      ]
+    },
+    {
+      "text": "Composio's Xero tools take an optional tenant_id; if you leave it out they use the first connected organisation. Pass it explicitly when a user connects more than one organisation.",
+      "evidence": [
+        "e-cx-tenant",
+        "e-doc-authflow-tenants"
+      ]
+    },
+    {
+      "text": "Xero's Custom Connections (client credentials, one organisation, paid monthly by that organisation) do not fit Composio's Xero toolkit, which uses the OAuth2 redirect flow. Use a Web app even for your own organisation.",
+      "evidence": [
+        "e-doc-overview",
+        "e-cx-managed"
+      ]
+    },
+    {
+      "text": "For agent builders: Xero's developer terms ban using data from its APIs to train or fine-tune AI models, including LLMs. Keep Xero data out of any training or fine-tuning sets.",
+      "evidence": [
+        "e-terms-ai"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e-oidc-probe",
+      "label": "tested",
+      "url": "https://identity.xero.com/.well-known/openid-configuration",
+      "title": "Xero OpenID Connect discovery document",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "no registration_endpoint; code_challenge_methods_supported: S256; grant_types_supported: authorization_code, client_credentials, refresh_token; token_endpoint_auth_methods_supported: client_secret_basic, client_secret_post",
+      "probe": {
+        "kind": "oidc_discovery",
+        "target": "https://identity.xero.com/.well-known/openid-configuration",
+        "ok": true,
+        "summary": "Discovery document served; no registration_endpoint (no DCR); PKCE S256 only.",
+        "data": {
+          "issuer": "https://identity.xero.com",
+          "authorization_endpoint": "https://login.xero.com/identity/connect/authorize",
+          "token_endpoint": "https://identity.xero.com/connect/token",
+          "revocation_endpoint": "https://identity.xero.com/connect/revocation",
+          "registration_endpoint": null,
+          "code_challenge_methods_supported": [
+            "S256"
+          ],
+          "grant_types_supported": [
+            "authorization_code",
+            "client_credentials",
+            "refresh_token"
+          ],
+          "token_endpoint_auth_methods_supported": [
+            "client_secret_basic",
+            "client_secret_post"
+          ]
+        }
+      }
+    },
+    {
+      "id": "e-pricing-plans",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "title": "Xero Developer Pricing and Policies",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "we are retiring our current revenue share model (comprising Xero App Store Subscriptions and Commercial Billing) and introducing five plans: Starter, Core, Plus, Advanced, Enterprise. These plans are based on connections and data egress volume via the Xero APIs",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-pricing-date",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "title": "Xero Developer Pricing and Policies",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "App plans and pricing model changes will take effect on 2 March, 2026.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-pricing-fees",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "title": "Xero Developer Pricing: plan fees and connection limits",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Connections (maximum) | 5 | 50 | 1000 | 10,000 | No limit | Monthly Tier Fee | No charge | $35 AUD | $245 AUD | $1445 AUD | Price on Application",
+      "note": "Columns are Starter, Core, Plus, Advanced, Enterprise. Pricing is tax exclusive.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-pricing-egress",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "title": "Xero Developer Pricing: API egress allowance and overage",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Monthly Xero API usage (Egress GBs)* | n/a | 10 GBs | 50 GBs | 250 GBs | Volume on Application | Overage Xero API usage egress pricing (per GB) | n/a | $2.40 AUD | $2.40 AUD | $2.40 AUD | Price on Application",
+      "note": "Columns are Starter, Core, Plus, Advanced, Enterprise.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-pricing-prereqs",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "title": "Xero Developer Pricing: plan prerequisites",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Prerequisites | | | App Certification | App Certification | App Certification | Prerequisites (continued) | | | | Security Assessment (initial and annual) | Security Assessment (initial and annual)",
+      "note": "Columns are Starter, Core, Plus, Advanced, Enterprise: certification from Plus, security assessment from Advanced. Starter and Core list no prerequisite.",
+      "conflicts_with": [
+        "e-commercial-cert",
+        "e-faq-cert-core"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-pricing-billing",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "title": "Xero Developer Pricing: billing",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Payments are accepted via registered credit card. Your card details will be required when moving from the Starter to the Core plan.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-pricing-glossary",
+      "label": "official",
+      "url": "https://developer.xero.com/pricing",
+      "title": "Xero Developer Pricing: glossary",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Connections: customer or tenants connected to your app via a valid OAuth connection",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-tier-move",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: How do I move between tiers?",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "New apps created in the Xero Developer portal will default to the Starter tier. The Starter tier has unlimited data access to enable early innovation but is capped at 5 connections. In order to add a 6th connection, you will need to first add your payment details.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-tier-cap",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: connection numbers and tiers",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "We encourage you to monitor your connection numbers as you need to apply to move between tiers and meet tier requirements before you will be moved up a tier. Your connections are capped at the tier maximums until you meet that tier's requirements.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-cert-core",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: question 22",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "What is the specific process, time commitment, and primary criteria for the \"App certification\" requirement for the Core, Plus, Advanced, and Enterprise tiers?",
+      "note": "The question text names Core as needing certification; the plan table and FAQ 24 say Core only needs payment details.",
+      "conflicts_with": [
+        "e-pricing-prereqs",
+        "e-faq-tier-move"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-appstore",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: App Store listing by tier",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "A Xero App Store listing is required for the Enterprise tier, recommended but optional for the Plus and Advanced tiers, and not available for the Starter and Core tiers.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-premium",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: premium features",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The Journals endpoint, Xero Practice Manager API, and Bulk Connections require a security assessment (initial and annual) and use case approval, and they are only available starting at the Advanced tier.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-manualjournals",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: manual journals",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Manual Journals will continue to be available to apps in all tiers. It is not connected to Journals as a premium API in the Advanced tier.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-ratelimits",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: rate limits by tier",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Concurrent Limit: 5 calls in progress at one time. Minute Limit: 60 calls per minute Daily Limit: 1,000 calls per day for starter, 5,000 calls per day for higher tiers",
+      "conflicts_with": [
+        "e-faq-limits-daily"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-limits-daily",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/limits",
+      "title": "Limits FAQs",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Concurrent Limit: 5 calls in progress at one time Minute Limit: 60 calls per minute Daily Limit: 5000 calls per day",
+      "note": "Older FAQ that gives one daily limit for all apps; the pricing FAQ and limits page give 1,000 per day on Starter.",
+      "conflicts_with": [
+        "e-faq-ratelimits"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-manage-connections",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: managing connections",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "If you want to clean up connections, there is also a new \"manage your connections\" feature available in the Xero Developer Portal that will enable you to easily disconnect inactive connections.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-signup",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/pricing-and-policy-updates",
+      "title": "Pricing and Policy Updates FAQs: Sign Up with Xero",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Sign Up with Xero is still required for ecosystem apps listed on the Xero App Store.",
+      "conflicts_with": [
+        "e-doc-checkpoints-signup"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-getting-started",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/getting-started",
+      "title": "Getting started FAQs",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The Xero API does not support basic API Key authentication. Our API uses OAuth 2.0 which means you need to register your app to get a client id and client secret which you use to access the API.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-demo",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/getting-started",
+      "title": "Getting started FAQs: development accounts",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Once you have done that, you have two options as to how you can begin development without incurring any cost: Use the demo company (recommended)",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-pkce",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "title": "OAuth 2.0 FAQs: PKCE",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Xero supports the Proof Key for Code Exchange (PKCE) extension to the authorization code flow. This allows native apps to securely connect to our API without needing to store a client secret. Single page apps are not currently supported.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-access",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "title": "OAuth 2.0 FAQs: access token expiry",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "What is the expiration for an access token? 30 minutes.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-refresh",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "title": "OAuth 2.0 FAQs: refresh token expiry",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Unused refresh tokens expire after 60 days. If you don’t refresh your access token within 60 days the user will need to reauthorise your app.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-redirects",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/oauth2",
+      "title": "OAuth 2.0 FAQs: redirect URIs",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The use of wildcards in redirect URI is not supported. How many redirect URIs can I use for my app? You can use up to 50 redirect URIs for your app.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-granular-new",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/granular-scopes",
+      "title": "Granular Scopes FAQs",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Apps created on or after 2 March 2026 will use the new granular scopes",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-granular-401",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/granular-scopes",
+      "title": "Granular Scopes FAQs: missing scope error",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The API will return a 401 forbidden error with a response header WWW-Authenticate:insufficent_scope.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-granular-reauth",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/granular-scopes",
+      "title": "Granular Scopes FAQs: re-authorisation",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Because you are requesting a different set of permissions, the user must provide explicit consent for the granular scopes.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-permissions",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/permissions",
+      "title": "Permissions FAQs: who can connect an app",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The user that connects the integration has to have either Standard, Adviser, or Administrator level user with the Connected Apps permission.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-org-dropdown",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/permissions",
+      "title": "Permissions FAQs: organisation missing from drop-down",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "If your organisation isn't showing in the organisation dropdown, this means either that you don't have Standard or Adviser level permissions in that organisation, or you already connected that particular app to the organisation.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-faq-uncert-2apps",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/custom-integration",
+      "title": "Custom Integration FAQs: uncertified app limit per organisation",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "This won't affect the uncertified app limit. So an org can have 2 uncertified apps plus as many custom connection apps as needed.",
+      "conflicts_with": [
+        "e-doc-limits-5apps"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-security-faq",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/xero-ecosystem-security-requirements-update",
+      "title": "Xero Ecosystem Security Requirements Update FAQs: duration",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Typically the assessment takes around 5 working days to complete, followed by 5-10 working days for us to assess your answers.",
+      "note": "This FAQ dates from Xero's 2020 security rollout but is still live; the current pricing page ties the assessment to the Advanced and Enterprise plans.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-security-annual",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/xero-ecosystem-security-requirements-update",
+      "title": "Xero Ecosystem Security Requirements Update FAQs: frequency",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "How often do I need to do this? The security assessment will need to be undertaken annually.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-security-remediation",
+      "label": "official",
+      "url": "https://developer.xero.com/faq/xero-ecosystem-security-requirements-update",
+      "title": "Xero Ecosystem Security Requirements Update FAQs: remediation",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "You will then have 30 days to provide us with a remediation plan detailing how you will address the items in the report followed by 60 days to implement the changes.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-terms-privacy",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-terms-conditions",
+      "title": "Xero Developer Platform Terms and Conditions: your terms",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Your apps must include your own legally binding terms of use and privacy policy (your terms) that are available to any user of your apps and our services.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-terms-ai",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-terms-conditions",
+      "title": "Xero Developer Platform Terms and Conditions: AI models",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "You must not use API Data sourced from the Xero developer platform to train or fine tune any artificial intelligence models including machine learning tools, large language models or predictive analytics tools",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-commercial-cert",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-commercial-terms",
+      "title": "Xero Developer Platform Commercial Terms: getting certified",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "To offer Your Integration to our Users, you and Your App will need to be certified by us (unless we advise you otherwise).",
+      "conflicts_with": [
+        "e-pricing-prereqs",
+        "e-faq-tier-move"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-commercial-recert",
+      "label": "official",
+      "url": "https://developer.xero.com/xero-developer-platform-commercial-terms",
+      "title": "Xero Developer Platform Commercial Terms: annual recertification",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "We'll let you know more about the requirements you need to meet, including the annual recertification process, when you apply for certification.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-changelog-granular-new",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "title": "Changelog: New granular scope for the Accounting API (4 March 2026)",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "You can now request smaller, more specific scopes instead of the broad accounting.transactions and accounting.reports.read scopes.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-changelog-journals",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "title": "Changelog: New granular scope for the Accounting API (4 March 2026)",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "accounting.journals.read is no longer granted by default. To access journals, you'll need the Advanced tier and certification.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-changelog-deprecation",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "title": "Changelog: Broad scopes deprecation (6 August 2026)",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Broad scopes for the Accounting API are being replaced by granular scopes. Apps created on or after 2 March 2026 already use granular scopes. Existing apps have until 13 September 2027 to migrate.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-changelog-unchanged",
+      "label": "official",
+      "url": "https://developer.xero.com/changelog",
+      "title": "Changelog: Broad scopes deprecation (6 August 2026)",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The accounting.reports.read scope is replaced by individual report scopes. Scopes for settings, contacts, attachments, and budgets are unchanged.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-support-form",
+      "label": "official",
+      "url": "https://developer.xero.com/contact-xero-developer-platform-support/",
+      "title": "Contact Xero Developer Support",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Application name Name of the API application as registered in the My apps area",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-github-newapp",
+      "label": "official",
+      "url": "https://github.com/XeroAPI/xero-python-oauth2-starter",
+      "title": "XeroAPI/xero-python-oauth2-starter README: Create a Xero App",
+      "publisher": "Xero (XeroAPI on GitHub)",
+      "retrieved": "2026-10-20",
+      "excerpt": "Click \"New App\" link Enter your App name, company url, privacy policy url. Enter the redirect URI (your callback url - i.e. http://localhost:5000/callback )",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-github-secret",
+      "label": "official",
+      "url": "https://github.com/XeroAPI/xero-python-oauth2-starter",
+      "title": "XeroAPI/xero-python-oauth2-starter README: Create a Xero App",
+      "publisher": "Xero (XeroAPI on GitHub)",
+      "retrieved": "2026-10-20",
+      "excerpt": "Click \"Generate a secret\" button. Copy your client id and client secret and save for use later. Click the \"Save\" button. You secret is now hidden.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-limits-uncert",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/limits/",
+      "title": "OAuth 2.0 API limits: Uncertified app limits",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "New apps default to the starter tier with 5 connections. Moving up to Core will give you up to 50 connections. To be listed on the App Store, you will need to be in the Plus tier or above.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. The older '25 organisations' uncertified limit is no longer on this page. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-limits-5apps",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/limits/",
+      "title": "OAuth 2.0 API limits: Uncertified app limits per organisation",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Additionally, each organisation or practice is limited to connecting a maximum of five uncertified apps. There is no limit on connecting certified apps.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "conflicts_with": [
+        "e-faq-uncert-2apps"
+      ],
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-overview",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/overview/",
+      "title": "OAuth 2.0 overview",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Apps using the code or PKCE flow can connect to a maximum of 5 tenants. To connect to more than 5 tenants you need to upgrade to the Core Tier. Custom Connections can only ever connect to a single organisation.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-scopes-granular",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "title": "OAuth 2.0 scopes: Accounting API granular scopes",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Web and PKCE apps – Since March 2026, all new and existing Web and PKCE apps have been assigned granular scopes.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-scopes-cert",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "title": "OAuth 2.0 scopes: scopes needing additional certification",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The following scopes are only available after additional certification. If you require access to these scopes please let us know once you register to be a partner. Additional commercial agreements may apply.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. This line sits after the OpenID, Accounting, Payroll, Files, Assets and Projects tables (which hold all 31 Composio default scopes) and applies only to Payment services, Bank feeds, Finance and Account Data scopes. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-scopes-table",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "title": "OAuth 2.0 scopes: balance sheet scope",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "accounting.reports.balancesheet.read | New | View balance sheets | BalanceSheet",
+      "note": "Page renders client-side; excerpt is a table row from the rendered page content (rendered read by the research agent), read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-scopes-assets",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/scopes/",
+      "title": "OAuth 2.0 scopes: Assets API",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "assets.read | View your fixed assets",
+      "note": "Page renders client-side; excerpt is a table row from the rendered page content (rendered read by the research agent), read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-authflow-create",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/auth-flow/",
+      "title": "The standard authorization code flow",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "To get started, create an OAuth2 app and make sure you select the “Auth Code” grant type. Your app is assigned a unique Client ID and you can then generate a Client Secret.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-authflow-redirect",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/auth-flow/",
+      "title": "The standard authorization code flow: redirect_uri",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "This must be an https address, however for testing you can use http://localhost/ Please note that http://127.0.0.1 cannot be used",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-authflow-tenants",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/auth-flow/",
+      "title": "The standard authorization code flow: Xero tenants",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "A user may have access to multiple tenants and will choose which ones to connect to your app.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-devaccounts",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/development-accounts/",
+      "title": "Development accounts",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "When the demo company resets (after 28 days) you will need to reconnect your app to the demo company.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-building-cert",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/building-and-growing-your-app/",
+      "title": "Building and growing your app: get your integration certified",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Once you’re on the Core Plan, you can then upgrade to the Plus Plan and get certified as part of the upgrade. To do this, log into the Xero Developer Centre, Select your app, then click ‘Manage Plan’.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-building-prereq",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/building-and-growing-your-app/",
+      "title": "Building and growing your app: reviewing your integration",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Checking your app meets prerequisites e.g. you’ve built Sign Up with Xero and have ten active customer connections.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "conflicts_with": [
+        "e-doc-checkpoints-signup"
+      ],
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-building-security",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/building-and-growing-your-app/",
+      "title": "Building and growing your app: global security standards",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Until then, your connection numbers will be capped at 999 and you will not have access to the Xero Practice Manager or Xero HQ APIs. We’ll share the self-assessment with you once you reach 800 connections or when you request access to the Xero Practice Manager API.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-checkpoints-plus",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "title": "Certification checkpoints",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Outlined below are the checkpoints we will review your integration against during the certification process. Take time to review these before you submit your integration for certification. Once certified you'll be upgraded to the Plus Tier.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-checkpoints-offline",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "title": "Certification checkpoints: scopes",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Using the offline_access scope is a requirement for certification.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-checkpoints-name",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "title": "Certification checkpoints: branding and naming",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The application name must reflect the go-to-market name of your app or product and cannot include the word Xero.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-checkpoints-signup",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/xero-app-store/app-partner-guides/certification-checkpoints/",
+      "title": "Certification checkpoints: Sign Up with Xero",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "Although not a requirement, we encourage Apps to implement Sign Up with Xero.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "conflicts_with": [
+        "e-doc-building-prereq",
+        "e-faq-signup"
+      ],
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-troubleshooting",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/troubleshooting/",
+      "title": "OAuth 2.0 troubleshooting: 500 error when starting authorization",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The redirect_uri doesn’t match one of the Redirect URIs saved against your app on developer.xero.com You’ve requested an invalid scope Your client_id isn’t correct",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-doc-troubleshooting-tenant",
+      "label": "official",
+      "url": "https://developer.xero.com/documentation/guides/oauth2/troubleshooting/",
+      "title": "OAuth 2.0 troubleshooting: Authentication unsuccessful",
+      "publisher": "Xero",
+      "retrieved": "2026-10-20",
+      "excerpt": "The tenant is no longer active. This generally occurs when an organisation has been deleted, the free trial has ended or a demo organisation has been reset.",
+      "note": "Page renders client-side; the automated verifier cannot read it, so the excerpt comes from the research agent’s rendered read, read 2026-10-20. Tier figures are corroborated by Xero’s pricing FAQ and independent summaries (Apideck, DataBuzz).",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cx-managed",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero",
+      "title": "Composio toolkit: Xero",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Authentication Details Composio-managed OAuth not available",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cx-tenant",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "title": "Composio toolkit: Xero (tool parameters)",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Xero tenant/organization ID. If omitted, uses the first connected tenant.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cx-journals",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "title": "Composio toolkit: Xero, List Journals tool",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Retrieve journals from Xero. Journals show the accounting entries for all transactions.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cx-balancesheet",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "title": "Composio toolkit: Xero, Get Balance Sheet Report tool",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Retrieve Balance Sheet report from Xero. Shows assets, liabilities, and equity at a specific date.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cx-assets",
+      "label": "official",
+      "url": "https://docs.composio.dev/toolkits/xero.md",
+      "title": "Composio toolkit: Xero, List Assets tool",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Retrieve fixed assets from Xero. Assets track depreciation and book value of capital equipment.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cx-auth-guide-redirect",
+      "label": "official",
+      "url": "https://composio.dev/auth/xero",
+      "title": "How to create OAuth2 credentials for Xero",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Redirect URI: https://backend.composio.dev/api/v3/toolkits/auth/callback This is required for Composio to complete the OAuth handshake.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cx-auth-guide-scopes",
+      "label": "official",
+      "url": "https://composio.dev/auth/xero",
+      "title": "How to create OAuth2 credentials for Xero: scopes list",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "accounting.transactions → Read and write invoices, bills, payments",
+      "note": "Composio's guide still lists Xero's deprecated broad scopes; it is accurate about Composio, not about current Xero scope rules.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-workos-form",
+      "label": "reported",
+      "url": "https://workos.com/docs/integrations/xero-oauth",
+      "title": "WorkOS docs: Xero OAuth",
+      "publisher": "WorkOS",
+      "retrieved": "2026-10-20",
+      "excerpt": "In the top right corner, select New app . Fill out the form starting with the application name. For the Integration type , select Web app .",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-activepieces",
+      "label": "reported",
+      "url": "https://community.activepieces.com/t/xero-integration-issues-following-xero-change-to-granular-scope/12135",
+      "title": "Xero Integration issues following Xero change to granular scope",
+      "publisher": "Activepieces Community",
+      "retrieved": "2026-10-20",
+      "excerpt": "however if I select either of the two deprecated scopes, or ‘accounting journals.read’ it fails error code 500 Invalid Scope.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-codat-months",
+      "label": "reported",
+      "url": "https://docs.codat.io/integrations/accounting/xero/xero-app-partner-program",
+      "title": "Become a Xero App Partner",
+      "publisher": "Codat",
+      "retrieved": "2026-10-20",
+      "excerpt": "It can take several months to become a Xero App Partner, so we advise you to begin the process well before you need to connect more than 5 Xero users via your integration.",
+      "note": "Third-party estimate, not a Xero commitment.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    }
+  ],
+  "last_verified": "2026-10-20"
+}

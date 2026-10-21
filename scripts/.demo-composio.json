@@ -1,0 +1,508 @@
+{
+ "github": {
+  "name": "GitHub",
+  "authSchemes": [
+   "OAUTH2"
+  ],
+  "managed": [
+   "OAUTH2"
+  ],
+  "toolCount": 899,
+  "default_scopes": [
+   "repo",
+   "user",
+   "gist",
+   "notifications",
+   "project",
+   "workflow",
+   "codespace"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "repo,user,gist,notifications,project,workflow,codespace",
+    "description": "Scopes to request from the user, comma separated"
+   }
+  ],
+  "connection_fields": []
+ },
+ "gmail": {
+  "name": "Gmail",
+  "authSchemes": [
+   "OAUTH2"
+  ],
+  "managed": [
+   "OAUTH2"
+  ],
+  "toolCount": 63,
+  "default_scopes": [
+   "https://www.googleapis.com/auth/userinfo.profile",
+   "https://www.googleapis.com/auth/userinfo.email",
+   "https://www.googleapis.com/auth/contacts.readonly",
+   "https://www.googleapis.com/auth/contacts.other.readonly",
+   "https://www.googleapis.com/auth/profile.language.read",
+   "https://www.googleapis.com/auth/user.addresses.read",
+   "https://www.googleapis.com/auth/user.birthday.read",
+   "https://www.googleapis.com/auth/user.emails.read",
+   "https://www.googleapis.com/auth/user.phonenumbers.read",
+   "https://www.googleapis.com/auth/profile.emails.read",
+   "https://mail.google.com/"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "https://www.googleapis.com/auth/userinfo.profile,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/contacts.readonly,https://www.googleapis.com/auth/contacts.other.readonly,https://www.googleapis.com/auth/profile.language.read,https://www.googleapis.com/auth/user.addresses.read,https://www.googleapis.com/auth/user.birthday.read,https://www.googleapis.com/auth/user.emails.read,https://www.googleapis.com/auth/user.phonenumbers.read,https://www.googleapis.com/auth/profile.emails.read,https://mail.google.com/",
+    "description": "Scopes to request from the user, comma separated"
+   }
+  ],
+  "connection_fields": []
+ },
+ "slack": {
+  "name": "Slack",
+  "authSchemes": [
+   "OAUTH2"
+  ],
+  "managed": [
+   "OAUTH2"
+  ],
+  "toolCount": 170,
+  "default_scopes": [
+   "calls:read",
+   "calls:write",
+   "channels:history",
+   "channels:read",
+   "channels:write",
+   "chat:write",
+   "dnd:read",
+   "dnd:write",
+   "emoji:read",
+   "files:read",
+   "files:write",
+   "groups:history",
+   "groups:read",
+   "groups:write",
+   "im:history",
+   "im:read",
+   "im:write",
+   "links:read",
+   "links:write",
+   "lists:read",
+   "lists:write",
+   "mpim:history",
+   "mpim:read",
+   "mpim:write",
+   "pins:read",
+   "pins:write",
+   "reactions:read",
+   "reactions:write",
+   "reminders:read",
+   "reminders:write",
+   "remote_files:read",
+   "remote_files:share",
+   "search:read",
+   "search:read.files",
+   "search:read.im",
+   "search:read.mpim",
+   "search:read.private",
+   "search:read.public",
+   "search:read.users",
+   "team:read",
+   "usergroups:read",
+   "usergroups:write",
+   "users.profile:read",
+   "users.profile:write",
+   "users:read",
+   "users:read.email",
+   "users:write"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "calls:read,calls:write,channels:history,channels:read,channels:write,chat:write,dnd:read,dnd:write,emoji:read,files:read,files:write,groups:history,groups:read,groups:write,im:history,im:read,im:write,links:read,links:write,lists:read,lists:write,mpim:history,mpim:read,mpim:write,pins:read,pins:write,reactions:read,reactions:write,reminders:read,reminders:write,remote_files:read,remote_files:share,search:read,search:read.files,search:read.im,search:read.mpim,search:read.private,search:read.public,search:read.users,team:read,usergroups:read,usergroups:write,users.profile:read,users.profile:write,users:read,users:read.email,users:write",
+    "description": "Scopes to request from the user, comma separated"
+   },
+   {
+    "name": "verification_token",
+    "required": false,
+    "default": null,
+    "description": "Verification token required to verify the request is coming from slack. You can find it in the slack app settings just below the client id and secret. It is required to enable Slack triggers."
+   }
+  ],
+  "connection_fields": [
+   {
+    "name": "generic_id",
+    "required": false,
+    "default": null,
+    "description": "Optional Slack workspace ID used to scope the OAuth authorize flow to a specific team. When provided, Slack will only allow installation in this workspace. Leave unset to let users pick any workspace they have access to."
+   }
+  ]
+ },
+ "shopify": {
+  "name": "Shopify",
+  "authSchemes": [
+   "OAUTH2",
+   "S2S_OAUTH2"
+  ],
+  "toolCount": 407,
+  "default_scopes": [
+   "read_products",
+   "write_products",
+   "read_orders",
+   "write_orders",
+   "read_customers",
+   "write_customers",
+   "read_inventory",
+   "write_inventory",
+   "read_fulfillments",
+   "write_fulfillments",
+   "read_assigned_fulfillment_orders",
+   "write_assigned_fulfillment_orders",
+   "read_content",
+   "write_content",
+   "read_themes",
+   "write_themes",
+   "read_locations",
+   "read_shipping",
+   "write_shipping",
+   "read_gift_cards",
+   "write_gift_cards",
+   "read_script_tags",
+   "write_script_tags",
+   "read_marketing_events",
+   "write_marketing_events",
+   "read_price_rules",
+   "write_price_rules",
+   "read_discounts",
+   "write_discounts",
+   "read_draft_orders",
+   "write_draft_orders",
+   "read_metaobjects",
+   "write_metaobjects",
+   "read_webhooks",
+   "write_webhooks",
+   "read_publications"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "read_products,write_products,read_orders,write_orders,read_customers,write_customers,read_inventory,write_inventory,read_fulfillments,write_fulfillments,read_assigned_fulfillment_orders,write_assigned_fulfillment_orders,read_content,write_content,read_themes,write_themes,read_locations,read_shipping,write_shipping,read_gift_cards,write_gift_cards,read_script_tags,write_script_tags,read_marketing_events,write_marketing_events,read_price_rules,write_price_rules,read_discounts,write_discounts,read_draft_orders,write_draft_orders,read_metaobjects,write_metaobjects,read_webhooks,write_webhooks,read_publications",
+    "description": "Scopes to request from the user, comma separated"
+   }
+  ],
+  "connection_fields": [
+   {
+    "name": "subdomain",
+    "required": true,
+    "default": null,
+    "description": "Your store's permanent myshopify.com name — the 'acme' in acme.myshopify.com. Find it under Settings → Domains; enter this name, not your custom domain."
+   }
+  ]
+ },
+ "linkedin": {
+  "name": "LinkedIn",
+  "authSchemes": [
+   "OAUTH2"
+  ],
+  "managed": [
+   "OAUTH2"
+  ],
+  "toolCount": 25,
+  "default_scopes": [
+   "openid",
+   "profile",
+   "w_member_social",
+   "email"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "openid,profile,w_member_social,email",
+    "description": "Scopes to request from the user, comma separated"
+   }
+  ],
+  "connection_fields": []
+ },
+ "salesforce": {
+  "name": "Salesforce",
+  "authSchemes": [
+   "OAUTH2",
+   "S2S_OAUTH2"
+  ],
+  "managed": [
+   "OAUTH2"
+  ],
+  "toolCount": 239,
+  "default_scopes": [
+   "full",
+   "refresh_token",
+   "openid"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "full,refresh_token,openid",
+    "description": "Scopes to request from the user, comma separated"
+   }
+  ],
+  "connection_fields": [
+   {
+    "name": "subdomain",
+    "required": true,
+    "default": "login",
+    "description": "The part of your Salesforce URL before .salesforce.com (e.g. 'acme.my'). Most accounts can keep the default 'login' — your real instance is detected after you sign in."
+   },
+   {
+    "name": "suffix.one",
+    "required": true,
+    "default": "/services/data/v67.0",
+    "description": "The API version path added to your Salesforce address (e.g. /services/data/v67.0). Most accounts can keep the default; change it only if your org needs another version."
+   }
+  ]
+ },
+ "outlook": {
+  "name": "Outlook",
+  "authSchemes": [
+   "OAUTH2",
+   "S2S_OAUTH2"
+  ],
+  "managed": [
+   "OAUTH2"
+  ],
+  "toolCount": 325,
+  "default_scopes": [
+   "Calendars.Read",
+   "Calendars.ReadWrite",
+   "Calendars.ReadWrite.Shared",
+   "Contacts.ReadWrite",
+   "Chat.ReadWrite",
+   "Mail.Read",
+   "Mail.ReadWrite",
+   "Mail.Send",
+   "MailboxSettings.Read",
+   "MailboxSettings.ReadWrite",
+   "offline_access",
+   "User.Read"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "Calendars.Read,Calendars.ReadWrite,Calendars.ReadWrite.Shared,Contacts.ReadWrite,Chat.ReadWrite,Mail.Read,Mail.ReadWrite,Mail.Send,MailboxSettings.Read,MailboxSettings.ReadWrite,offline_access,User.Read",
+    "description": "Scopes to request from the user, comma separated"
+   },
+   {
+    "name": "microsoft_cloud",
+    "required": false,
+    "default": "global",
+    "description": "Microsoft cloud containing the Entra app registration. Use \"global\" for commercial Microsoft 365 or \"gcc_high\" for Microsoft 365 US Government GCC High."
+   }
+  ],
+  "connection_fields": [
+   {
+    "name": "issuer",
+    "required": false,
+    "default": "common",
+    "description": "Optional Microsoft Entra tenant alias, tenant ID, or tenant domain used to target a specific tenant instead of /common."
+   }
+  ]
+ },
+ "xero": {
+  "name": "Xero",
+  "authSchemes": [
+   "OAUTH2"
+  ],
+  "toolCount": 68,
+  "default_scopes": [
+   "offline_access",
+   "email",
+   "profile",
+   "openid",
+   "files",
+   "files.read",
+   "projects",
+   "projects.read",
+   "accounting.manualjournals.read",
+   "accounting.manualjournals",
+   "accounting.banktransactions.read",
+   "accounting.banktransactions",
+   "accounting.payments.read",
+   "accounting.payments",
+   "accounting.invoices.read",
+   "accounting.invoices",
+   "accounting.reports.tenninetynine.read",
+   "accounting.budgets.read",
+   "accounting.attachments.read",
+   "accounting.attachments",
+   "accounting.contacts.read",
+   "accounting.contacts",
+   "accounting.settings.read",
+   "accounting.settings",
+   "accounting.reports.taxreports.read",
+   "accounting.reports.trialbalance.read",
+   "accounting.reports.profitandloss.read",
+   "accounting.reports.executivesummary.read",
+   "accounting.reports.budgetsummary.read",
+   "accounting.reports.banksummary.read",
+   "accounting.reports.aged.read"
+  ],
+  "auth_config_fields": [
+   {
+    "name": "client_id",
+    "required": true,
+    "default": null,
+    "description": "Client id of the app"
+   },
+   {
+    "name": "client_secret",
+    "required": true,
+    "default": null,
+    "description": "Client secret of the app"
+   },
+   {
+    "name": "oauth_redirect_uri",
+    "required": false,
+    "default": "https://backend.composio.dev/api/v1/auth-apps/add",
+    "description": "Add this Redirect URL to your app's OAuth allow list."
+   },
+   {
+    "name": "scopes",
+    "required": false,
+    "default": "offline_access,email,profile,openid,files,files.read,projects,projects.read,accounting.manualjournals.read,accounting.manualjournals,accounting.banktransactions.read,accounting.banktransactions,accounting.payments.read,accounting.payments,accounting.invoices.read,accounting.invoices,accounting.reports.tenninetynine.read,accounting.budgets.read,accounting.attachments.read,accounting.attachments,accounting.contacts.read,accounting.contacts,accounting.settings.read,accounting.settings,accounting.reports.taxreports.read,accounting.reports.trialbalance.read,accounting.reports.profitandloss.read,accounting.reports.executivesummary.read,accounting.reports.budgetsummary.read,accounting.reports.banksummary.read,accounting.reports.aged.read",
+    "description": "Scopes to request from the user, comma separated"
+   }
+  ],
+  "connection_fields": []
+ }
+}

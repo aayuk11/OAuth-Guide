@@ -1,0 +1,1927 @@
+{
+  "schema_version": 1,
+  "slug": "salesforce",
+  "kind": "curated",
+  "composio_slug": "salesforce",
+  "app": {
+    "name": "Salesforce",
+    "provider": "Salesforce, Inc.",
+    "website": "https://www.salesforce.com",
+    "developer_portal": "https://developer.salesforce.com",
+    "docs_url": "https://help.salesforce.com/s/articleView?id=xcloud.external_client_apps.htm&type=5"
+  },
+  "headline": "Salesforce has no scope review, but every customer's admin must install your app (a packaged External Client App since Spring '26), and a paid agent must be enrolled in Salesforce's ISV Partner Program and connect through an app you created, not a shared one.",
+  "oauth": {
+    "supported": "yes",
+    "registration": "manual",
+    "notes": [
+      "New OAuth clients are External Client Apps. Since Spring '26, creating classic connected apps is off by default and needs a Salesforce Support request; existing connected apps keep working.",
+      "An External Client App is local by default: it only works for users of the org that created it until it is packaged and installed in another org.",
+      "login.salesforce.com's OpenID discovery lists a registration_endpoint, but an unauthenticated registration request returned 401 invalid_client, so treat registration as manual.",
+      "Authorization code flow with PKCE (S256) and refresh tokens is supported. Each customer org has its own instance URL, returned with the token."
+    ],
+    "evidence": [
+      "e-sf-oidc",
+      "e-sf-dcr-probe",
+      "e-sf-s26-architect",
+      "e-th-eca-local",
+      "e-nango-instance"
+    ]
+  },
+  "paths": [
+    {
+      "id": "own-org",
+      "label": "Your own Salesforce org only",
+      "summary": "Create a Local External Client App in the org your users already log in to. It works only for that org and needs no Salesforce review.",
+      "applies": {
+        "audience": [
+          "own_org"
+        ]
+      },
+      "composio_default": true,
+      "scopes": [
+        "full",
+        "refresh_token",
+        "openid"
+      ],
+      "gates": [],
+      "badges": [
+        {
+          "kind": "cost",
+          "type": "paid_tier",
+          "text": "Your org needs an edition with API access: Enterprise, Unlimited, Performance or Developer, or Professional with a paid add-on.",
+          "evidence": [
+            "e-th-api-basics"
+          ]
+        }
+      ],
+      "start_here": [
+        {
+          "when": "Day 1",
+          "action": "In Setup → App Manager, create an External Client App with Distribution State Local, Composio's callback URL and the scopes you need.",
+          "owner": "you"
+        },
+        {
+          "when": "Day 1",
+          "action": "Copy the consumer key and secret from the app's Settings tab and connect a test user from your org.",
+          "owner": "you"
+        }
+      ]
+    },
+    {
+      "id": "customer-orgs",
+      "label": "Customers' orgs, installed by each admin (unlisted)",
+      "summary": "Ship a Packaged External Client App in a managed 2GP package and send each customer's admin the install link. Salesforce does not review an unlisted package, but a paid product must be enrolled in the ISV Partner Program.",
+      "applies": {
+        "audience": [
+          "external"
+        ]
+      },
+      "recommended": true,
+      "scopes": [
+        "api",
+        "refresh_token",
+        "openid"
+      ],
+      "gates": [
+        {
+          "id": "g-isv-enrol",
+          "type": "product_access",
+          "title": "ISV Partner Program enrolment for commercial use",
+          "trigger": "You charge for your agent or anything it connects to, or one integration serves several customers' Salesforce orgs. Salesforce's API terms call this Commercial Use.",
+          "avoid": "Possibly not needed if nothing is charged for, or if you build for a single customer. Read the Commercial Use definition in Salesforce's API terms.",
+          "wait": null,
+          "after": null,
+          "evidence": [
+            "e-sf-api-terms-enrol",
+            "e-sf-api-terms-single",
+            "e-sf-legal-blog",
+            "e-sf-isv-models",
+            "e-cio-connector"
+          ]
+        }
+      ],
+      "badges": [
+        {
+          "kind": "customer_admin",
+          "type": "admin_install",
+          "text": "Each customer's Salesforce admin must install your package and choose which users may use the app.",
+          "evidence": [
+            "e-th-eca-admin",
+            "e-sf-s26-eca-local",
+            "e-sf-admins-blog"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "partner_program",
+          "text": "Commercial use of Salesforce APIs must go through an app enrolled in the ISV Partner Program.",
+          "evidence": [
+            "e-sf-api-terms-enrol",
+            "e-sf-legal-blog"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "privacy_policy",
+          "text": "Salesforce's API terms require a public user agreement and privacy policy for your app.",
+          "evidence": [
+            "e-sf-api-terms-privacy"
+          ]
+        },
+        {
+          "kind": "cost",
+          "type": "paid_tier",
+          "text": "API-only partners may fall under the Connector Program, which has a fixed annual fee; reports say rates are negotiated case by case.",
+          "evidence": [
+            "e-sf-isv-models",
+            "e-cio-fees"
+          ]
+        },
+        {
+          "kind": "cost",
+          "type": "paid_tier",
+          "text": "Each customer org needs API access: Enterprise, Unlimited or Performance, or Professional with a paid add-on.",
+          "evidence": [
+            "e-th-api-basics"
+          ]
+        }
+      ],
+      "start_here": [
+        {
+          "when": "Day 1",
+          "action": "If you will charge for your agent, apply to the Salesforce Partner Program and ask about the Connector Program. No timeline is published, so start now.",
+          "owner": "you"
+        },
+        {
+          "when": "Day 1",
+          "action": "Meanwhile build against a Local External Client App in your own or a free Developer Edition org.",
+          "owner": "you"
+        },
+        {
+          "when": "Week 1",
+          "action": "Set up Dev Hub and a namespace, package a Packaged External Client App, promote it and send the install link to a pilot customer's admin.",
+          "owner": "you"
+        }
+      ]
+    },
+    {
+      "id": "appexchange",
+      "label": "AgentExchange (formerly AppExchange) listing",
+      "summary": "List publicly on AgentExchange. Adds partner enrolment, business and technology approval, and a security review of about 4–9 weeks, repeated roughly yearly. It is also the route to API access in Professional Edition orgs that lack the API add-on.",
+      "applies": {
+        "audience": [
+          "external"
+        ]
+      },
+      "scopes": [
+        "api",
+        "refresh_token",
+        "openid"
+      ],
+      "gates": [
+        {
+          "id": "g-isv-enrol",
+          "type": "product_access",
+          "title": "ISV Partner Program enrolment and distribution agreement",
+          "trigger": "Required to list on AgentExchange. Your Partner Application Distribution Agreement (PADA) must be signed before you can submit for security review.",
+          "avoid": null,
+          "wait": null,
+          "after": null,
+          "evidence": [
+            "e-sf-isv-pada",
+            "e-sf-isv-models",
+            "e-sf-api-terms-enrol"
+          ]
+        },
+        {
+          "id": "g-listing",
+          "type": "marketplace_listing",
+          "title": "AgentExchange business and technology approval",
+          "trigger": "You want a public AgentExchange listing. Salesforce checks your pricing model, listing details and how your package or integration is linked.",
+          "avoid": "Distribute an unlisted package instead (the customer-orgs path).",
+          "wait": null,
+          "after": "g-isv-enrol",
+          "evidence": [
+            "e-sf-isv-approval",
+            "e-th-sr-parallel"
+          ]
+        },
+        {
+          "id": "g-security",
+          "type": "security_assessment",
+          "title": "AgentExchange security review",
+          "trigger": "Managed packages and Salesforce Platform API solutions must pass Salesforce's security review before they launch on AgentExchange.",
+          "avoid": "Skip the listing and distribute privately; customers then see a notice that the package isn't authorized for distribution.",
+          "wait": {
+            "min": 4,
+            "max": 9,
+            "unit": "weeks",
+            "note": "Trailhead says a solution typically takes 4–5 weeks. The ISVforce Guide gives 1–2 weeks of submission checks, then 3–4 weeks for the first test. A 2023 Salesforce blog cited a 6–9 week queue. Each failed attempt adds a 2–3 week retest."
+          },
+          "after": "g-isv-enrol",
+          "evidence": [
+            "e-th-sr-time",
+            "e-sf-sr-stages",
+            "e-sf-blog-2023-queue",
+            "e-th-sr-launch",
+            "e-sf-isv-pada"
+          ]
+        },
+        {
+          "id": "g-annual",
+          "type": "annual_reverification",
+          "title": "Periodic security re-review",
+          "trigger": "After approval, AgentExchange solutions are typically reviewed again about once a year, and Product Security can ask for a review at any time.",
+          "avoid": null,
+          "wait": null,
+          "after": "g-security",
+          "recurring": "yearly",
+          "evidence": [
+            "e-th-sr-annual"
+          ]
+        }
+      ],
+      "badges": [
+        {
+          "kind": "cost",
+          "type": "review_fee",
+          "text": "$999 per security review attempt for paid solutions, including each resubmission. Free solutions pay no review fee.",
+          "evidence": [
+            "e-th-sr-fee",
+            "e-th-sr-retest",
+            "e-sf-sr-free"
+          ]
+        },
+        {
+          "kind": "cost",
+          "type": "paid_tier",
+          "text": "Paid listings use a revenue share (PADA) or, for API-only integrations, the Connector Program's annual fee.",
+          "evidence": [
+            "e-sf-isv-models"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "partner_program",
+          "text": "You must join the Partner Community and enrol your solution in the ISV Partner Program.",
+          "evidence": [
+            "e-sf-isv-pada",
+            "e-sf-api-terms-enrol"
+          ]
+        },
+        {
+          "kind": "identity",
+          "type": "privacy_policy",
+          "text": "Salesforce's API terms require a public user agreement and privacy policy for your app.",
+          "evidence": [
+            "e-sf-api-terms-privacy"
+          ]
+        },
+        {
+          "kind": "customer_admin",
+          "type": "admin_install",
+          "text": "Even when listed, each customer's admin installs the package and controls who can use it.",
+          "evidence": [
+            "e-th-eca-admin"
+          ]
+        }
+      ],
+      "start_here": [
+        {
+          "when": "Day 1",
+          "action": "Join the Partner Community, enrol your solution and sign the distribution agreement; it must be signed before security review.",
+          "owner": "you"
+        },
+        {
+          "when": "Week 1",
+          "action": "Start the AgentExchange listing for business approval while you run Code Analyzer, the Source Scanner and a DAST scan.",
+          "owner": "you"
+        },
+        {
+          "when": "Week 2",
+          "action": "Submit the security review (plan for 4–9 weeks; $999 per attempt if paid) and ship the same package unlisted to pilot customers meanwhile.",
+          "owner": "you"
+        }
+      ]
+    }
+  ],
+  "scopes": [
+    {
+      "scope": "full",
+      "tier": "no_review",
+      "what": "All data the user can reach; includes every other scope but does not return a refresh token on its own. Composio default. No Salesforce review, but broader than most agents need.",
+      "evidence": [
+        "e-sf-scope-full"
+      ]
+    },
+    {
+      "scope": "api",
+      "tier": "no_review",
+      "what": "Use REST API and Bulk API 2.0 as the signed-in user. Enough for most agents and the least-privilege choice for customer orgs.",
+      "evidence": [
+        "e-sf-scope-api"
+      ]
+    },
+    {
+      "scope": "refresh_token",
+      "tier": "no_review",
+      "what": "Returns a refresh token so the agent can act while the user is offline. Same as offline_access. Composio default.",
+      "evidence": [
+        "e-sf-scope-refresh"
+      ]
+    },
+    {
+      "scope": "offline_access",
+      "tier": "no_review",
+      "what": "Synonym of refresh_token.",
+      "evidence": [
+        "e-sf-scope-refresh"
+      ]
+    },
+    {
+      "scope": "openid",
+      "tier": "no_review",
+      "what": "Returns an OpenID Connect ID token that identifies the user. Composio default.",
+      "evidence": [
+        "e-sf-oidc"
+      ]
+    }
+  ],
+  "prerequisites": [
+    {
+      "id": "p-org",
+      "item": "A Salesforce org where you are an admin with the \"Create, Edit, and Delete External Client Apps\" permission. A free Developer Edition works; for packaging, a Partner Business Org is safer.",
+      "why": "The app lives in this org. A Developer Edition Dev Hub that expires takes your packages with it.",
+      "owner": "you",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-nango-perm",
+        "e-sf-devhub"
+      ]
+    },
+    {
+      "id": "p-api-edition",
+      "item": "Every org that connects is on an edition with API access, and each connecting user has the \"API Enabled\" permission.",
+      "why": "Professional Edition has no API access without a paid add-on, so many small-business customers can't connect at all.",
+      "owner": "you",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-th-api-basics",
+        "e-sf-pe-api"
+      ]
+    },
+    {
+      "id": "p-privacy",
+      "item": "A public user agreement and privacy policy for your agent.",
+      "why": "Salesforce's API terms require both for any app that uses its APIs.",
+      "owner": "you",
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ],
+      "evidence": [
+        "e-sf-api-terms-privacy"
+      ]
+    },
+    {
+      "id": "p-namespace-org",
+      "item": "A second Developer Edition org to register your package namespace, plus Salesforce CLI installed.",
+      "why": "Dev Hub and namespace registration can't be in the same org, and 2GP packages are built with Salesforce DX tools.",
+      "owner": "you",
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ],
+      "evidence": [
+        "e-nango-namespace",
+        "e-th-eca-2gp-tools"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "s-discovery",
+      "title": "Checked: Salesforce's OAuth endpoints are live",
+      "detail": "We fetched login.salesforce.com's OpenID discovery: authorization code and refresh token grants, PKCE (S256), and the full, api, refresh_token and openid scopes are all listed.",
+      "owner": "agent_done",
+      "type": "other",
+      "minutes": 1,
+      "paths": [
+        "*"
+      ],
+      "check": "oauth_discovery",
+      "evidence": [
+        "e-sf-oidc"
+      ]
+    },
+    {
+      "id": "s-join-partner",
+      "title": "Join the Partner Community and enrol in the ISV Partner Program",
+      "detail": "Needed if you charge for your agent or serve several customers' orgs. Apply on the Partner Community; you get a Partner Business Org, which is the recommended home for your app and packages. If your agent only uses APIs, ask about the Connector Program (fixed annual fee). For a listing, sign the Partner Application Distribution Agreement before you submit for security review.",
+      "owner": "you",
+      "type": "join_program",
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ],
+      "link": {
+        "label": "Salesforce ISV partner onboarding guide",
+        "url": "https://www.salesforce.com/partners/isv-onboarding-guide/"
+      },
+      "evidence": [
+        "e-sf-api-terms-enrol",
+        "e-sf-isv-models",
+        "e-sf-isv-pada",
+        "e-sf-legal-blog"
+      ]
+    },
+    {
+      "id": "s-org",
+      "title": "Pick the org that will own the app",
+      "detail": "Own org: use your company's production org. Customer paths: use your Partner Business Org, or a free Developer Edition org. Developer Edition orgs can expire after inactivity, and you then lose the packages tied to them.",
+      "owner": "you",
+      "type": "create_account",
+      "paths": [
+        "*"
+      ],
+      "link": {
+        "label": "Sign up for a free Developer Edition org",
+        "url": "https://developer.salesforce.com/signup"
+      },
+      "evidence": [
+        "e-sf-devhub",
+        "e-nango-perm"
+      ]
+    },
+    {
+      "id": "s-create-eca",
+      "title": "Create an External Client App",
+      "detail": "Setup → Quick Find \"App Manager\" → New External Client App. Enter the app name (users see it), API name and contact email. Distribution State: Local for your own org; Packaged if customers' orgs will install it. Don't look for \"New Connected App\": creation is blocked by default since Spring '26.",
+      "owner": "you",
+      "type": "create_app",
+      "paths": [
+        "*"
+      ],
+      "paste": [
+        {
+          "label": "Distribution State (own org)",
+          "value": "Local"
+        },
+        {
+          "label": "Distribution State (customers' orgs or AgentExchange)",
+          "value": "Packaged"
+        }
+      ],
+      "evidence": [
+        "e-th-eca-local",
+        "e-sf-s26-architect",
+        "e-composio-blog-creds"
+      ]
+    },
+    {
+      "id": "s-callback",
+      "title": "Enable OAuth and add Composio's callback URL",
+      "detail": "Under API (Enable OAuth Settings), tick Enable OAuth and paste the callback URL below. It must exactly match the redirect URI set in your Composio auth config. If you leave the auth config's redirect field at the toolkit default, register Composio's legacy URL https://backend.composio.dev/api/v1/auth-apps/add instead.",
+      "owner": "you",
+      "type": "set_redirect",
+      "paths": [
+        "*"
+      ],
+      "paste": [
+        {
+          "label": "Redirect URI (Composio callback)",
+          "value": "https://backend.composio.dev/api/v3/toolkits/auth/callback"
+        }
+      ],
+      "evidence": [
+        "e-composio-blog-creds"
+      ]
+    },
+    {
+      "id": "s-scopes",
+      "title": "Select OAuth scopes",
+      "detail": "Under Selected OAuth Scopes add api, refresh_token and openid. Composio's defaults also ask for full; add it only if you keep those defaults. full alone does not return a refresh token, so always include refresh_token.",
+      "owner": "you",
+      "type": "add_scopes",
+      "paths": [
+        "*"
+      ],
+      "paste": [
+        {
+          "label": "Least privilege (recommended for customer orgs)",
+          "value": "Manage user data via APIs (api); Perform requests at any time (refresh_token, offline_access); Access unique user identifiers (openid)"
+        },
+        {
+          "label": "Matching Composio's defaults",
+          "value": "Full access (full); Perform requests at any time (refresh_token, offline_access); Access unique user identifiers (openid)"
+        }
+      ],
+      "evidence": [
+        "e-sf-scope-full",
+        "e-sf-scope-api",
+        "e-sf-scope-refresh"
+      ]
+    },
+    {
+      "id": "s-flows-policies",
+      "title": "Turn on the web server flow and set token policies",
+      "detail": "Flow Enablement: tick Enable Authorization Code and Credentials Flow. Security: keep Require secret for Web Server Flow and for Refresh Token Flow; Composio's guide unticks Require PKCE. Click Create. Then Policies tab → Edit → OAuth Policies: set Refresh Token Policy to \"Refresh token is valid until revoked\", and Permitted Users to \"Admin approved users are pre-authorized\" if you want to choose who can connect.",
+      "owner": "you",
+      "type": "configure_app",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-nango-flow",
+        "e-nango-refresh",
+        "e-composio-blog-pkce",
+        "e-th-eca-policy"
+      ]
+    },
+    {
+      "id": "s-creds",
+      "title": "Copy the consumer key and secret",
+      "detail": "Settings tab → OAuth Settings → Consumer Key and Secret. Salesforce may ask you to verify your identity. The consumer key is your client ID and the consumer secret is your client secret.",
+      "owner": "you",
+      "type": "other",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-composio-blog-creds"
+      ]
+    },
+    {
+      "id": "s-test",
+      "title": "Connect a test user from your own org",
+      "detail": "Connect a user from the org that owns the app. The user needs the API Enabled permission. A Developer Edition org allows 15,000 API calls per 24 hours, shared by every app in the org.",
+      "owner": "you",
+      "type": "test",
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-th-api-basics",
+        "e-sf-limits"
+      ]
+    },
+    {
+      "id": "s-devhub",
+      "title": "Turn on Dev Hub and register a namespace",
+      "detail": "In the org that owns the app: Setup → Dev Hub → Enable Dev Hub, then Enable Unlocked Packages and Second-Generation Managed Packages (neither can be turned off). In a second Developer Edition org: Setup → Package Manager → Register Namespace. Back in the Dev Hub, open the Namespace Registries app and click Link Namespace.",
+      "owner": "you",
+      "type": "configure_app",
+      "minutes": 45,
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ],
+      "evidence": [
+        "e-sf-devhub",
+        "e-nango-namespace"
+      ]
+    },
+    {
+      "id": "s-package",
+      "title": "Package the app in a managed 2GP package and promote it",
+      "detail": "Create a Salesforce DX project, set your namespace in sfdx-project.json, retrieve the app's metadata, create a managed package, build a version and promote it. Keep the OAuth consumer credentials in the owning org; they are not packaged. Unpromoted (beta) versions install only in scratch orgs and sandboxes, which suits a customer sandbox test.",
+      "owner": "agent_drafts",
+      "type": "other",
+      "minutes": 120,
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ],
+      "paste": [
+        {
+          "label": "Create a project",
+          "value": "sf project generate --name your-agent"
+        },
+        {
+          "label": "Log in to the Dev Hub",
+          "value": "sf org login web --set-default-dev-hub --alias my-dev-hub"
+        },
+        {
+          "label": "Retrieve the app metadata",
+          "value": "sf project retrieve start --metadata ExternalClientApplication:YOUR_APP_API_NAME --metadata ExtlClntAppOauthSettings --target-org my-dev-hub"
+        },
+        {
+          "label": "Create the package",
+          "value": "sf package create --name \"Your Agent\" --package-type Managed --path force-app --target-dev-hub my-dev-hub"
+        },
+        {
+          "label": "Build a version",
+          "value": "sf package version create --package \"Your Agent\" --installation-key-bypass --code-coverage --wait 20 --target-dev-hub my-dev-hub"
+        },
+        {
+          "label": "Promote to released",
+          "value": "sf package version promote --package \"Your Agent@0.1.0-1\" --target-dev-hub my-dev-hub"
+        }
+      ],
+      "evidence": [
+        "e-th-eca-2gp",
+        "e-sf-2gp-promote",
+        "e-nango-namespace"
+      ]
+    },
+    {
+      "id": "s-customer-install",
+      "title": "Have each customer's admin install the package",
+      "detail": "Send the install URL the CLI prints (https://login.salesforce.com/packaging/installPackage.apexp?p0=04t…). Without an AgentExchange security review, the admin sees a notice that the package isn't authorized for distribution and must confirm. After install, the admin opens the app in External Client App Manager → Policies and chooses permitted users and permission sets.",
+      "owner": "agent_drafts",
+      "type": "other",
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ],
+      "paste": [
+        {
+          "label": "Message to the customer's Salesforce admin",
+          "value": "Hi! To connect <Your Agent> to Salesforce, please install our package: <install URL>. You'll see a notice that it isn't listed on AgentExchange; that's expected. After install, go to Setup → External Client App Manager → <Your Agent> → Policies, set Permitted Users to \"Admin approved users are pre-authorized\" and add the permission set or profile for the people who should use it. They also need the API Enabled permission."
+        }
+      ],
+      "evidence": [
+        "e-th-eca-admin",
+        "e-sf-unauth-pkg",
+        "e-th-eca-policy",
+        "e-unified-crossorg"
+      ]
+    },
+    {
+      "id": "s-scans",
+      "title": "Run the required security scans and prepare a test org",
+      "detail": "Run Salesforce Code Analyzer, the Partner Security Portal Source Code Scanner and a DAST scan of your agent's external endpoints. Fix findings or document false positives. Prepare a Developer Edition org with the package installed and your solution documentation for the reviewers.",
+      "owner": "you",
+      "type": "security_assessment",
+      "paths": [
+        "appexchange"
+      ],
+      "evidence": [
+        "e-th-sr-scans",
+        "e-sf-sr-stages"
+      ]
+    },
+    {
+      "id": "s-submit",
+      "title": "Submit the listing and the security review",
+      "detail": "Partner Community → Publishing → Partner Console → Technologies: submit your package version for security review, describe your API and OAuth access, and pay $999 if the solution is paid. Create the AgentExchange listing for business approval in parallel.",
+      "owner": "you",
+      "type": "submit_review",
+      "paths": [
+        "appexchange"
+      ],
+      "evidence": [
+        "e-th-sr-fee",
+        "e-th-sr-parallel",
+        "e-sf-isv-approval"
+      ]
+    }
+  ],
+  "while_you_wait": [
+    {
+      "text": "Build and test against your own org or a free Developer Edition org with a Local External Client App. Developer Edition allows 15,000 API calls per 24 hours.",
+      "paths": [
+        "*"
+      ]
+    },
+    {
+      "text": "Pilot with one customer: Salesforce's API terms say an integration built solely for a single customer is not Commercial Use.",
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ]
+    },
+    {
+      "text": "Install unpromoted (beta) package versions in a pilot customer's sandbox to rehearse the admin install before you promote a release.",
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ]
+    },
+    {
+      "text": "During security review, ship the same promoted package unlisted to pilot customers; they confirm an 'isn't authorized for distribution' notice when installing.",
+      "paths": [
+        "appexchange"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "id": "b-uninstalled-app",
+      "symptom": "Users see OAUTH_APPROVAL_ERROR_GENERIC, or the redirect contains error=invalid_client&error_description=app+must+be+installed+into+org.",
+      "cause": "Since early September 2025 Salesforce blocks connected apps that aren't installed in the user's org, unless the user has Approve Uninstalled Connected Apps or Use Any API Client. This hits Composio's managed app and any connected app you created in your own org.",
+      "fix_now": "Ask the customer's admin to open Setup → Connected Apps OAuth Usage, click Install next to the app, then set who may use it. The user then retries.",
+      "fix_properly": "Ship a packaged External Client App that each admin installs, with Permitted Users set to \"Admin approved users are pre-authorized\" and a permission set for your agent's users.",
+      "escalate": {
+        "channel": "other",
+        "url": null,
+        "how": "Only the customer's Salesforce admin can install or approve the app. Send them the note below.",
+        "draft": "Hi! Salesforce now blocks apps that aren't installed in your org. Please go to Setup → Connected Apps OAuth Usage, find \"<App name>\", click Install, then edit its policies to choose which profiles or permission sets may use it. Then I'll reconnect."
+      },
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-sf-admins-blog",
+        "e-sf-admins-blog-perm",
+        "e-composio-kb-install",
+        "e-xappex"
+      ]
+    },
+    {
+      "id": "b-cross-org",
+      "symptom": "Users from another org see \"Cross-org OAuth flows are not supported for this external client app\".",
+      "cause": "External Client Apps are local by default. A Local app only works in the org that created it; a Packaged app works in a customer org only after that org installs it.",
+      "fix_now": "For one pilot customer, have their admin install your promoted package (or deploy the app's metadata to their org with Salesforce CLI).",
+      "fix_properly": "Set Distribution State to Packaged, ship it in a managed 2GP package, keep the OAuth consumer credentials in the long-lived org that owns the package, and give every customer the install link.",
+      "escalate": {
+        "channel": "support",
+        "url": "https://help.salesforce.com/s/support",
+        "how": "If the package is installed and the error persists, open a Salesforce case (partners: in the Partner Community) with the package version ID and the app's OAuth settings.",
+        "draft": "Our packaged External Client App (package version 04t…, namespace <ns>) is installed in the subscriber org, but the web server OAuth flow fails with \"Cross-org OAuth flows are not supported for this external client app\". The global OAuth settings live in our org <Org ID>. Which setting links the subscriber's app to our consumer key?"
+      },
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ],
+      "evidence": [
+        "e-unified-crossorg-error",
+        "e-unified-crossorg",
+        "e-th-eca-local",
+        "e-th-eca-2gp"
+      ]
+    },
+    {
+      "id": "b-no-connected-app",
+      "symptom": "There's no New Connected App button, or creating a connected app with the Metadata API fails.",
+      "cause": "Spring '26 turned off connected app creation by default in the UI and the Metadata API. Older guides, including Composio's, still describe an \"Allow creation of Connected Apps\" switch.",
+      "fix_now": "Create an External Client App instead (Setup → App Manager → New External Client App). Existing connected apps keep working.",
+      "fix_properly": "Plan to move any existing connected app to an External Client App so you don't depend on a feature Salesforce is phasing out.",
+      "escalate": {
+        "channel": "support",
+        "url": "https://help.salesforce.com/s/support",
+        "how": "Only if you truly need a classic connected app: open a Salesforce Support case asking to re-enable connected app creation for your org.",
+        "draft": "Please re-enable connected app creation for org <Org ID>. We need a connected app because <reason>. We understand External Client Apps are the recommended replacement."
+      },
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-sf-s26-architect",
+        "e-sf-ca-restricted",
+        "e-composio-blog-ca"
+      ]
+    },
+    {
+      "id": "b-api-disabled",
+      "symptom": "OAuth succeeds, but every API call fails with API_DISABLED_FOR_ORG (\"API is not enabled for this Organization or Partner\").",
+      "cause": "The customer's edition has no API access (for example Professional Edition without the API add-on), or the user lacks the API Enabled permission.",
+      "fix_now": "The customer adds the API add-on or moves to Enterprise or higher, and gives connecting users the API Enabled permission.",
+      "fix_properly": "If many customers are on Professional Edition, pass the AgentExchange security review; approved apps can then get REST and SOAP API access in Group and Professional Edition orgs.",
+      "escalate": {
+        "channel": "support",
+        "url": null,
+        "how": "After your solution passes security review, ask Salesforce through the Partner Community to allowlist your app for REST API in Group and Professional Edition orgs.",
+        "draft": "Our AgentExchange solution <name> passed security review on <date>. Please allowlist our app (consumer key <…>) for REST API access in Group and Professional Edition orgs."
+      },
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-th-api-basics",
+        "e-sf-pe-api",
+        "e-easysoft"
+      ]
+    },
+    {
+      "id": "b-refresh-cap",
+      "symptom": "Older connections for the same Salesforce user start failing with invalid_grant after the user connects again.",
+      "cause": "Salesforce keeps only five active refresh tokens per user per app; a sixth connection can revoke the oldest. Password changes, revoking the app, or a refresh token policy other than \"valid until revoked\" also end tokens.",
+      "fix_now": "Reconnect the affected account and delete duplicate connections for the same Salesforce user.",
+      "fix_properly": "Keep one connection per Salesforce user per app, and set the app's Refresh Token Policy to \"Refresh token is valid until revoked\".",
+      "escalate": {
+        "channel": "other",
+        "url": null,
+        "how": "Ask the customer's admin to check the app's OAuth policies and session settings for that user.",
+        "draft": "Hi! Our Salesforce connection for <user> keeps losing access. Could you check Setup → External Client App Manager (or Connected Apps) → <App name> → Policies and confirm the refresh token policy is \"Refresh token is valid until revoked\"?"
+      },
+      "paths": [
+        "*"
+      ],
+      "evidence": [
+        "e-composio-kb-tokens",
+        "e-nango-refresh"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "q": "self_serve_registration",
+      "answer": "yes",
+      "detail": "Any admin can create an External Client App in Setup, including in a free Developer Edition org.",
+      "evidence": [
+        "e-th-eca-local",
+        "e-nango-perm"
+      ]
+    },
+    {
+      "q": "external_without_review",
+      "answer": "partly",
+      "detail": "Salesforce does not review an unlisted package, but each customer's admin must install it, and a paid product must be enrolled in the ISV Partner Program.",
+      "evidence": [
+        "e-sf-unauth-pkg",
+        "e-th-eca-admin",
+        "e-sf-api-terms-enrol"
+      ]
+    },
+    {
+      "q": "scope_tiers",
+      "answer": "no",
+      "detail": "Salesforce has no scope review tiers. Access is limited by the user's own permissions and the admin's app policies.",
+      "evidence": [
+        "e-sf-scope-full",
+        "e-th-eca-policy"
+      ]
+    },
+    {
+      "q": "app_review",
+      "answer": "partly",
+      "detail": "Only a public AgentExchange listing is reviewed (business, technology and security). Partner Program enrolment applies to any commercial use.",
+      "evidence": [
+        "e-sf-isv-approval",
+        "e-th-sr-launch",
+        "e-sf-api-terms-enrol"
+      ]
+    },
+    {
+      "q": "security_assessment",
+      "answer": "partly",
+      "detail": "Required for an AgentExchange listing and typically repeated yearly; not required for unlisted distribution.",
+      "evidence": [
+        "e-th-sr-launch",
+        "e-th-sr-annual",
+        "e-sf-unauth-pkg"
+      ]
+    },
+    {
+      "q": "user_caps",
+      "answer": "partly",
+      "detail": "No install or user cap before approval. Each user can hold five active refresh tokens per app, and API calls count against each org's 24-hour allocation.",
+      "evidence": [
+        "e-composio-kb-tokens",
+        "e-sf-limits-org"
+      ]
+    },
+    {
+      "q": "identity_requirements",
+      "answer": "partly",
+      "detail": "Salesforce's API terms require a public user agreement and privacy policy; commercial use requires Partner Program enrolment. No domain verification.",
+      "evidence": [
+        "e-sf-api-terms-privacy",
+        "e-sf-api-terms-enrol"
+      ]
+    },
+    {
+      "q": "partner_or_paid",
+      "answer": "yes",
+      "detail": "Commercial use requires the ISV Partner Program (revenue share or a Connector Program annual fee); paid listings pay $999 per security review attempt; customers need an edition with API access.",
+      "evidence": [
+        "e-sf-api-terms-enrol",
+        "e-sf-isv-models",
+        "e-th-sr-fee",
+        "e-th-api-basics"
+      ]
+    },
+    {
+      "q": "test_mode_limits",
+      "answer": "partly",
+      "detail": "No test mode. Developer Edition orgs get 15,000 API calls per 24 hours and can expire after inactivity; beta package versions install only in scratch orgs and sandboxes.",
+      "evidence": [
+        "e-sf-limits",
+        "e-sf-devhub",
+        "e-sf-2gp-promote"
+      ]
+    },
+    {
+      "q": "published_timelines",
+      "answer": "yes",
+      "detail": "Security review: 4–5 weeks typical (Trailhead), 1–2 + 3–4 weeks by stage (ISVforce Guide), 6–9 week queue in a 2023 blog; 2–3 weeks per retest. Nothing published for partner enrolment or listing approval.",
+      "evidence": [
+        "e-th-sr-time",
+        "e-sf-sr-stages",
+        "e-sf-blog-2023-queue",
+        "e-th-sr-retest"
+      ]
+    },
+    {
+      "q": "escalation",
+      "answer": "yes",
+      "detail": "Salesforce Support (for connected app creation), Partner Community cases, Partner Security Portal office hours, and your Partner Account Manager for urgent reviews.",
+      "evidence": [
+        "e-sf-ca-restricted",
+        "e-sf-sr-stages",
+        "e-sf-blog-2023-queue"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "question": "What does ISV Partner Program enrolment (or the Connector Program) involve for an API-only AI agent: an approval step, how long, and what fee?",
+      "why": "It decides whether the customer-orgs path is a quick sign-up or a weeks-long commercial negotiation, and what it costs.",
+      "how_to_find_out": "Apply via the Partner Community and ask the partner team for Connector Program terms; read the ISV Partner Program Policies.",
+      "level_deciding": true,
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ]
+    },
+    {
+      "question": "Can a paid product connect customers through Composio's shared Salesforce app at all?",
+      "why": "Salesforce's Agent Integration Protocols say commercial use should go through apps created by the developer, which would rule out the shared app for paid agents.",
+      "how_to_find_out": "Ask Composio support how its managed Salesforce app fits Salesforce's terms, and ask your Salesforce partner contact.",
+      "level_deciding": false,
+      "paths": [
+        "*"
+      ]
+    },
+    {
+      "question": "Does a packaged External Client App work cross-org with Composio's callback without extra settings?",
+      "why": "Community reports show \"Cross-org OAuth flows are not supported\" even after the package is installed.",
+      "how_to_find_out": "Install your promoted package in a second Developer Edition org and run one connection through Composio before onboarding customers.",
+      "level_deciding": false,
+      "paths": [
+        "customer-orgs",
+        "appexchange"
+      ]
+    },
+    {
+      "question": "Exact Spring '26 release-note wording, and whether Salesforce Support still grants connected app creation exceptions.",
+      "why": "The release notes and the related help article render client-side and could not be read; we relied on Salesforce's architect blog and developer docs.",
+      "how_to_find_out": "Read the Spring '26 release note on help.salesforce.com in a browser, or ask Salesforce Support.",
+      "level_deciding": false,
+      "paths": [
+        "*"
+      ]
+    },
+    {
+      "question": "Does Professional Edition REST allowlisting apply to External Client Apps as well as connected apps?",
+      "why": "Salesforce's doc describes connected app consumer allowlisting; if ECAs can't be allowlisted, PE customers stay blocked even after review.",
+      "how_to_find_out": "Ask through a Partner Community case once your solution passes security review.",
+      "level_deciding": false,
+      "paths": [
+        "appexchange"
+      ]
+    }
+  ],
+  "composio_notes": [
+    {
+      "text": "Each connection asks for two fields: subdomain (default \"login\"; if login fails, use the My Domain prefix such as \"acme.my\", or \"<org>.develop.my\" for Developer Edition) and suffix.one, which is the API version path (default /services/data/v67.0), not the My Domain. URL_NOT_RESET usually means the subdomain needs to be the org's My Domain.",
+      "evidence": [
+        "e-composio-kb-fields"
+      ]
+    },
+    {
+      "text": "In Salesforce the path depends on whose org connects, not on scopes. Composio's default scopes (full, refresh_token, openid) trigger no Salesforce review, so composio_default marks the own-org path; for customer orgs, set the auth config's scopes to api,refresh_token,openid and re-test your tools.",
+      "evidence": [
+        "e-sf-scope-full",
+        "e-sf-scope-api"
+      ]
+    },
+    {
+      "text": "Salesforce's Agent Integration Protocols say a developer making commercial use should connect through Connected Apps or External Client Apps the developer created. Plan on your own app before you charge customers.",
+      "evidence": [
+        "e-sf-agent-protocols",
+        "e-sf-api-terms-ai"
+      ]
+    },
+    {
+      "text": "Composio's own Salesforce guide still offers \"Option B: Connected Apps\" via an Allow creation of Connected Apps switch. Since Spring '26 that needs Salesforce Support; use Option A (External Client App).",
+      "evidence": [
+        "e-composio-blog-ca",
+        "e-sf-s26-architect"
+      ]
+    },
+    {
+      "text": "Composio's guide unticks Require PKCE in the External Client App's security settings; leave it ticked only if you confirm Composio sends a PKCE challenge for your auth config.",
+      "evidence": [
+        "e-composio-blog-pkce"
+      ]
+    },
+    {
+      "text": "Composio's docs treat its managed Salesforce app as a connected app. Connected apps used to work in any org, but since September 2025 users without the right permission need their admin to install the app under Connected Apps OAuth Usage first.",
+      "evidence": [
+        "e-th-ca-global",
+        "e-composio-kb-install",
+        "e-sf-admins-blog"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e-sf-oidc",
+      "label": "tested",
+      "url": "https://login.salesforce.com/.well-known/openid-configuration",
+      "title": "Salesforce OpenID Connect discovery (login.salesforce.com)",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "registration_endpoint: https://login.salesforce.com/services/oauth2/register; code_challenge_methods_supported: S256; grant_types_supported: authorization_code, refresh_token; scopes_supported include full, api, refresh_token, offline_access, openid, mcp_api",
+      "probe": {
+        "kind": "oidc_discovery",
+        "target": "https://login.salesforce.com/.well-known/openid-configuration",
+        "ok": true,
+        "summary": "Discovery live; registration_endpoint advertised; PKCE S256; authorization_code and refresh_token grants.",
+        "data": {
+          "issuer": "https://login.salesforce.com",
+          "authorization_endpoint": "https://login.salesforce.com/services/oauth2/authorize",
+          "token_endpoint": "https://login.salesforce.com/services/oauth2/token",
+          "registration_endpoint": "https://login.salesforce.com/services/oauth2/register",
+          "code_challenge_methods_supported": [
+            "S256"
+          ],
+          "grant_types_supported": [
+            "authorization_code",
+            "refresh_token"
+          ],
+          "response_types_supported": [
+            "code",
+            "token",
+            "token id_token"
+          ],
+          "token_endpoint_auth_methods_supported": [
+            "client_secret_post",
+            "client_secret_basic",
+            "private_key_jwt",
+            "tls_client_auth"
+          ],
+          "scopes_checked_present": [
+            "full",
+            "api",
+            "refresh_token",
+            "offline_access",
+            "openid",
+            "id",
+            "web",
+            "mcp_api"
+          ]
+        }
+      }
+    },
+    {
+      "id": "e-sf-dcr-probe",
+      "label": "tested",
+      "url": "https://login.salesforce.com/services/oauth2/register",
+      "title": "Salesforce dynamic client registration endpoint, unauthenticated POST",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "POST {client_name, redirect_uris} with no initial access token returned HTTP 401 {\"error\":\"invalid_client\",\"error_description\":\"invalid client credentials\"}",
+      "note": "Open self-registration is not available to third-party apps; /.well-known/oauth-authorization-server on login.salesforce.com returned HTTP 404.",
+      "probe": {
+        "kind": "url_live",
+        "target": "https://login.salesforce.com/services/oauth2/register",
+        "ok": true,
+        "summary": "Endpoint responds but rejects unauthenticated registration (401 invalid_client).",
+        "data": {
+          "status": 401,
+          "body": "{\"error\":\"invalid_client\",\"error_description\":\"invalid client credentials\"}",
+          "oauth_authorization_server_metadata_status": 404
+        }
+      }
+    },
+    {
+      "id": "e-sf-s26-architect",
+      "label": "official",
+      "url": "https://www.salesforce.com/blog/spring-26-release-architect-highlights/",
+      "title": "Spring '26 Release Architect Highlights",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "The Spring ’26 release restricts Connected App creation by default across both the UI and Metadata API, except through package installation. Re-enabling creation now requires a request to Salesforce Support.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-s26-eca-local",
+      "label": "official",
+      "url": "https://www.salesforce.com/blog/spring-26-release-architect-highlights/",
+      "title": "Spring '26 Release Architect Highlights",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "Access Control: ECAs are local and secure by default. They do not exist in a target org until installed.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-ca-restricted",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/pkg1-dev/guide/connected-apps.html",
+      "title": "Connected Apps (First-Generation Managed Packaging Developer Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Connected apps creation is restricted as of Spring ‘26. You can continue to use existing connected apps during and after Spring ‘26. However, we recommend using external client apps instead. If you must continue creating connected apps, contact Salesforce Support.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim by fetching the page with a browser user agent on 2026-10-20.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-eca-local",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/use-external-client-apps-when-connected-apps-wont-do",
+      "title": "Use External Client Apps When Connected Apps Won't Do (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "Local: Can be used only in the context of its org. Packaged: Can be added to a second-generation (2GP) managed package and distributed.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-ca-global",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/use-external-client-apps-when-connected-apps-wont-do",
+      "title": "Use External Client Apps When Connected Apps Won't Do (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "While connected apps are globally available by default, external client apps are secure and local by default.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-eca-policy",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/use-external-client-apps-when-connected-apps-wont-do",
+      "title": "Use External Client Apps When Connected Apps Won't Do (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "By selecting the option “Admin approved users are pre-authorized” for the external client app, you can assign specific user permission sets to the app.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-eca-admin",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/separate-developers-from-admins",
+      "title": "Separate Developers from Admins (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "The first task of an admin (assuming they aren’t also the developer) is to download or deploy the packaged external client app. When this happens, the policies are created for the external client app.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-eca-2gp",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/package-and-distribute-external-client-apps",
+      "title": "Package and Distribute External Client Apps (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "These global external client apps settings are shared by all associated deployments of the external client app. These settings must not be packaged but stored on a non-ephemeral org that exists throughout the life of all packages.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-eca-2gp-tools",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics/package-and-distribute-external-client-apps",
+      "title": "Package and Distribute External Client Apps (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "All 2GP managed packages are created using Salesforce DX developer tools along with Metadata API.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-admins-blog",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260314000022/https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions",
+      "title": "Get Ready: Changes to Connected App Usage Restrictions Coming This September (Salesforce Admins blog, Aug 25, 2025)",
+      "publisher": "Salesforce Admins",
+      "retrieved": "2026-10-20",
+      "excerpt": "What’s changing in September 2025 The change is simple on the surface: uninstalled connected apps will no longer be accessible to most users. If an app isn’t installed in your org, it’s blocked.",
+      "note": "Wayback Machine snapshot of https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions, which returns HTTP 403 to automated fetchers. Post says the change starts in early September 2025.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-admins-blog-perm",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260314000022/https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions",
+      "title": "Get Ready: Changes to Connected App Usage Restrictions Coming This September (Salesforce Admins blog, Aug 25, 2025)",
+      "publisher": "Salesforce Admins",
+      "retrieved": "2026-10-20",
+      "excerpt": "Two permissions stand out. The first is a new one, Approve Uninstalled Connected Apps , introduced in Summer ’25. It allows trusted users to self-authorize and continue using uninstalled apps.",
+      "note": "Wayback Machine snapshot; the original admin.salesforce.com page returns HTTP 403 to automated fetchers.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-api-basics",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/api_basics/api_basics_overview",
+      "title": "Get to Know the Salesforce Platform APIs (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "All you need is a Trailhead Playground or an org on one of the following editions: Enterprise Edition, Unlimited Edition, Developer Edition, Performance Edition, or Professional Edition (with an add-on). Make sure that you have the “API Enabled” permission",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-pe-api",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/isvforce/guide/dev-packages-api-access.html",
+      "title": "API Access in Group and Professional Editions (ISVforce Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "API access isn’t normally supported in Group and Professional Edition orgs. However, after your app passes the security review, you’re eligible to use some APIs for building composite applications.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20. Same page: 'You can also contact Salesforce to allowlist a connected app to use REST API in Group and Professional Edition orgs.'",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-scope-full",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-scope-parameter-values.html",
+      "title": "Scope Parameter Values (Mobile SDK Development Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Allows access to all data accessible by the logged-in user, and encompasses all other scopes. full doesn’t return a refresh token. You must explicitly request the refresh_token scope to get a refresh token.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20. The page applies to external client apps and connected apps generally.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-scope-api",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-scope-parameter-values.html",
+      "title": "Scope Parameter Values (Mobile SDK Development Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Allows access to the current, logged-in user’s account using APIs, such as REST API and Bulk API 2.0. This scope also includes chatter_api , which allows access to Connect REST API resources.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-scope-refresh",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-scope-parameter-values.html",
+      "title": "Scope Parameter Values (Mobile SDK Development Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Allows a refresh token to be returned when the requesting client is eligible to receive one. With a refresh token, the app can interact with the user’s data while the user is offline. This token is synonymous with requesting offline_access .",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-sr-fee",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "title": "Guide to Submitting Your Solution for Security Review (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "For every paid solution you sell on AgentExchange, we ask for a $999 fee payment for the initial submission and for any subsequent attempts.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-sr-time",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "title": "Guide to Submitting Your Solution for Security Review (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "A solution typically takes 4–5 weeks to get through the review process.",
+      "conflicts_with": [
+        "e-sf-blog-2023-queue"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-sr-annual",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "title": "Guide to Submitting Your Solution for Security Review (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "So the Salesforce Product Security team can ask for your solution to be reviewed at any time, even after it’s been approved. Typically, AgentExchange solutions are reviewed for security once a year.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-sr-parallel",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+      "title": "Guide to Submitting Your Solution for Security Review (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "In other words, obtaining listing approval and tackling the security review for your solution can be done in parallel and in any order.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-sr-retest",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_fix",
+      "title": "Navigate the Security Review Process for Your Solution (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "Each security review re-test costs $999. And as in the first round, the follow-up security review process takes 2—3 weeks.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-sr-launch",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_prepare",
+      "title": "Essential Security Review Preparation for Your Solutions (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "If you’re building a managed package, Salesforce Platform API solution, or Marketing Cloud Engagement API solution, you know that a security review process awaits your solution. You also know that you can’t launch your product on AgentExchange without passing the review.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-th-sr-scans",
+      "label": "official",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_prepare",
+      "title": "Essential Security Review Preparation for Your Solutions (Trailhead)",
+      "publisher": "Salesforce Trailhead",
+      "retrieved": "2026-10-20",
+      "excerpt": "You must include a Salesforce Code Analyzer report, a Partner Security Portal Source Scanner report, and a DAST scan report from your preferred tool.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-sr-stages",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/isvforce/guide/security-review-how-it-works.html",
+      "title": "How the AgentExchange Security Review Works (ISVforce Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Security Review Operations verifies that your submission is ready to review. A submission is ready to review if it includes everything required to test the security of your solution. 1–2 weeks Product Security tests your solution for the first time. 3–4 weeks",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt (table cells) confirmed verbatim with a browser user agent on 2026-10-20. The page says the time frames are estimates and lists 2–3 weeks for a resubmission; it also offers office hours via the Partner Security Portal.",
+      "conflicts_with": [
+        "e-sf-blog-2023-queue"
+      ],
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-sr-free",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/isvforce/guide/security-review-how-it-works.html",
+      "title": "How the AgentExchange Security Review Works (ISVforce Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Use the security review submission interface to share your solution and required materials and to pay the security review fee. If you plan to distribute your solution for free, you don’t pay the fee.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-blog-2023-queue",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260909174927/https://developer.salesforce.com/blogs/2023/04/prepare-your-app-to-pass-the-appexchange-security-review",
+      "title": "Prepare Your App to Pass the AppExchange Security Review (Salesforce Developers Blog, April 2023)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Due to the labor-intensive process of performing the Security Review, there is a queue time of six to nine weeks. See the documentation for the latest info on queue lengths.",
+      "note": "Wayback Machine snapshot of the 2023 post (developer.salesforce.com returns HTTP 403 to automated fetchers). Older than the Trailhead and ISVforce figures. Same post: in exceptional cases priority can be requested through your Partner Account Manager.",
+      "conflicts_with": [
+        "e-th-sr-time",
+        "e-sf-sr-stages"
+      ],
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-isv-models",
+      "label": "official",
+      "url": "https://www.salesforce.com/partners/isv-onboarding-guide/",
+      "title": "The Complete Salesforce ISV Partner Onboarding Guide",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "Building on native code or embedded frameworks? Go with our revenue-share model, formalized through a Partner Application Distribution Agreement (PADA). Integrating via APIs only? You may qualify for the Connector Program with a fixed annual fee.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-isv-pada",
+      "label": "official",
+      "url": "https://www.salesforce.com/partners/isv-onboarding-guide/",
+      "title": "The Complete Salesforce ISV Partner Onboarding Guide",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "Your PADA must be signed before you can submit your solution for Security Review.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-isv-approval",
+      "label": "official",
+      "url": "https://www.salesforce.com/partners/isv-onboarding-guide/",
+      "title": "The Complete Salesforce ISV Partner Onboarding Guide",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "Business approval: We confirm your pricing model (Free, Freemium, Paid, Paid Add-On) aligns with our program policies and AgentExchange standards.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-api-terms-enrol",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "title": "Salesforce APIs License and Terms of Service (last updated July 20, 2026)",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "engage in Commercial Use of the SFDC APIs unless You are doing so via an application or solution enrolled in the ISV Partner Program and Your access and use of the SFDC APIs is in compliance with the ISV Partner Program Policies;",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-api-terms-single",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "title": "Salesforce APIs License and Terms of Service (last updated July 20, 2026)",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "Notwithstanding the foregoing, access or use of the APIs to develop, operate, authenticate, integrate to or distribute a Commercial Product solely for use by a single Customer is not Commercial Use.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-api-terms-privacy",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "title": "Salesforce APIs License and Terms of Service (last updated July 20, 2026)",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "maintain at least a publicly available user agreement and privacy policy for Your Non-SFDC Application, which is prominently identified or located where users download or access Your Non-SFDC Application.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-api-terms-ai",
+      "label": "official",
+      "url": "https://www.salesforce.com/company/legal/sfdc-api-terms-of-service/",
+      "title": "Salesforce APIs License and Terms of Service (last updated July 20, 2026)",
+      "publisher": "Salesforce",
+      "retrieved": "2026-10-20",
+      "excerpt": "Any automated use of the SFDC APIs by artificial intelligence must follow the Salesforce Agent integration Protocols",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-agent-protocols",
+      "label": "official",
+      "url": "https://developer.salesforce.com/salesforce-agent-integration-protocols",
+      "title": "Salesforce Agent Integration Protocols (last updated June 30, 2026)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "No Masking: Developers must not misrepresent or mask the identity of the API client, Connected App, or External Client App. When a Developer makes Commercial Use of the Salesforce APIs, they should interface through Connected Apps or External Client Apps created by the Developer.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20. The page says these protocols are mandatory for automated use of Salesforce APIs by agents.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-legal-blog",
+      "label": "official",
+      "url": "https://web.archive.org/web/20260214014009/https://developer.salesforce.com/blogs/2025/02/important-updates-to-legal-terms-for-salesforce-developers",
+      "title": "Important Updates to Legal Terms for Salesforce Developers (Salesforce Developers Blog, Feb 2025)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "If there is no charge for your application or anything it connects to, or if you are developing an application for a single customer, you may not be required to join.",
+      "note": "Wayback Machine snapshot; developer.salesforce.com returns HTTP 403 to automated fetchers. Text also confirmed on the live page with a browser user agent on 2026-10-20.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-unauth-pkg",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/appexchange-install-guide/guide/appexchange-install-notification.html",
+      "title": "Unauthorized Managed Packages (Application Installation Guide)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "When you install a managed package that the AgentExchange Partner Program hasn’t authorized for distribution, we notify you during installation.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20. The admin must confirm they understand the package isn't authorized before installing.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-2gp-promote",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/pkg2-dev/guide/sfdx-dev-dev2gp-get-ready-promote.html",
+      "title": "Get Ready to Promote and Release a Second-Generation Managed Package Version",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Each package version you create is a beta version, unless you promote it to the managed-released state. Beta versions can be installed in only scratch orgs and sandboxes.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20. Same page: a beta version must pass 75% code coverage before promotion, and promoted versions install in production orgs.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-devhub",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/platform/pkg2-dev/guide/sfdx-pkg-enable-devhub.html",
+      "title": "Enable Dev Hub and Second-Generation Managed Packaging",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "If you choose to use a trial or Developer Edition org as your Dev Hub, consider these factors. When a trial or Developer Edition org expires, you lose access to all packages associated with that Dev Hub org.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; excerpt confirmed verbatim with a browser user agent on 2026-10-20. Same page: ISV and OEM partners should use their Partner Business Org as Dev Hub; Developer Edition orgs can expire due to inactivity.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-limits",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_api.htm",
+      "title": "API Request Limits and Allocations (Salesforce Developer Limits Quick Reference)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Salesforce Edition API Calls Per License Type Per 24-Hour Period Total Calls Per 24-Hour Period Developer Edition N/A 15,000",
+      "note": "Table cells; developer.salesforce.com returns HTTP 403 to automated fetchers; confirmed with a browser user agent on 2026-10-20.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-sf-limits-org",
+      "label": "official",
+      "url": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_api.htm",
+      "title": "API Request Limits and Allocations (Salesforce Developer Limits Quick Reference)",
+      "publisher": "Salesforce Developers",
+      "retrieved": "2026-10-20",
+      "excerpt": "Limits and allocations are enforced against the aggregate of all API calls made to the org in a 24-hour period. Limits and allocations are not on a per-user basis.",
+      "note": "developer.salesforce.com returns HTTP 403 to automated fetchers; confirmed with a browser user agent on 2026-10-20.",
+      "verification": {
+        "status": "unfetchable",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-nango-perm",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "title": "How to set Salesforce up with Nango",
+      "publisher": "Nango",
+      "retrieved": "2026-10-20",
+      "excerpt": "Your user must have the **Create, Edit, and Delete External Client Apps** permission.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-nango-flow",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "title": "How to set Salesforce up with Nango",
+      "publisher": "Nango",
+      "retrieved": "2026-10-20",
+      "excerpt": "Under **Flow Enablement**, check **Enable Authorization Code and Credentials Flow**.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-nango-refresh",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "title": "How to set Salesforce up with Nango",
+      "publisher": "Nango",
+      "retrieved": "2026-10-20",
+      "excerpt": "Scroll down to **OAuth Policies**, and under **App Authorization**, set the **Refresh Token Policy** to \"Refresh token is valid until revoked\" for long-lived access.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-nango-namespace",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "title": "How to set Salesforce up with Nango",
+      "publisher": "Nango",
+      "retrieved": "2026-10-20",
+      "excerpt": "You cannot have both Dev Hub enabled and register a namespace in the same organization.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-nango-instance",
+      "label": "reported",
+      "url": "https://nango.dev/docs/api-integrations/salesforce/salesforce-api-oauth-app-setup.md",
+      "title": "How to set Salesforce up with Nango",
+      "publisher": "Nango",
+      "retrieved": "2026-10-20",
+      "excerpt": "Salesforce uses a different API base URL, the `instance_url`, for each customer.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-unified-crossorg",
+      "label": "reported",
+      "url": "https://docs.unified.to/guides/salesforce_external_client_apps_on_multiple_organizations.md",
+      "title": "SalesForce (External Client Apps) on Multiple Organizations",
+      "publisher": "Unified.to",
+      "retrieved": "2026-10-20",
+      "excerpt": "When an ECA is created in Salesforce, it can only connect to users within the organization that created it.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-unified-crossorg-error",
+      "label": "reported",
+      "url": "https://docs.unified.to/guides/salesforce_external_client_apps_on_multiple_organizations.md",
+      "title": "SalesForce (External Client Apps) on Multiple Organizations",
+      "publisher": "Unified.to",
+      "retrieved": "2026-10-20",
+      "excerpt": "This setup resolves the error 'Cross-org OAuth flows are not supported for this external client app'. That error usually means the External Client App was created in your SourceOrg but has not yet been installed/deployed/approved in the customer's TargetOrg.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-xappex",
+      "label": "reported",
+      "url": "https://www.xappex.com/blog/oauth-approval-error-generic-salesforce/",
+      "title": "How to Fix OAUTH_APPROVAL_ERROR_GENERIC in Salesforce",
+      "publisher": "Xappex",
+      "retrieved": "2026-10-20",
+      "excerpt": "OAUTH_APPROVAL_ERROR_GENERIC is a Salesforce OAuth error that blocks the authorization flow before the approval dialog renders. The main reason is the Connected App usage restriction that starts in September 2025.",
+      "note": "Same page: with API Access Control enabled, users need Use Any API Client; Approve Uninstalled Connected Apps alone is not enough.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-easysoft",
+      "label": "reported",
+      "url": "https://easysoft.com/support/kb/kb01044.html",
+      "title": "Why do I get error API_DISABLED_FOR_ORG?",
+      "publisher": "Easysoft",
+      "retrieved": "2026-10-20",
+      "excerpt": "Why do I get error \"API_DISABLED_FOR_ORG:API is not enabled for this Organization or Partner\"?",
+      "note": "Used only for the exact error text; edition rules come from Salesforce's own pages.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cio-connector",
+      "label": "reported",
+      "url": "https://www.cio.com/article/4108001/salesforce-is-tightening-control-of-its-data-ecosystem-and-cios-may-have-to-pay-the-price.html",
+      "title": "Salesforce is tightening control of its data ecosystem and CIOs may have to pay the price (Dec 17, 2025)",
+      "publisher": "CIO",
+      "retrieved": "2026-10-20",
+      "excerpt": "Salesforce requires partner vendors building a commercially distributed application, whether it authenticates Salesforce users, synchronizes data, or operates at scale via APIs, to enroll in the partner program .",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-cio-fees",
+      "label": "reported",
+      "url": "https://www.cio.com/article/4108001/salesforce-is-tightening-control-of-its-data-ecosystem-and-cios-may-have-to-pay-the-price.html",
+      "title": "Salesforce is tightening control of its data ecosystem and CIOs may have to pay the price (Dec 17, 2025)",
+      "publisher": "CIO",
+      "retrieved": "2026-10-20",
+      "excerpt": "Connector fees are based on a flat charge per user or environment, scaled by usage and volume, but then Salesforce negotiates rates individually with partners based on what a Salesforce spokesperson described as a “fair value exchange”.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-composio-kb-fields",
+      "label": "official",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-salesforce",
+      "title": "Salesforce (Composio Knowledge Base)",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Use the My Domain or API prefix when login is not enough. For Salesforce, the default subdomain value is login , and that works in most cases. If the default or a simple org label fails, Composio needs the Salesforce login/API domain prefix rather than the full browser URL.",
+      "note": "Composio's own documentation; official for Composio toolkit behaviour, not for Salesforce rules. The toolkit's suffix.one field is described in Composio's catalogue as the API version path (default /services/data/v67.0).",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-composio-kb-install",
+      "label": "reported",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-salesforce",
+      "title": "Salesforce (Composio Knowledge Base)",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Check whether the error URL includes error=invalid_client&error_description=app+must+be+installed+into+org . In Salesforce Setup, go to OAuth Connected App Usage and look for the app with an Install button in the Actions column.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-composio-kb-tokens",
+      "label": "reported",
+      "url": "https://docs.composio.dev/kb/guide/toolkits-salesforce",
+      "title": "Salesforce (Composio Knowledge Base)",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Salesforce allows only five active refresh tokens per user per connected app. When the same Salesforce user connects a sixth time, Salesforce can revoke the oldest refresh token, which makes older Composio connected accounts fail with token errors.",
+      "note": "Third-party description of a Salesforce limit; Salesforce's own help page on OAuth approvals renders client-side and could not be read.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-composio-blog-creds",
+      "label": "reported",
+      "url": "https://composio.dev/auth/salesforce",
+      "title": "How to create OAuth2 credentials for Salesforce",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "You’ll now have a Client ID (Consumer Key) and Client Secret (Consumer Secret) . You can find them in the Settings tab → OAuth Settings, and then go to the Consumer Key and Secret page.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-composio-blog-pkce",
+      "label": "reported",
+      "url": "https://composio.dev/auth/salesforce",
+      "title": "How to create OAuth2 credentials for Salesforce",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Keep Require Secret for Web Server Flow checked. Keep Require Secret for Refresh Token Flow checked. Uncheck Require PKCE (unless you want PKCE).",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    },
+    {
+      "id": "e-composio-blog-ca",
+      "label": "reported",
+      "url": "https://composio.dev/auth/salesforce",
+      "title": "How to create OAuth2 credentials for Salesforce",
+      "publisher": "Composio",
+      "retrieved": "2026-10-20",
+      "excerpt": "Search External in Quick Find → Open External Client App Settings Enable Allow creation of Connected Apps → New Connected App",
+      "note": "Outdated since Spring '26: this switch now needs a Salesforce Support request.",
+      "verification": {
+        "status": "verified",
+        "checked": "2026-10-20",
+        "method": "automated re-fetch and excerpt match"
+      }
+    }
+  ],
+  "last_verified": "2026-10-20"
+}

@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# keep the example env file
+!.env.example
+
+# local key-value store (generated guides, runs, rate limits)
+/.data/
+
+# QA output
+/test-results/
+/playwright-report/
