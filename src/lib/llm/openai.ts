@@ -122,7 +122,8 @@ export function openaiProvider(opts: { apiKey: string; model: string; client?: O
           model: opts.model,
           instructions: req.system,
           input: req.input,
-          text: { format: { type: "json_schema", name: "guide_draft", schema: req.schema, strict: true } },
+          // No schema: JSON mode (valid JSON, shape checked by the caller).
+          text: { format: req.schema ? { type: "json_schema", name: "guide_draft", schema: req.schema, strict: true } : { type: "json_object" } },
           reasoning: { effort: req.effort },
           max_output_tokens: 24000,
           store: false,

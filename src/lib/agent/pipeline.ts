@@ -1,8 +1,8 @@
 import { COMPOSIO_REDIRECT_URI, getToolkit, hasOAuth, isManagedOAuth, resolveToolkit, toolkitKind, type Toolkit } from "@/lib/catalog";
 import { CORE_QUESTION_IDS, GuideSchema, crossCheckGuide, type Evidence, type Guide } from "@/lib/guide/schema";
 import { createProvider, describeProviderError, estimateCost, keyFormatHint, PROVIDERS } from "@/lib/llm";
-import { EXTRACT_SYSTEM, RESEARCH_SYSTEM, URLS_SCHEMA, URLS_SYSTEM, extractionInput, researchPrompt, urlsInText, urlsPrompt } from "@/lib/llm/prompts";
-import { emptyUsage, errorText, redactKeys, SearchUnavailableError, type Credentials, type LlmProvider, type ResearchResult, type Source, type Usage } from "@/lib/llm/types";
+import { EXTRACT_SYSTEM, REPAIR_SYSTEM, RESEARCH_SYSTEM, URLS_SCHEMA, URLS_SYSTEM, extractionInput, researchPrompt, urlsInText, urlsPrompt } from "@/lib/llm/prompts";
+import { emptyUsage, errorText, redactKeys, SearchUnavailableError, type Credentials, type ExtractResult, type LlmProvider, type ResearchResult, type Source, type Usage } from "@/lib/llm/types";
 import { fetchPageText } from "@/lib/net/page-text";
 import { agentConfig } from "./config";
 import { assembleGuide, partialGuide, slugify } from "./assemble";
@@ -20,6 +20,42 @@ import { getGeneratedGuide, saveGeneratedGuide, type RunHandle } from "./runs";
  */
 
 const DRAFT_JSON_SCHEMA = toStructuredOutputSchema(DraftSchema);
+const DRAFT_SCHEMA_TEXT = JSON.stringify(DRAFT_JSON_SCHEMA);
+
+/**
+ * "This schema is too complex for structured output" from any provider: Anthropic ("compiled grammar
+ * is too large"), Gemini ("too many states"), OpenAI ("Invalid schema"). The guide is then written as
+ * plain JSON with the schema in the prompt, and checked in code as always.
+ */
+function isSchemaRejected(e: unknown): boolean {
+  return (e as { status?: number })?.status === 400 && /grammar|schema|too many states|constraint/i.test(errorText(e));
+}
+
+/** A JSON object from a reply that may be wrapped in a code fence or a sentence. */
+function parseJsonReply(text: string): unknown {
+  const t = text.trim().replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "");
+  try {
+    return JSON.parse(t);
+  } catch {
+    const a = t.indexOf("{");
+    const b = t.lastIndexOf("}");
+    if (a < 0 || b <= a) throw new Error("not JSON");
+    return JSON.parse(t.slice(a, b + 1));
+  }
+}
+
+/** The draft, or the schema problems to fix (at most 25, as "path: message"). */
+function checkDraft(text: string): { draft: Draft } | { problems: string[] } {
+  let json: unknown;
+  try {
+    json = parseJsonReply(text);
+  } catch {
+    return { problems: ["The reply is not valid JSON (it may have been cut off)."] };
+  }
+  const parsed = DraftSchema.safeParse(json);
+  if (parsed.success) return { draft: parsed.data };
+  return { problems: parsed.error.issues.slice(0, 25).map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`) };
+}
 
 export function looksLikeUrl(q: string): boolean {
   return /^https?:\/\//i.test(q) || /^[a-z0-9-]+(\.[a-z0-9-]+)+(\/\S*)?$/i.test(q.trim());
@@ -311,7 +347,7 @@ export async function runPipeline(
   if (!research.notes && research.sources.length === 0) return savePartial("The research found nothing to work with.");
   if (!webSearch && read === 0) return savePartial("Web search is not available on this key's plan, and none of the provider pages the model named could be read.");
 
-  // 5. Extract (LLM, structured output, no tools)
+  // 5. Extract (LLM, no tools): structured output, else plain JSON; then checked in code, with one repair pass
   emit({ type: "step", stage: "extract", status: "running", detail: "Turning research into the guide format" });
   const today = new Date().toISOString().slice(0, 10);
   let draft: Draft | undefined;
@@ -320,25 +356,47 @@ export async function runPipeline(
     if (cfg.mock) draft = await mockDraft(query);
     else {
       const input2 = extractionInput({ query, notes: research.notes, sources: research.sources, context: composioContext(toolkit, query), probes: probeLines, today });
-      // Leave time for the checks and saving after this call.
-      const timeoutMs = Math.max(20_000, Math.min(cfg.extractTimeoutMs, left() - 25_000));
-      const ex = await provider!.extract({ system: EXTRACT_SYSTEM, input: input2, schema: DRAFT_JSON_SCHEMA, timeoutMs, effort: cfg.extractEffort, emit });
+      // Leave time for the checks and saving after each call.
+      const timeoutMs = () => Math.max(20_000, Math.min(cfg.extractTimeoutMs, left() - 25_000));
+      let structured = true;
+      let ex: ExtractResult;
+      try {
+        ex = await provider!.extract({ system: EXTRACT_SYSTEM, input: input2, schema: DRAFT_JSON_SCHEMA, timeoutMs: timeoutMs(), effort: cfg.extractEffort, emit });
+      } catch (e) {
+        if (!isSchemaRejected(e)) throw e;
+        console.warn("structured output rejected the guide schema; writing plain JSON:", redactKeys(errorText(e)).slice(0, 300));
+        emit({ type: "progress", stage: "extract", detail: "The model's structured output cannot take the full guide schema; writing plain JSON and checking it in code" });
+        structured = false;
+        ex = await provider!.extract({
+          system: EXTRACT_SYSTEM,
+          input: `${input2}\n\nJSON SCHEMA (reply with one JSON object that matches it exactly):\n${DRAFT_SCHEMA_TEXT}`,
+          schema: null,
+          timeoutMs: timeoutMs(),
+          effort: cfg.extractEffort,
+          emit,
+        });
+      }
       add(ex.usage);
       if (!ex.text) failure = ex.error ?? "Writing the guide failed.";
       else {
-        let json: unknown;
-        try {
-          json = JSON.parse(ex.text);
-        } catch {
-          failure = "The model returned text that is not valid JSON.";
-        }
-        if (!failure) {
-          const parsed = DraftSchema.safeParse(json);
-          if (parsed.success) draft = parsed.data;
-          else {
-            const first = parsed.error.issues[0];
-            failure = `The guide did not match the schema (${first?.path.join(".")}: ${first?.message}).`;
-          }
+        const first = checkDraft(ex.text);
+        if ("draft" in first) draft = first.draft;
+        else if (left() < 45_000) failure = `The guide did not match the schema (${first.problems[0]}).`;
+        else {
+          // One repair pass: send the exact problems back. Content stays; only the shape is fixed.
+          emit({ type: "progress", stage: "extract", detail: `Fixing ${plural(first.problems.length, "schema problem")} in the draft` });
+          const fix = await provider!.extract({
+            system: REPAIR_SYSTEM,
+            input: `PROBLEMS:\n- ${first.problems.join("\n- ")}\n\nJSON SCHEMA:\n${DRAFT_SCHEMA_TEXT}\n\nJSON TO FIX:\n${ex.text}`,
+            schema: structured ? DRAFT_JSON_SCHEMA : null,
+            timeoutMs: timeoutMs(),
+            effort: "low",
+            emit,
+          });
+          add(fix.usage);
+          const second = fix.text ? checkDraft(fix.text) : null;
+          if (second && "draft" in second) draft = second.draft;
+          else failure = `The guide did not match the schema (${second ? second.problems[0] : (fix.error ?? first.problems[0])}).`;
         }
       }
     }

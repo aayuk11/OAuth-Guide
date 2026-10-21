@@ -64,8 +64,11 @@ export interface ResearchRequest {
 export interface ExtractRequest {
   system: string;
   input: string;
-  /** Strict JSON Schema (every property required, additionalProperties false). */
-  schema: Record<string, unknown>;
+  /**
+   * Strict JSON Schema (every property required, additionalProperties false) for structured output,
+   * or null for plain JSON mode when a provider cannot compile the schema. The caller validates either way.
+   */
+  schema: Record<string, unknown> | null;
   timeoutMs: number;
   effort: "low" | "medium" | "high";
   emit: (e: RunEventInput) => void;

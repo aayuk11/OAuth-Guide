@@ -102,6 +102,9 @@ NOTES (from the research step):
 ${args.notes || "(research produced no notes)"}`;
 }
 
+/** Used when the first draft does not match the schema: fix the listed problems, keep everything else. */
+export const REPAIR_SYSTEM = `You fix a JSON object so it matches a JSON schema. Keep all of its content; change only what the listed problems require (wrong enum values, missing or misnamed fields, wrong types). Never add facts. Reply with the complete corrected JSON object only.`;
+
 /* ---------- Research without web search: the model names pages, our server reads them ---------- */
 
 export const URLS_SYSTEM = `You name the official web pages that answer questions about a provider's OAuth app requirements. You have no tools: use what you know. List real, specific URLs on the provider's own domains: developer portal, OAuth or authorization guide, app review or verification policy, scopes or permissions reference, rate limits, developer terms, marketplace or partner programme. Prefer stable, well-known documentation pages; do not guess deep paths you are unsure of. Reply with the JSON object only.`;

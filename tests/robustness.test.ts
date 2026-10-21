@@ -153,3 +153,103 @@ describe("rejected keys", () => {
     expect(keyFormatHint("openai", "sk-proj-0000")).toBeNull();
   });
 });
+
+describe("guide schema too complex for structured output", () => {
+  const research = async () => ({
+    notes: "APP: Acme",
+    sources: [{ id: "S1", url: "https://example.com/docs/oauth", title: "Acme OAuth", fetched: true, text: "Apps must be reviewed before they can be installed by other organisations.", cited: [], pageAge: null }],
+    searches: ["acme oauth"],
+    usage: emptyUsage(),
+    stopReason: "completed",
+    timedOut: false,
+    refused: false,
+  });
+  // What Anthropic returned on a real run (2026-10-22).
+  const grammarError = () =>
+    Object.assign(new Error('400 {"type":"error","error":{"type":"invalid_request_error","message":"The compiled grammar is too large, which would cause performance issues. Simplify your tool schemas or reduce the number of strict tools."}}'), { status: 400 });
+
+  it("writes plain JSON with the schema in the prompt, and keeps the result", async () => {
+    const { createRun } = await import("@/lib/agent/runs");
+    const { runPipeline } = await import("@/lib/agent/pipeline");
+    const calls: { schema: unknown; input: string }[] = [];
+    const json = JSON.stringify(await mockDraft("Acme"));
+    const provider: LlmProvider = {
+      id: "anthropic",
+      model: "claude-sonnet-5-5",
+      research,
+      extract: async (req) => {
+        calls.push({ schema: req.schema, input: req.input });
+        if (req.schema) throw grammarError();
+        return { text: "```json\n" + json + "\n```", usage: emptyUsage(), timedOut: false };
+      },
+    };
+    const run = await createRun("Acme", "acme-grammar");
+    const guide = await runPipeline(run, { query: "Acme", creds: null, provider });
+    expect(guide?.meta?.partial).toBeFalsy();
+    expect(calls.map((c) => (c.schema ? "schema" : "plain"))).toEqual(["schema", "plain"]);
+    expect(calls[1].input).toContain("JSON SCHEMA (reply with one JSON object");
+  }, 60_000);
+
+  it("fixes a draft that does not match the schema with one repair pass", async () => {
+    const { createRun } = await import("@/lib/agent/runs");
+    const { runPipeline } = await import("@/lib/agent/pipeline");
+    const good = await mockDraft("Acme");
+    const bad = structuredClone(good) as unknown as { steps: { owner: string }[] };
+    bad.steps[0].owner = "developer";
+    const inputs: string[] = [];
+    const provider: LlmProvider = {
+      id: "anthropic",
+      model: "claude-sonnet-5-5",
+      research,
+      extract: async (req) => {
+        inputs.push(req.input);
+        if (req.schema) throw grammarError();
+        return { text: JSON.stringify(inputs.length === 2 ? bad : good), usage: emptyUsage(), timedOut: false };
+      },
+    };
+    const run = await createRun("Acme", "acme-repair");
+    const guide = await runPipeline(run, { query: "Acme", creds: null, provider });
+    expect(guide?.meta?.partial).toBeFalsy();
+    expect(inputs).toHaveLength(3);
+    expect(inputs[2]).toMatch(/PROBLEMS:\n- steps\.0\.owner/);
+  }, 60_000);
+
+  it("sends no schema to the provider in plain JSON mode", async () => {
+    const Anthropic = (await import("@anthropic-ai/sdk")).default;
+    const { anthropicProvider } = await import("@/lib/llm/anthropic");
+    const seen: Record<string, unknown>[] = [];
+    const body = [
+      { type: "message_start", message: { id: "m", type: "message", role: "assistant", model: "x", content: [], stop_reason: null, stop_sequence: null, usage: { input_tokens: 1, output_tokens: 1 } } },
+      { type: "content_block_start", index: 0, content_block: { type: "text", text: "", citations: null } },
+      { type: "content_block_delta", index: 0, delta: { type: "text_delta", text: '{"ok":true}' } },
+      { type: "content_block_stop", index: 0 },
+      { type: "message_delta", delta: { stop_reason: "end_turn", stop_sequence: null }, usage: { output_tokens: 5 } },
+      { type: "message_stop" },
+    ]
+      .map((e) => `event: ${e.type}\ndata: ${JSON.stringify(e)}\n\n`)
+      .join("");
+    const fetch = (async (_u: unknown, init?: RequestInit) => {
+      seen.push(JSON.parse(String(init?.body)));
+      return new Response(body, { status: 200, headers: { "content-type": "text/event-stream" } });
+    }) as unknown as typeof globalThis.fetch;
+    const client = new Anthropic({ apiKey: "k", fetch, maxRetries: 0 });
+    const r = await anthropicProvider({ apiKey: "k", model: "m", client }).extract({ system: "s", input: "i", schema: null, timeoutMs: 30_000, effort: "low", emit: () => {} });
+    expect(r.text).toBe('{"ok":true}');
+    expect((seen[0].output_config as Record<string, unknown>).format).toBeUndefined();
+
+    const calls: Record<string, unknown>[] = [];
+    const gemini = {
+      interactions: {
+        create: async (p: Record<string, unknown>) => {
+          calls.push(p);
+          return (async function* () {
+            yield { event_type: "step.delta", delta: { type: "text", text: '{"ok":true}' } };
+            yield { event_type: "interaction.completed", interaction: { status: "completed" } };
+          })();
+        },
+      },
+    } as unknown as GoogleGenAI;
+    await googleProvider({ apiKey: "k", model: "gemini-3.8-flash", client: gemini }).extract({ system: "s", input: "i", schema: null, timeoutMs: 30_000, effort: "low", emit: () => {} });
+    expect(calls[0].response_format).toEqual({ type: "text", mime_type: "application/json" });
+  });
+});

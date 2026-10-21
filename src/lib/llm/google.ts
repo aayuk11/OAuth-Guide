@@ -209,7 +209,7 @@ export function googleProvider(opts: { apiKey: string; model: string; client?: G
           model,
           system_instruction: req.system,
           input: req.input,
-          response_format: { type: "text", mime_type: "application/json", schema: req.schema },
+          response_format: req.schema ? { type: "text", mime_type: "application/json", schema: req.schema } : { type: "text", mime_type: "application/json" },
           generation_config: generationConfig(model, req.effort, 24000),
           stream: true,
           store: false,

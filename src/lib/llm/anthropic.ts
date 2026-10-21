@@ -123,7 +123,7 @@ export function anthropicProvider(opts: { apiKey: string; model: string; fallbac
           max_tokens: 24000,
           system: req.system,
           messages: [{ role: "user", content: req.input }],
-          output_config: { effort: req.effort, format: { type: "json_schema", schema: req.schema } },
+          output_config: { effort: req.effort, ...(req.schema ? { format: { type: "json_schema" as const, schema: req.schema } } : {}) },
           ...extra,
         },
         { signal: controller.signal },

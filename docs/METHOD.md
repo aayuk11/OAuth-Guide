@@ -132,7 +132,7 @@ For apps without a researched guide. The pipeline is [`src/lib/agent/pipeline.ts
 | 3 | Probe | Code | If the domain is known: OAuth, OpenID and MCP discovery documents (Tested facts) |
 | 4 | Research | LLM | One call with the provider's web search, told to prefer official docs and quote them verbatim; 150 s time box |
 | 5 | Read sources | Code | The server fetches up to 8 cited pages itself, so quotes can be checked whichever provider ran |
-| 6 | Write | LLM | A second call with **no tools** and a fixed JSON schema |
+| 6 | Write | LLM | A second call with **no tools** and a fixed JSON schema. If the provider's structured output rejects the schema as too complex (Claude does today), the same call returns plain JSON with the schema in the prompt; code validates it, and one repair call fixes any listed problems. |
 | 7 | Verify | Code | Probe the portal, docs and discovery endpoints the research found |
 | 8 | Critic + coverage | Code | Check every quote against page text; count confirmed answers |
 | 9 | Save | Code | Permalink `/apps/gen/<key>`, kept 7 days |
