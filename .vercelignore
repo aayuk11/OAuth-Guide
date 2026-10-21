@@ -1,0 +1,7 @@
+# Never upload local secrets, run data or QA output with `vercel deploy`.
+.data
+.env*
+!.env.example
+test-results
+playwright-report
+*.tsbuildinfo
